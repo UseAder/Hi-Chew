@@ -1,0 +1,82 @@
+<nav-bar navbar-data='{{nvabarData}}'></nav-bar>
+<view class='nav-barheight' style='height: {{height}}px'></view>
+<import src="../../lib/wxParse/wxParse.wxml"></import>
+<wxs src="../../wxs/imageUrl.wxs" module="tools" />
+<product_parameter-window window='{{window}}' productSarameter="{{goods.details}}" bind:onColse="onColse">
+</product_parameter-window>
+<!-- 规格数量组件 -->
+<product-window attribute='{{attribute}}' productAttr="{{productAttr}}" productSelect="{{productSelect}}" bind:myevent="onMyEvent" bind:ChangeAttr="ChangeAttr" bind:ChangeCartNum="ChangeCartNum" id='product-window'></product-window>
+
+
+<scroll-view class="container" scrollY="true">
+  <swiper autoplay="true" class="goodsimgs" duration="1000" indicatorDots="true" interval="3000">
+    <swiper-item wx:for="{{goods.banner}}" wx:key>
+      <image backgroundSize="cover" src="{{tools.sub(ImageUrl+item)}}"></image>
+    </swiper-item>
+  </swiper>
+
+  <view class='good_container'>
+    <view class="goods-info">
+      <view class="c">
+        <view class='flex goods-price'>
+          ¥{{goods.discount}}
+        </view>
+        <text class="name ">{{goods.name}}</text>
+        <text class="desc J-textd">{{goods.describe}}</text>
+      </view>
+      <view class='share' bindtap='listenerActionSheet'>
+        <view class="fenxiang ">
+          <image src="/images/detail/2.png" mode='widthFix'></image>
+        </view>
+        <text>分享</text>
+      </view>
+    </view>
+  </view>
+  <view class='divder'></view>
+  <view class="section-nav section-attr">
+    <view class='title'>保障</view>
+    <view class='logo'></view>
+    <view class='desc'>品质优选·正品保障·郑州市20分钟速达</view>
+  </view>
+  <view class='divder'></view>
+  <view class="section-nav te section-attr" bindtap='openWindow'>
+    <view class='title'>参数</view>
+    <view class='parameter J-textd'>品牌 规格...</view>
+  </view>
+  <view class="detail">
+    <template is="wxParse" data="{{wxParseData:goodsDetail.nodes}}"></template>
+  </view>
+
+
+</scroll-view>
+<view class="collect" catchtap='closeAttrOrCollect'>
+  <image src='{{collectBackImage}}' mode='widthFix'></image>
+</view>
+<view class="bottom-btn">
+  <view class='right'>
+    <view class='item' data-reply-phone="13750670892" bindtap="phoneCall">
+      <view class='item-logo item-logo-1'>
+        <image src='/images/detail/3.png' mode='widthFix'></image>
+      </view>
+      <view class='text'>电话</view>
+    </view>
+    <view class='item'>
+      <view class='item-logo  item-logo-2'>
+        <image src='/images/detail/6.png' mode='widthFix'></image>
+      </view>
+      <view class='text'>客服</view>
+      <button open-type="contact" class='btn' formType="submit"></button>
+    </view>
+    <view class='item' bindtap='openCartPage'>
+      <view class='item-logo  item-logo-3'>
+        <image src='/images/detail/5.png' mode='widthFix'></image>
+        <text class="cart-count">{{cartCount}}</text>
+      </view>
+      <view class='text'>购物车</view>
+    </view>
+  </view>
+  <view class='left'>
+    <view bindtap="joinCart" class="subOrder left-item">加入购物车</view>
+    <view bindtap="goBuy" class="addToCart left-item">立即购买</view>
+  </view>
+</view>

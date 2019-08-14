@@ -1,0 +1,61 @@
+@import '/app.wxss';
+
+.coupon-window {
+  width: 440rpx;
+  height: 321rpx;
+  position: fixed;
+  top: 50%;
+  z-index: 99;
+  left: 50%;
+    margin-top: -160rpx;
+
+  margin-left: -220rpx;
+  transform: translate3d(0, -300%, 0);
+  transition: all 0.5s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+}
+
+.coupon-window.on {
+  transform: translate3d(0, 0, 0);
+  
+}
+
+.coupon-window .couponWinList{
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 512rpx;
+  height: 397rpx;
+  
+}
+
+
+
+.coupon-window .lid {
+ padding-top:70rpx;
+  border-radius: 10rpx;
+
+  background: #fff;
+  padding-bottom: 70rpx;
+}
+.coupon-window .Bnt{
+  width: 303rpx;height: 68rpx;  font-size:30rpx;text-align: center;line-height: 68rpx; border-radius: 34rpx;
+  box-sizing: border-box;margin: 0 auto;
+}
+.coupon-window .modifyBnt{
+  background: #F19EC2;color:rgba(255,255,255,1);
+}
+.coupon-window .phoneBnt{
+  color:#F19EC2;margin-top: 43rpx;border:1rpx solid #F19EC2;
+}
+
+.coupon-window .lid-guanbi {
+ width: 40rpx;
+ margin: 0 auto;
+  
+
+}
+.coupon-window .lid-xian{
+  width:1rpx;
+  margin-left: 20rpx;
+height:43rpx;
+border-left:2rpx solid rgba(255,255,255,1);
+}

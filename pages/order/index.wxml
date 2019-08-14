@@ -1,0 +1,59 @@
+<nav-bar navbar-data='{{nvabarData}}'></nav-bar>
+<view class='nav-barheight' style='height:{{height}}px'></view>
+<wxs src="../../wxs/imageUrl.wxs" module="tools" />
+
+<view class="swiper">
+  <scroll-view class="swiper-scroll-list" scrollX="true" style='padding-top:{{height+10}}px'>
+    <view bindtap="swithNav" class="swiper-scroll-item {{currentTab==index?'active':''}}" data-current="{{index}}" wx:for="{{ListSwiper}}" data-index="{{index}}" style='width:{{100/ListSwiper.length}}%' wx:key>{{item.name}}
+      <view class="scroll-item-line" wx:if="{{currentTab==index}}"></view>
+    </view>
+  </scroll-view>
+  <swiper style="height:{{swiper_height}}px;margin-top:48px;min-height:900rpx" bindchange="switchTab" class="swiper-swiper" current="{{currentTab}}">
+    <swiper-item class="swiper-swiper-item " wx:for="{{ListSwiper}}" wx:key>
+      <view class="swiper-item column-list{{index}}">
+        <view class="swiper-con" wx:for="{{item.navlist}}" wx:key>
+          <view class='swiper-con-top'>
+            <view class='title'>{{item.order_sn}}</view>
+            <view class='time'>{{item.time}}</view>
+          </view>
+          <view class='swiper-con-center'>
+            <view class='swiper-con-link' wx:for="{{item.order}}">
+              <view class='swiper-logo'>
+                <image src='{{tools.sub(ImageUrl+item.goods_brand)}}'></image>
+              </view>
+              <view class='swiper-flex'>
+                <view class='title'>{{item.goods_name}}</view>
+                <view class='desc'>
+                  <text wx:for='{{item.sku}}' wx:key> {{item.spec_value}}</text>
+                </view>
+                <view class='price'> ¥
+                  <text>{{item.goods_price}}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class='swiper-con-bottom'>
+            <view class='right'>
+              <view class='number'>共{{item.count}}件商品</view>
+              <view class='price'>合计 :
+                <text class='price-icon'>¥</text>
+                <text>{{item.pay_price}}</text>
+              </view>
+            </view>
+            <view class='left flex'>
+            <block wx:if="{{currentTab==0}}">
+             <view class='btn_delete' data-index="{{index}}" data-order_sn="{{item.order_sn}}" bindtap='cancelOrder'>删除订单</view>
+              <view class='btn' data-order_sn="{{item.order_sn}}"  bindtap='payOrder'>待付款</view>
+            </block>
+             <block wx:else>
+              <view class='btn_delete' >已完成</view>
+            </block>
+             
+            </view>
+          </view>
+        </view>
+        <view class="swiper-con swiper-con-kong" wx:if="{{item.list==''}}"></view>
+      </view>
+    </swiper-item>
+  </swiper>
+</view>

@@ -1,0 +1,41 @@
+@import '/app.wxss';
+
+.coupon-window {
+  width: 100%;
+  padding: 0 24rpx;
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 0;
+  z-index: 99;
+  transform: translate3d(0, 200%, 0);
+  transition: all 0.8s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+  background: #fff;
+  border-top-left-radius: 10rpx;
+  border-top-right-radius: 10rpx;
+  color: rgba(0, 0, 0, 1);
+}
+
+.coupon-window .title {
+  font-size: 32rpx;
+  text-align: center;
+  margin: 45rpx 0 ;
+}
+
+.coupon-window.on {
+  transform: translate3d(0, 0, 0);
+}
+.coupon-window .item {
+display: flex;border-bottom:1px solid #EAEAEA;line-height: 42rpx;padding:15px 0;
+
+}
+.coupon-window .item .name{
+  width: 150rpx;
+}
+.coupon-window .item .desc{
+color:rgba(96,96,96,1); margin-left: 60rpx;flex: 1;
+}
+.coupon-window .btn {
+  font-size:36rx;height: 80rpx; line-height: 80rpx; background:linear-gradient(180deg,rgba(244,46,143,1) 0%,rgba(255,94,173,1) 100%);border-radius: 40rpx;
+  text-align: center;color: #fff;margin-top: 40rpx;margin-bottom: 24rpx;
+
+}

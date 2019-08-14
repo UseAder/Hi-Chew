@@ -1,0 +1,62 @@
+<nav-bar navbar-data='{{nvabarData}}'></nav-bar>
+<view class='nav-barheight' style='height: {{height}}px'></view>
+<wxs src="../../wxs/imageUrl.wxs" module="tools" />
+
+<view class='shoppingCart'>
+  <view wx:if="{{cartList.length > 0}}">
+    <view class='list'>
+      <checkbox-group bindchange="checkboxChange">
+        <block wx:for="{{cartList}}" wx:key>
+          <view class='item acea-row '>
+            <checkbox value="{{item.cid}}" checked="{{item.checked}}" />
+            <view class='picTxt acea-row row-between-wrapper'>
+              <view class='pictrue' bindtap="toGoods" data-gid='{{item.goods_id}}'>
+                <image src="{{tools.sub(ImageUrl+item.spec_image)}}"></image>
+              </view>
+              <view class='text' data-id="{{item.goods_id}}" bindtap='goDetails'>
+                <view class='line1 title J-texts'>{{item.name}}</view>
+                <view class='sku_value'>属性 :
+                  <text wx:for='{{item.sku_value}}' wx:key> {{item.spec_value}}</text>
+                </view>
+                <view class='money' data-id="{{item.goods_id}}" bindtap='goDetails'>¥
+                  <text>{{item.goods_price}}</text>
+                </view>
+              </view>
+              <view class='stepper carnum acea-row row-center-wrapper'>
+                <!-- 减号 -->
+                <view class="sign reduce iconfont icon-jian {{item.numSub||item.num<=1 ? 'disabled' : ''}}" catchtap="subCart" data-index="{{index}}"></view>
+                <view class='number'>{{item.num}}</view>
+                <!-- 加号 -->
+                <view class="sign plus iconfont icon-jia {{item.numAdd ?'disabled' : ''}}" catchtap="addCart" data-index="{{index}}"></view>
+              </view>
+            </view>
+          </view>
+        </block>
+      </checkbox-group>
+    </view>
+  </view>
+  <navigator url='/pages/index/index' open-type="switchTab" hover-class='none' class=" swiper-con-kong" wx:if="{{cartList==''||!cartList}}">
+    <image src="/images/search/ks.png" mode='widthFix'></image>
+    <view class='title'>去添加点什么吧</view>
+  </navigator>
+  <view style='height:120rpx;'></view>
+  <view class='footer acea-row row-between-wrapper' wx:if="{{cartList.length > 0}}">
+    <checkbox-group bindchange="checkboxAllChange" class='J-flex_sba'>
+      <checkbox value="all" checked="{{isAllSelect}}" />
+      <text class='checkAll'>全选</text>
+    </checkbox-group>
+    <view class='total' hidden="{{isEditCart}}">合计：
+      <view class='text'>
+        ¥
+        <text class='price'>{{selectCountPrice}}
+</text>
+      </view>
+    </view>
+    <view class='money acea-row row-middle'>
+      <view class="delete" bindtap="editCart">{{!isEditCart ? '编辑' : '完成'}}</view>
+      <form bindsubmit="subOrder" report-submit='true'>
+        <button class='placeOrder bg-color' formType="submit">{{!isEditCart ? '结算' : '删除'}}</button>
+      </form>
+    </view>
+  </view>
+</view>

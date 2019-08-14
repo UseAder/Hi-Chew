@@ -1,0 +1,97 @@
+<movable-area-view></movable-area-view>
+<wxs src="../../wxs/imageUrl.wxs" module="tools" />
+<nav-bar navbar-data='{{nvabarData}}'></nav-bar>
+<wxs src="../../wxs/imageUrl.wxs" module="tools" />
+
+<view class='nav-barheight' style='height: {{height}}px'></view>
+<view class="container">
+  <view class="address-box">
+    <view class="address-item" bindtap="selectAddress" wx:if="{{checkedAddress.ad_id!=undefined}}">
+      <view class="left">
+        <view class="l">
+          <text class="name">收货人: {{checkedAddress.ad_name}}</text>
+          <text class="mobile">{{checkedAddress.ad_phone}}</text>
+        </view>
+        <view class="m">
+          <text class="address">{{checkedAddress.ad_city+checkedAddress.ad_address}}</text>
+        </view>
+      </view>
+
+      <view class="right">
+        <text class='iconfont icon-youjiantou-copy'></text>
+      </view>
+    </view>
+    <view class="address-item address-empty" bindtap="selectAddress" wx:if="{{!checkedAddress.ad_id}}">
+      <view class="m">
+        还没有收货地址，去添加
+      </view>
+      <view class="right">
+        <text class='iconfont icon-youjiantou-copy'></text>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="goods-items">
+    <view class='goods-items-title'>
+      商品明细
+    </view>
+    <view class="item" wx:for="{{checkedGoodsList}}" wx:key>
+      <view class="img">
+        <image src="{{tools.sub(ImageUrl+item.brand)}}"></image>
+      </view>
+      <view class="info">
+        <view class="t ">
+          <text class="name">{{item.name}}</text>
+
+        </view>
+        <view class="m"> <text wx:for='{{item.sku_value}}' wx:key> {{item.spec_value}}</text>
+</view>
+        <view class="b">
+          <text>¥{{item.goods_price}}</text>
+          <text class="number">x{{item.num}}</text>
+
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="order-box">
+    <view class="order-item">
+      <view class="l">
+        <text class="name">商品合计</text>
+      </view>
+      <view class="r te">
+        <text class="txt">￥{{total}}</text>
+      </view>
+    </view>
+  </view>
+
+   <view class="coupon-box" bindtap='goCouponSelect'>
+    <view class="coupon-item">
+      <view class="l">
+        <text class="name">优惠券</text>
+        <block wx:if="{{discount}}">
+          <text class="txt f-color">-￥{{discount}}</text>
+        </block>
+        <block wx:else>
+          <block wx:if="{{cpnum}}">
+            <text class="txt">{{cpnum}}张可用</text>
+          </block>
+          <block wx:else>
+            <text class="txt">0张可用</text>
+          </block>
+        </block>
+      </view>
+      <view class="r">
+        <!-- <image src="/static/images/address_right.png"></image> -->
+      </view>
+    </view>
+  </view>
+  <view class="order-total">
+    <view class="l">
+      <view>实付：￥{{total}}</view>
+    </view>
+    <view class="r" bindtap="submitOrder">去支付</view>
+  </view>
+</view>

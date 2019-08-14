@@ -1,0 +1,15 @@
+<view class='coupon-window {{window==true?"":"on"}}'>
+  <!-- <image class='couponWinList' src='/images/grzl.png'> -->
+  <!-- </image> -->
+  <view class='lid'>
+    <button open-type="contact" class='Bnt modifyBnt but_m' formType="submit">客服聊天</button>
+    <view class='Bnt phoneBnt but_m' data-reply-phone="13750670892" bindtap="phoneCall">
+      拨打电话 </view>
+  </view>
+  
+  <view class='lid-guanbi icon-guanbi' bindtap='close'><view class='lid-xian'>
+  </view>
+    <image src='/images/search/lid-guanbi.png' mode='widthFix'></image>
+  </view>
+</view>
+<view class='mask' catchtouchmove="true" hidden='{{window!=false}}'></view>

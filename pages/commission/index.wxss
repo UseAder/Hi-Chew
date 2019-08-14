@@ -1,0 +1,105 @@
+.commission-Cash{
+  height: 292rpx;
+  margin: 0 30rpx;
+  display: flex;
+  justify-content: space-between;
+  background:linear-gradient(180deg,rgba(244,46,143,1) 0%,rgba(255,94,173,1) 100%);border-radius: 10rpx;
+}
+.commission-Cash .right {
+width: 500rpx;box-sizing: border-box;margin-left: 54rpx;
+}
+.commission-Cash .left {
+flex: 1;}
+.commission-Cash .right .title{
+  display: flex;
+  align-items: center;margin-top: 55rpx;color: #fff;
+}
+.commission-Cash .right .title image{
+width: 37rpx;margin-right: 14rpx;
+}
+.commission-Cash .right .price{
+font-size:50rpx;color: #fff;margin-top: 80rpx;
+}
+.commission-Cash .left{
+  display: flex;align-items: center;
+}.commission-Cash .left .btn{
+ width:155rpx;
+height:70rpx;
+box-sizing: border-box;
+line-height:70rpx;
+margin-right: 30rpx;
+color: #fff;text-align: center;
+border:1rpx solid rgba(255,255,255,1);
+border-radius:35rpx;
+}
+/* 明细 */
+.score-sline{
+  display: flex;justify-content: center;align-items: center;
+  margin: 25rpx;
+}
+.sline {
+  width: 48rpx;
+  height: 2rpx;
+  background: rgba(230, 230, 230, 1);
+}
+.score-detail {
+  font-size: 24rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(153, 153, 153, 1);
+  margin: 0 10rpx;
+}
+
+
+
+.point-details {
+  margin-top: 10rpx;
+  width: 100%;
+}
+
+.usePoint {
+  border-bottom:1rpx solid #F4F4F4;
+  height: 138rpx;
+  display: flex;
+align-items: center;  
+}
+.usePoint-left{
+  flex: 1;
+  height: 100%;
+  padding-right: 31rpx;
+  display: flex;
+  align-items: center;  justify-content: space-between;
+}
+.usePoint-img {
+  height: 88rpx;
+  width: 88rpx;
+  margin: 0 31rpx 0 30rpx;
+
+}
+
+.usePoint-title {
+  font-size: 28rpx;
+  font-family: Adobe Heiti Std R;
+  font-weight: normal;
+  color: rgba(51, 51, 51, 1);
+
+}
+.usePoint-content{
+    line-height: 46rpx;
+
+}
+.usePoint-time {
+  font-size: 24rpx;
+  font-family: PingFang-SC-Bold;
+  color: #A8A8A8;
+ 
+}
+
+.usePoint-point {
+  font-size: 36rpx;
+  font-family: PingFang-SC-Bold;
+  color: #F92D90;
+  line-height: 40rpx;
+
+}
+

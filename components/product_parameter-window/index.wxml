@@ -1,0 +1,11 @@
+<view class='coupon-window {{window==true?"":"on"}}'>
+  <view class='title'>产品参数</view>
+   <scroll-view scroll-y style="height: 635rpx;" >
+  <view class='item' wx:for='{{productSarameter}}' wx:key>
+    <view class='name'>{{item.title}}</view>
+    <view class='desc'>{{item.intro}}</view>
+  </view>
+   </scroll-view>
+  <view class='btn' bindtap='close'>完成</view>
+</view>
+<view class='mask' catchtouchmove="true" hidden='{{window!=false}}' bindtap='close'></view>

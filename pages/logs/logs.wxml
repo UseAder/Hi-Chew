@@ -1,0 +1,33 @@
+<view class='nav-barheight' style='height:{{height}}px'></view>
+<nav-bar navbar-data='{{nvabarData}}'></nav-bar>
+
+<view class="container">
+    <view class="header">
+        <view class="title">欢迎登录</view>
+        <view class="subtitle">选择酒店账号登录or微信登录</view>
+    </view>
+    <view class="account">
+        <view class="left">
+            <image src="/images/search/login-account.png"></image>
+            <view class="text">账号</view>
+        </view>
+        <view class="right">
+            <input bindinput="account_changed" class="phone-input" placeholder="请输入账号" type="text"></input>
+        </view>
+    </view>
+    <view class="password">
+        <view class="left">
+            <image src="/images/search/login-password.png"></image>
+            <view class="text">密码</view>
+        </view>
+        <view class="right">
+            <input bindinput="password_changed" class="verify-input" placeholder="请输入密码" type="password" value="{{password}}"></input>
+        </view>
+    </view>
+    <view bind:tap="login_action" class="login-btn">登录</view>
+    <view class="login-wechat">
+        <button bindgetuserinfo="userInfoHandler" openType="getUserInfo">
+            <image src="/images/search/login-wechat.png"></image>
+        </button>
+    </view>
+</view>

@@ -1,0 +1,16 @@
+<template name="quantity">
+  <!-- 主容器 -->  
+  <view class="stepper"> 
+  <!-- <view class='carnum acea-row row-left'>
+      <view class='reduce {{productSelect.cart_num <= 1 ? "on":""}}' bindtap='CartNumDes'>-</view>
+      <view class='num'>{{productSelect.cart_num}}</view>
+      <view class='plus {{productSelect.cart_num >= productSelect.stock || productSelect.is_on ? "on":""}}' bindtap='CartNumInt'>+</view>
+    </view>   -->
+      <!-- 减号 -->  
+      <text class="sign  iconfont icon-jian {{productSelect.cart_num <= 1 ? 'disabled' : 'normal'}}" bindtap="CartNumDes"></text>  
+      <!-- 数值 -->  
+      <input class="number" type="number" bindchange="bindManual" value="{{productSelect.cart_num}}" />  
+      <!-- 加号 -->  
+      <text class="sign iconfont icon-jia {{productSelect.cart_num  >=  productSelect.stock ? 'disabled' : 'normal'}}" bindtap="CartNumInt" ></text>  
+  </view>  
+</template>

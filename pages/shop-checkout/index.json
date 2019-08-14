@@ -1,0 +1,7 @@
+{
+  "enablePullDownRefresh": false,
+  "navigationBarTitleText": "填写订单信息",
+  "usingComponents": {
+    "nav-bar": "/components/navbar/index"
+  }
+}

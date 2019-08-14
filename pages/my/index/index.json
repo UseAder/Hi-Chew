@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "nav-bar": "/components/navbar/index",
+    "userInfo-window": "/components/userInfo-window/index"
+  }
+}

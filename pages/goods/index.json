@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "商品详情",
+  "usingComponents": {
+    "nav-bar": "/components/navbar/index",
+        "product_parameter-window": "/components/product_parameter-window/index",
+            "product-window": "/components/product-window/index"
+  }
+}

@@ -1,0 +1,104 @@
+<wxs src="../../wxs/imageUrl.wxs" module="tools" />
+<nav-bar navbar-data='{{nvabarData}}'></nav-bar>
+<view class='nav-barheight' style='height:{{height}}px'></view>
+<!-- 搜索上 -->
+<view class="index_container">
+  <view class="searchTop_input" bindtap='inputKeyword'>
+    <image src="/images/home/0.png"></image>
+    <view class="title">输入产品名称</view>
+  </view>
+  <view class="searchTop_search">
+    <swiper autoplay="true" class="searchTop_banner" duration="1000" interval="7000" indicatordots='false'>
+      <swiper-item wx:for="{{ReturnData.banner}}" wx:key>
+        <navigator class='searchTop_navigator' url="{{item.url}}" hover-class="navigator-hover" open-type="reLaunch">
+          <image backgroundSize="cover" src="{{tools.sub(ImageUrl+item.img)}}"></image>
+        </navigator>
+      </swiper-item>
+    </swiper>
+  </view>
+</view>
+<!-- 导航Swiper -->
+<view class="navgationSwiper">
+  <swiper class="navgationSwiper_scroll" style='height:{{navHeight}}px'>
+    <swiper-item class="navgationSwiper-list">
+      <view class="publish" id='publish'>
+        <navigator url="/pages/category/index?id={{item.id}}" hover-class='none' open-type="navigate" class="item" wx:for="{{ReturnData.type}}" wx:for-index="index" wx:for-item="item" wx:key>
+        <image src="{{tools.sub(ImageUrl+item.type_img)}}"></image>
+          <text>{{item.type_name}}</text>
+        </navigator>
+      </view>
+    </swiper-item>
+  </swiper>
+</view>
+
+<!--横幅-->
+<view class="groupBanner" bindtap='toGroup'>
+  <swiper class="navgationSwiper_scroll" style='height:100%'>
+    <swiper-item class="navgationSwiper-list">
+      <navigator style='height:100%' url="/pages/group/index" hover-class='none' open-type="navigate" class="item" wx:for="{{ReturnData.slogan}}" wx:for-index="index" wx:for-item="item" wx:key>
+        <image src="{{tools.sub(ImageUrl+item.img)}}"></image>
+      </navigator>
+    </swiper-item>
+  </swiper>
+  <!-- <image src='{{ReturnData.banner[0]}}'></image> -->
+</view>
+
+<!-- 发现好物 -->
+<view class='findGood'>
+  <view class='title'>
+    发现好物
+  </view>
+  <view class='list_h1'>
+    <view class='item-list' wx:for="{{ReturnData.sales}}" wx:key>
+      <view class='list_logo' bindtap="toGoods" data-gid='{{item.goods_id}}'>
+        <image src='{{tools.sub(ImageUrl+item.brand)}}'></image>
+      </view>
+      <view class='list_flex'>
+        <view class='content-top'>
+          <view class='name J-textd'>{{item.name}}</view>
+          <view class='desc J-textd'>{{item.describe}}</view>
+          <view class='desc J-textd'>销量:{{item.sales}}</view>
+        </view>
+        <view class='content-bottom'>
+          <view class='price'>¥{{item.discount}}</view>
+          <view class='cart_logo'>
+            <image src='/images/home/cart.png' mode='widthFix'></image>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='Refresh' bindtap='refresh'>
+    <image class='Refresh_logo' src='/images/home/load.png'></image>
+    <view class='Refresh_name'>
+      换一批
+    </view>
+  </view>
+</view>
+
+<!-- 精品推荐 -->
+<view class='findGood Recommend'>
+  <view class='title'>
+    精品推荐
+  </view>
+  
+  <view class='list_z1 '>
+    <view class='item-list' wx:for="{{ReturnData.good}}" wx:key>
+      <view class='list_logo' bindtap="toGoods" data-gid='{{item.goods_id}}'>
+        <image src='{{tools.sub(ImageUrl+item.brand)}} ' mode='widthFix'></image>
+      </view>
+      <view class='list_flex'>
+        <view class='content-top'>
+          <view class='name J-textd'>{{item.name}}</view>
+        </view>
+        <view class='content-bottom'>
+          <view class='price'>¥{{item.discount}}</view>
+          <view class='num J-textd'>销量:{{item.sales}}</view>
+          <view class='cart_logo'>
+            <image src='/images/home/cart.png' mode='widthFix'></image>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

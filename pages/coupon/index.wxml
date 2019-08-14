@@ -1,0 +1,42 @@
+<nav-bar navbar-data='{{nvabarData}}'></nav-bar>
+<view class='nav-barheight' style='height:{{height}}px'></view>
+<view class="swiper">
+  <scroll-view class="swiper-scroll-list" scrollX="true" style='padding-top:{{height+10}}px'>
+    <view bindtap="swithNav" class="swiper-scroll-item {{currentTab==index?'active':''}}" data-current="{{index}}" wx:for="{{ListSwiper}}" data-index="{{index}}" style='width:{{100/ListSwiper.length}}%' wx:key>{{item.name}}
+      <view class="scroll-item-line" wx:if="{{currentTab==index}}"></view>
+    </view>
+  </scroll-view>
+  <swiper style="height:{{swiper_height}}px;margin-top:48px" bindchange="switchTab" class="swiper-swiper" current="{{currentTab}}">
+    <swiper-item class="swiper-swiper-item " wx:for="{{ListSwiper}}" wx:key>
+      <view class="swiper-item column-list{{index}}">
+        <view class="swiper-con" wx:for="{{item.navlist}}" wx:key>
+          <view class='swiper-con-top'>
+            <view class='right'>
+              <view class='title'>{{item.title}}</view>
+              <view class='time'>{{item.time}}</view>
+            </view>
+            <view class='left {{currentTab==0?"":"left_1"}}'>
+            
+              9.0
+              <text>折</text>
+            </view>
+          </view>
+
+          <view class='swiper-con-bottom'>
+            <view class='right'>
+
+            </view>
+            <view class='left'>
+              <view class='btn ' wx:if="{{currentTab==0}}">立即使用</view>
+              <view class='btn btn_1' wx:else>立即使用</view>
+            </view>
+          </view>
+          <!-- <view class="swiper-link" >
+            
+          </view> -->
+        </view>
+        <view class="swiper-con swiper-con-kong" wx:if="{{item.list==''}}"></view>
+      </view>
+    </swiper-item>
+  </swiper>
+</view>

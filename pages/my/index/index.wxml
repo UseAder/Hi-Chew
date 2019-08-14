@@ -1,0 +1,46 @@
+<nav-bar navbar-data='{{nvabarData}}'></nav-bar>
+<view class='nav-barheight' style='height:{{height}}px'></view>
+<userInfo-window window='{{window}}' bind:onColse="onColse">
+</userInfo-window>
+<!-- <button wx:if="{{userInfo.nickname=='昵称'}}" open-type="getUserInfo" bindgetuserinfo="userInfoHandler" class="wxlogin_bt"></button> -->
+
+<view class='personal_header'>
+  <view class='content-top'>
+    <image class='content-top_bg' src='/images/search/bg.png'></image>
+    <view class='info_avatar'>
+      <view class='info_avatar_decorate'>
+        <image src='/images/search/acatar_yy.png' mode='widthFix'></image>
+      </view>
+      <view class='info_avatar_logo'>
+        
+      <image wx:if="{{userInfo.avatar}}" class="avatar" src="{{userInfo.avatar}}"></image>
+      <image wx:else class="avatar" src='/images/search/avatar.png'></image>
+      </view>
+    </view>
+    <view class='info_name'>
+      <text class='name'>{{userInfo.nickname}}</text>
+    </view>
+  </view>
+</view>
+<view class='divder1'></view>
+<!--index.wxml-->
+<view class="personal_panel">
+  <view class="item {{item.border==0?'item-divder':''}}" wx:for="{{personal}}" wx:for-item="item"
+   wx:key="{{item.id}}" bindtap="personalOpen" data-chart="{{item}}">
+    <view class='item-link'>
+      <view class='item_right_logo'>
+        <image src="/images/search/{{item.id}}.png" mode='widthFix'></image>
+        <view class='name'>{{item.name}}</view>
+      </view>
+      <view class='item_left_logo'>
+        <image src="/images/search/2.png" mode='widthFix'></image>
+      </view>
+    </view>
+    <view class='item-border'></view>
+  </view>
+</view>
+
+ <view class="groupBanner" bindtap='toGroup'>
+    <image src='/images/search/groupBanner.png' mode='widthFix'></image>
+  </view>
+      <view bind:tap="login" class="change-account" wx:if="{{!isLogin}}">切换账号</view>

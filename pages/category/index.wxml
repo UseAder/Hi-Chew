@@ -1,0 +1,57 @@
+<wxs src="../../wxs/imageUrl.wxs" module="tools" />
+<nav-bar navbar-data='{{nvabarData}}'></nav-bar>
+<view class='nav-barheight' style='margin-top: {{height}}px'></view>
+
+<view class="container">
+  <view class="cate-nav" style='top: {{height}}px'>
+    <scroll-view scroll-x="true" class="cate-nav-body" style="width:auto;overflow:hidden;">
+      <view wx:for="{{navList}}" class="item {{ id == item.id ? 'active' : ''}}" data-id="{{item.id}}" data-index="{{index}}" bindtap="switchCate" wx:key>
+        <view class="name">
+          {{item.type_name}}</view>
+      </view>
+    </scroll-view>
+  </view>
+  <view class="goods-container cate-item" style='padding-top: 45px'>
+   <view class='list_z1'>
+    <view class='item-list' wx:for="{{goodsList}}" wx:key>
+      <view class='list_logo'>
+        <image src='{{tools.sub(ImageUrl+item.brand)}} ' mode='widthFix'></image>
+      </view>
+      <view class='list_flex'>
+        <view class='content-top'>
+          <view class='name J-textd'>{{item.name}}</view>
+        </view>
+        <view class='content-bottom'>
+          <view class='price'>¥{{item.discount}}</view>
+          <view class='num J-textd'>销量:{{item.sales}}</view>
+          <view class='cart_logo'>
+            <image src='/images/home/cart.png' mode='widthFix'></image>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+    <!-- <view class="goods-box" wx:for-items="{{goodsList}}" wx:key="{{index}}">
+      <navigator url='/pages/goods-details/index?id={{item.id}}' hover-class='none'>
+        <view class="img-box">
+        <image src="{{tools.sub(ImageUrl+item.brand)}}"></image>
+        </view>
+        <view class='goods-content'>
+          <view class="goods-title">{{item.name}}</view>
+          <view class='J-flex_sba goods-price-volume'>
+            <view class="goods-price">¥{{item.discount}}</view>
+            <view class="goods-volume">
+              <text class='iconfont icon-huomiao'></text>
+                  <text style='color:#D81E06;'>热度{{item.sales}}</text>
+            </view>
+          </view>
+
+        </view>
+      </navigator>
+    </view> -->
+  </view>
+
+  <view class='loadingicon acea-row row-center-wrapper' >
+    <text class='loading iconfont icon-jiazai' hidden='{{loading==false}}'></text>{{loadTitle}}
+  </view>
+</view>

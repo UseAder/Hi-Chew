@@ -1,0 +1,29 @@
+<wxs src="../../wxs/imageUrl.wxs" module="tools" />
+<nav-bar navbar-data='{{nvabarData}}'></nav-bar>
+<view class='nav-barheight' style='height: {{height}}px'></view>
+<view class='findGood'>
+  <view class='list_z1'>
+    <view class='item-list' wx:for="{{GoodList}}" wx:key>
+      <view class='list_logo'  bindtap="toGoods" data-gid='{{item.goods_id}}'>
+        <image src='{{tools.sub(ImageUrl+item.brand)}}' mode='widthFix'></image>
+      </view>
+      <view class='list_flex'>
+        <view class='content-top'>
+          <view class='name J-textd'>{{item.name}}</view>
+        </view>
+        <view class='content-bottom'>
+          <view class='price'>¥{{item.discount}}</view>
+          <!-- <view class='num J-textd'>销量:{{item.num}}</view> -->
+          <view class='cart_logo' bindtap='closeAttrOrCollect' data-cid='{{item.cid}}'>
+            <image src='/images/search/shanchu.png'></image>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+  <view class=" swiper-con-kong" wx:if="{{GoodList==''||!GoodList}}">
+    <image src="/images/search/ks.png" mode='widthFix'></image>
+    <view class='title'>收藏空空如也</view>
+  </view>

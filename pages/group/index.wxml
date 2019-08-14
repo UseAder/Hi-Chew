@@ -1,0 +1,43 @@
+<nav-bar navbar-data='{{nvabarData}}'></nav-bar>
+<view class='nav-barheight' style='height:{{height}}px'></view>
+<button wx:if="{{userInfo.nickname=='昵称'}}" open-type="getUserInfo" bindgetuserinfo="userInfoHandler" class="wxlogin_bt"></button>
+
+<view class="swiper-item column-list0">
+  <view class="swiper-con" wx:for="{{CouponList}}" wx:key>
+    <view class='swiper-con-top'>
+      <view class='right'>
+        <view class='title'>{{item.discount_name}}</view>
+        <view class='time'>{{item.createtime}}</view>
+      </view>
+      <view class='left {{item.u_status==0?"":"left_1"}}'>
+        {{item.amount}}
+        <text>折</text>
+      </view>
+    </view>
+    <view class='swiper-con-bottom'>
+      <view class='right'>
+      </view>
+      <view class='left flex'>
+        <block wx:if="{{item.u_status==0}}">
+          <view class='btn ' bindtap='couponAchieve' data-id="{{item.id}}" data-index="{{index}}">立即领取</view>
+        </block>
+        <block wx:else>
+          <view class='btn' bindtap='toGroupType' data-type="{{item.di_type}}">去使用</view>
+
+          <view class='btn btn_1'>已领取</view>
+
+        </block>
+      </view>
+    </view>
+  </view>
+  <view class=" swiper-con-kong" wx:if="{{CouponList==''||!CouponList}}">
+    <image src="/images/search/kg.png" mode='widthFix'></image>
+    <view class='title'>屋里没有优惠券哎</view>
+  </view>
+</view>
+
+<view class='height_view'></view>
+
+<view class="groupBanner" bindtap='toGroup'>
+  <image src='/images/search/groupBanner.png'></image>
+</view>

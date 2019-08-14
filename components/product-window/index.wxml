@@ -1,0 +1,35 @@
+<import src="../../pages/template-quantity/template-quantity.wxml" />
+
+<view class='product-window {{attribute.cartAttr==true?"on":""}}'>
+  <view class='textpic acea-row row-between-wrapper'>
+    <view class='pictrue'>
+      <image src='{{productSelect.image}}'></image>
+    </view>
+    <view class='text'>
+      <view class='line1'>{{productSelect.store_name}}</view>
+      <view class='money font-color'>
+        <view class="num" wx:if="{{productSelect.price}}"> ¥{{productSelect.price}}
+        <block wx:if="{{productSelect.unprice}}">
+          <text>¥{{productSelect.unprice}}</text></block>
+        </view>
+        <view class="a" wx:if="{{productSelect.checkedSpecText}}">{{productSelect.checkedSpecText}}</view>
+      </view>
+    </view>
+    <view class='clone_img' bindtap='close'>
+    <image src='/images/search/clone_img.png'></image></view>
+  </view>
+  <view class='productWinList'>
+    <view class='item' wx:for='{{productAttr}}' wx:key>
+      <view class='title'>{{item.spec_name}}</view>
+      <view class='listn acea-row row-middle'>
+        <view class='itemn {{item.checked==itemn.id ?"on":""}}' wx:for='{{item.spec_list}}' wx:for-item='itemn' wx:for-index='indexn' data-indexw='{{index}}' data-indexn='{{indexn}}' bindtap='tapAttr' wx:key><text >{{itemn.spec_value}}</text></view>
+      </view>
+    </view>
+  </view>
+  <view class='cart'>
+    <view class='title'>数量</view>
+    <!-- 加减计算模块 -->
+    <template is="quantity" data="{{productSelect}}" />
+  </view>
+</view>
+<view class='mask' catchtouchmove="true" hidden='{{attribute.cartAttr==false}}' bindtap='close'></view>

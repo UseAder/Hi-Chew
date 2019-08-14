@@ -1,0 +1,44 @@
+<wxs src="../../wxs/imageUrl.wxs" module="tools" />
+<nav-bar navbar-data='{{nvabarData}}'></nav-bar>
+<view class='nav-barheight' style='height:{{height}}px'></view>
+
+<view class="searchTop_input ">
+  <view class='searchTop_input_view J-flex_cc' wx:if="{{!inputShowed}}" catchtap="showInput">
+    <image src="/images/search/0.png"></image>
+    <view class="title" style='color:#CCCCCC'>输入产品名称</view>
+  </view>
+  <view class='searchTop_input_searchView J-flex_aw' wx:else>
+    <image src="/images/search/0.png"></image>
+    <input type="text" placeholder-style='color:#CCCCCC' placeholder="搜索" value="{{inputVal}}" focus="{{inputFocus}}" bindblur='inputBlur' />
+  </view>
+</view>
+<view class='btn-content J-flex_aw '>
+  <view bindtap='SeoEntryData' data-sid='{{item.id}}' class='item J-textd ' wx:for="{{SeoEntryList}}" wx:key>
+    {{item.title}}
+  </view>
+</view>
+<!-- 商品列表 -->
+
+<view class='list_z1'>
+  <view class='item-list' wx:for="{{GoodList}}" wx:key>
+    <view class='list_logo'>
+      <image src='{{tools.sub(ImageUrl+item.brand)}}' mode='widthFix'></image>
+    </view>
+    <view class='list_flex'>
+      <view class='content-top'>
+        <view class='name J-textd'>{{item.name}}</view>
+      </view>
+      <view class='content-bottom'>
+        <view class='price'>¥{{item.discount}}</view>
+        <view class='num J-textd'>销量:{{item.sales}}</view>
+        <view class='cart_logo'>
+            <image src='/images/home/cart.png' mode='widthFix'></image>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class='height_view'></view>
+<view class="groupBanner" bindtap='toGroup'>
+  <image src='/images/search/groupBanner.png'></image>
+</view>

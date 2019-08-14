@@ -1,0 +1,6 @@
+  {
+    "navigationBarTitleText": "收获地址",
+    "usingComponents": {
+      "nav-bar": "/components/navbar/index"
+    }
+  }

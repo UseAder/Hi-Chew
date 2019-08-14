@@ -1,0 +1,159 @@
+
+.shoppingCart .labelNav{height:76rpx;padding:0 30rpx;font-size:22rpx;color:#8c8c8c;position:fixed;left:0;width:100%;box-sizing:border-box;background-color:#f5f5f5;z-index:5;}
+.shoppingCart .labelNav .item .iconfont{font-size:25rpx;margin-right:10rpx;}
+.shoppingCart .nav{width:100%;height:80rpx;background-color:#fff;padding:0 30rpx;box-sizing:border-box;font-size:28rpx;color:#282828;position:fixed;left:0;z-index:5;}
+.shoppingCart .nav .administrate{font-size:26rpx;color:#282828;width:110rpx;height:46rpx;border-radius:6rpx;border:1px solid #999;}
+.shoppingCart .noCart{margin-top:171rpx;background-color:#fff;padding-top: 0.1rpx;}
+
+.shoppingCart .list .item{padding:0rpx 27rpx 0 21rpx;
+border-radius:20rpx;
+height:232rpx;
+background-color:#F5F7F9;margin: 0 23rpx;align-items: center;margin-bottom: 30rpx;}
+.shoppingCart .list .item .picTxt{
+  position:relative;
+}
+.shoppingCart .list .item .picTxt .icon-shan_chu{position: absolute;color: #b6b6b6;right: 0;top: 0;font-size: 54rpx;z-index: 100}
+.shoppingCart .list .item .picTxt .pictrue{width:175rpx;height:175rpx;margin-left: 10rpx;}
+.shoppingCart .list .item .picTxt .pictrue image{width:100%;height:100%;border-radius:10rpx;}
+.shoppingCart .list .item .picTxt .text{
+  width:382rpx;
+  font-size:28rpx;color:#282828;height: 175rpx;margin-left: 29rpx
+;display:flex;flex-direction: column;justify-content: space-between
+}
+.shoppingCart .list .item .picTxt .text .line1.title{ margin-top: 10rpx;font-size: 32rpx}
+.shoppingCart .list .item .picTxt .text .sku_value{
+  font-size:24rpx;color:#999999;
+}
+.shoppingCart .list .item .picTxt .text .infor{font-size:24rpx;color:#999;margin-top:15rpx;display: inlink-block;width: auto}
+.shoppingCart .list .item .picTxt .text .money{color:rgba(249,45,144,1);
+opacity:0.98;width: 200rpx;font-size:30rpx;
+}
+.shoppingCart .list .item .picTxt .text .money text{font-size:40rpx;
+
+}
+.shoppingCart .list .item .picTxt .carnum{position:absolute;right:0;bottom:8rpx;
+}
+.shoppingCart .invalidGoods{background-color:#fff;}
+.shoppingCart .invalidGoods .goodsNav{width:100%;height:66rpx;padding:0 30rpx;box-sizing:border-box;font-size:28rpx;color:#282828;}
+.shoppingCart .invalidGoods .goodsNav .iconfont{color:#424242;font-size:28rpx;margin-right:17rpx;}
+.shoppingCart .invalidGoods .goodsNav .del{font-size:26rpx;color:#999;}
+.shoppingCart .invalidGoods .goodsNav .del .icon-shanchu1{color:#999;font-size:33rpx;vertical-align:-2rpx;margin-right:8rpx;}
+.shoppingCart .invalidGoods .goodsList .item{padding:20rpx 30rpx;border-top:1rpx solid #f5f5f5;}
+.shoppingCart .invalidGoods .goodsList .item .invalid{font-size:22rpx;color:#fff;width:70rpx;height:36rpx;background-color:#aaa;border-radius:3rpx;text-align:center;line-height:36rpx;}
+.shoppingCart .invalidGoods .goodsList .item .pictrue{width:140rpx;height:140rpx;}
+.shoppingCart .invalidGoods .goodsList .item .pictrue image{width:100%;height:100%;border-radius:6rpx;}
+.shoppingCart .invalidGoods .goodsList .item .text{width:433rpx;font-size:28rpx;color:#999;height:140rpx;}
+.shoppingCart .invalidGoods .goodsList .item .text .infor{font-size:24rpx;}
+.shoppingCart .invalidGoods .goodsList .item .text .end{font-size:26rpx;color:#bbb;}
+.shoppingCart .footer{width:100%;position:fixed;bottom:0;padding-left:30rpx;box-sizing:border-box;
+height:95rpx;
+background:rgba(255,255,255,1);
+box-shadow:0px 0rpx 1rpx 0px rgba(98,98,98,0.2);
+}
+.shoppingCart .footer .checkAll{font-size:28rpx;color:#000000;}
+
+.shoppingCart .footer checkbox .wx-checkbox-input{background-color:#fafafa;}
+.shoppingCart .footer .money{font-size:32rpx;line-height: 95rpx;margin-left:26rpx;display: flex;align-items: center; margin-right:36rpx;
+}
+.shoppingCart .footer .money .delete{margin-right: 15rpx;}
+.shoppingCart .footer .money text{margin-right:26rpx; }
+.shoppingCart .footer .placeOrder{width:153rpx;
+height:68rpx;line-height:68rpx;
+
+background:linear-gradient(180deg,rgba(244,46,143,1) 0%,rgba(255,94,173,1) 100%);
+border-radius:34rpx;font-size:32rpx;color:rgba(255,255,255,1);
+}
+.shoppingCart .footer .button .bnt{font-size:28rpx;color:#999;border-radius:50rpx;border:1px solid #999;width:160rpx;height:60rpx;text-align:center;line-height:60rpx;}
+.shoppingCart .footer .button form~form{margin-left:17rpx;}
+page::after{
+ 
+    height: 0rpx;
+    
+}
+
+.total{
+  color: #000000;display: flex;align-items: center;line-height:0;
+
+}
+.total .text{
+  color: #F92D90;
+}
+.total text.price{
+  font-size: 38rpx;
+}
+
+
+.noCart .pictrue{
+    width: 100%;
+    height: auto;
+    margin-top: 200rpx;
+}
+
+.noCart .pictrue image {
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    width: 258rpx;
+    height: 258rpx;
+}
+
+.noCart .pictrue text {
+    margin: 0 auto;
+    display: block;
+    width: 258rpx;
+    height: 29rpx;
+    line-height: 29rpx;
+    text-align: center;
+    font-size: 29rpx;
+    color: #999;
+}
+
+/* .shoppingCart .noCart .pictrue{width:414rpx;height:336rpx;margin:78rpx auto 56rpx auto;}
+.shoppingCart .noCart .pictrue image{width:100%;height:100%;} */
+/*全局样式*/  
+/* page {  
+    padding: 20px 0;  
+}   */
+  
+/*主容器*/  
+.stepper {  
+width:150rpx;
+    height: 46rpx;  
+    display: flex;
+    /*给主容器设一个边框*/  
+    border: 1rpx solid #C4CFDB;  
+    border-radius: 4rpx;  
+   box-sizing: border-box
+   ;
+   align-items: center;
+}  
+  
+/*加号和减号*/  
+.stepper .sign {  
+    width: 46rpx;  
+    height: 100%;
+    line-height: 46rpx;
+    text-align: center;  
+     color: #101010;  
+}  
+  
+/*数值*/  
+.stepper .number {  
+  height: 100%;
+  line-height: 46rpx;
+   flex: 1;
+    text-align: center;  
+    font-size: 28rpx;  
+    color: #101010;
+    /*给中间的input设置左右边框即可*/  
+    border-left: 1rpx solid #C4CFDB;  
+    border-right: 1rpx solid #C4CFDB;  
+    
+}  
+  
+
+  
+/*禁用样式*/  
+.stepper .disabled{  
+    color: #C4CFDB;
+}  
