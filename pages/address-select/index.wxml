@@ -11,7 +11,9 @@
         <view class='consignee'>{{item.ad_name}}
           <text class='phone'>{{item.ad_phone}}</text>
         </view>
-        <view>{{item.ad_city[0]}}{{item.ad_city[1]}}{{item.ad_city[2]}}{{item.ad_address}}</view>
+                <!-- <view>{{item.ad_city[0]}}{{item.ad_city[1]}}{{item.ad_city[2]}}{{item.ad_address}}</view> -->
+
+        <view>{{item.ad_address}}</view>
       </view>
       <view class='operation acea-row row-between-wrapper'>
         <radio class="radio" value="{{index}}" checked="{{item.is_default ? true : false}}">

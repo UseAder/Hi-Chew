@@ -85,7 +85,9 @@ page {
   background: #c5c5ca;
 }
 
-
+.swiper-con .swiper-con-top .right {
+  width: 518rpx;
+}
 /* 横幅 */
 
 .height_view {

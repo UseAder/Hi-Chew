@@ -3,6 +3,8 @@ const util = require('../../utils/util.js');
 const DataJson = require('../../utils/dataJson.js');
 const api = require('../../config/api.js');
 var t = require("../../lib/wxParse/wxParse.js")
+const base64 = require('../../utils/base64src.js');
+var user = require('../../services/user.js');
 
 Page({
 
@@ -10,17 +12,39 @@ Page({
    * 页面的初始数据
    */
   data: {
+ userInfo: {
+      nickname: app.globalData.userInfo.nickname,
+      avatar: app.globalData.userInfo.avatar
+    },
+    isPay:false,
     gid: null,
-    cid:null,//收藏id
-    window: true,
+    cid: null, //收藏id
+    window: true,//参数弹框
     userCollect: false, //收藏
-
+    shichiObject: {
+      bgImages: '', //分享活动商品背景图
+      codeImage: '', //分享活动二维码背景图
+      title: '',
+      desc: '',
+      name: '嘿咻', //分享活动商品名称
+      explain: '发现更多快乐', //分享活动商品说明
+    },
     nvabarData: {
       showCapsule: 1, //是否显示左上角图标   1表示显示    0表示不显示
       title: '商品详情', //导航栏 中间的标题
     },
     height: app.globalData.height * 2 + 20,
     ImageUrl: api.ImageUrl,
+
+    //海报绘图标签
+    canvasStatus: false,
+    // 海报展示
+    posterImageStatus: false,
+    //海报图片路径
+    posterImage: '',
+    // 分享弹框
+    actionSheetHidden: true,
+    openSettingBtnHidden: true,//授权图片保存本地
 
     noCollectImage: "/images/search/sc0.png",
     hasCollectImage: "/images/search/sc1.png",
@@ -38,6 +62,196 @@ Page({
     productSelect: {},
     ListSwiper: DataJson.ListSwiper,
   },
+
+  /**
+   * 1。试吃弹框出现  （去试吃）
+   * 
+   */
+  listenerActionSheet: function (e) {
+    var that = this
+    that.actionSheetModel()
+  },
+  // 2.分享打开和关闭
+  actionSheetModel: function () {
+    var that = this
+    // 获取这个试吃商品id
+    that.setData({
+      'actionSheetHidden': !that.data.actionSheetHidden,
+    })
+    // 3.生成二维码
+    that.goPoster()
+  },
+
+  /**
+   * 生成海报
+   */
+  goPoster: function () {
+    var that = this
+    // canvas画布隐藏
+    that.setData({
+      canvasStatus: true
+    });
+    console.log(that.data.shichiObject)
+    // 生成二维码分享图海报
+    // that.downloadFilePromotionCode(function (msgPromotionCode) {
+    //   //获取网络图片本地路径
+    //   wx.getImageInfo({
+    //     src: that.data.shichiObject.bgImages, //服务器返回的图片地址
+    //     success: function (res) {
+    //       //res.path是网络图片的本地地址
+    //       let Path = res.path;
+    //       console.log(msgPromotionCode)
+          that.setData({
+            // 'shichiObject.bgImages': Path,
+            // 'shichiObject.codeImage': Path,
+            'shichiObject.bgImages': 'https://hangfoxs.oss-cn-hangzhou.aliyuncs.com/snack/201908055d47ed3be08511665.jpeg',
+            'shichiObject.codeImage': 'https://hangfoxs.oss-cn-hangzhou.aliyuncs.com/snack/201908055d47ed362a7592825.jpeg',
+            // 'shichiObject.codeImage': Path msgPromotionCode,
+
+
+          })
+          console.log(that.data.shichiObject)
+
+          util.ShichiCanvas(that.data.shichiObject, function (tempFilePath) {
+            that.setData({
+              posterImage: tempFilePath,
+              posterImageStatus: true,
+              canvasStatus: false,
+            })
+          });
+    //     },
+    //     fail: function (res) {
+    //       //失败回调
+    //     }
+    //   })
+
+    // })
+  },
+  /**
+   * 获取产品分销二维码
+   * @param function successFn 下载完成回调
+   * 
+   */
+  downloadFilePromotionCode: function (successFn) {
+    var that = this;
+    util.request(api.GetWxcode, {
+      path: "pages/goods/index",
+      gid: that.data.gid,
+    }, 'POST').then(function (res) {
+      if (res.msg == '二维码生成失败') {
+        app.Tips({
+          title: '二维码生成失败',
+          icon: 'none'
+        });
+      }
+      if (res.data) {
+        base64.base64src(res.data).then(
+          function (data) {
+            successFn(data);
+            console.log(data)
+
+          }
+        )
+      }
+    })
+  },
+  /*
+  * 保存到手机相册
+  */
+
+  savePosterPath: function () {
+    var that = this;
+    wx.getSetting({
+      success(res) {
+        console.log(res)
+        if (!res.authSetting['scope.writePhotosAlbum']) {
+          wx.authorize({
+            scope: 'scope.writePhotosAlbum',
+            success() {
+              wx.saveImageToPhotosAlbum({
+                filePath: that.data.posterImage,
+                success: function (res) {
+                  that.posterImageClose();
+                  app.Tips({
+                    title: '保存成功',
+                    icon: 'success'
+                  });
+                },
+                fail: function (res) {
+                  app.Tips({
+                    title: '保存失败'
+                  });
+                }
+              })
+            },
+            fail() {
+              wx.openSetting({
+                success: function (data) {
+                  console.log("openSetting success");
+                },
+                fail: function (data) {
+                  wx.showModal({
+                    title: '警告',
+                    content: '若不打开授权，则无法将图片保存在相册中！',
+                    showCancel: false
+                  })
+                  that.setData({
+                    openSettingBtnHidden: false
+                  })
+                  console.log("openSetting fail");
+                }
+              });
+            }
+          })
+        } else {
+          wx.saveImageToPhotosAlbum({
+            filePath: that.data.posterImage,
+            success: function (res) {
+              that.posterImageClose();
+              app.Tips({
+                title: '保存成功',
+                icon: 'success'
+              });
+            },
+            fail: function (res) {
+              app.Tips({
+                title: '保存失败'
+              });
+            },
+          })
+        }
+      }
+    })
+  }, handleSetting: function (e) {
+    let that = this;
+    // 对用户的设置进行判断，如果没有授权，即使用户返回到保存页面，显示的也是“去授权”按钮；同意授权之后才显示保存按钮
+    if (!e.detail.authSetting['scope.writePhotosAlbum']) {
+      wx.showModal({
+        title: '警告',
+        content: '若不打开授权，则无法将图片保存在相册中！',
+        showCancel: false
+      })
+      that.setData({
+        openSettingBtnHidden: false
+      })
+    } else {
+      wx.showModal({
+        title: '提示',
+        content: '您已授权，赶紧将图片保存在相册中吧！',
+        showCancel: false
+      })
+      that.setData({
+        openSettingBtnHidden: true
+      })
+    }
+  },
+  //隐藏海报
+  posterImageClose: function () {
+    this.setData({
+      actionSheetHidden: !this.data.actionSheetHidden
+    })
+  },
+
   // 关闭个人资料弹框
   onColse: function () {
     this.setData({
@@ -45,7 +259,9 @@ Page({
     });
   },
   openWindow: function () {
-    this.setData({ window: false })
+    this.setData({
+      window: false
+    })
   },
   phoneCall: function (e) {
     wx.makePhoneCall({
@@ -59,12 +275,12 @@ Page({
     app.Tips('/pages/cart/index')
   },
   /**
- * 打开规格数量属性插件
- */
+   * 打开规格数量属性插件
+   */
   onMyEvent: function (e) {
     this.setData({
       'attribute.cartAttr': e.detail.window,
-      isOpen: false
+      // isOpen: false
     })
   },
 
@@ -134,6 +350,7 @@ Page({
   ChangeAttr: function (e) {
     var values = e.detail;
     var that = this
+    console.log(that.data.productValue)
     var productSelect = that.data.productValue[values];
     var goods = that.data.goods;
     console.log(productSelect)
@@ -220,49 +437,53 @@ Page({
   },
   //加入购物车
   joinCart: function () {
+    this.setData({
+      isPay:false
+    })
     this.goCat();
+
   },
   /*
    * 立刻购买
    */
   goBuy: function () {
-    this.goCat(true);
+    this.setData({
+      isPay: true
+    })
+    this.goCat();
   },
-  goCat: function (isPay) {
-    var that = this;
+  ConfirmClose :function (e) {
+    var that=this
     var productSelect = that.data.productValue[that.data.attrValue]
-    console.log(that.data.productValue)
-    console.log(that.data.attrValue)
-    console.log(productSelect)
-    //打开属性
-    if (that.data.attrValue) {
-      //默认选中了属性，但是没有打开过属性弹窗还是自动打开让用户查看默认选中的属性
-      that.setData({
-        'attribute.cartAttr': !that.data.isOpen ? true : false
-      })
-    } else {
-      if (that.data.isOpen)
+
+    // if (that.data.attrValue) {
+    //   //默认选中了属性，但是没有打开过属性弹窗还是自动打开让用户查看默认选中的属性
+    //   that.setData({
+    //     'attribute.cartAttr': !that.data.isOpen ? true : false
+    //   })
+    // } else {
+    //   if (that.data.isOpen)
         that.setData({
           'attribute.cartAttr': true
         })
-      else
-        that.setData({
-          'attribute.cartAttr': !that.data.attribute.cartAttr
-        });
-    }
-    // //只有关闭属性弹窗时进行加入购物车
-    if (that.data.attribute.cartAttr === true && that.data.isOpen == false) return that.setData({
-      isOpen: true
-    });
+    //   else
+    //     that.setData({
+    //       'attribute.cartAttr': !that.data.attribute.cartAttr
+    //     });
+    // }
+    // // //只有关闭属性弹窗时进行加入购物车
+    // if (that.data.attribute.cartAttr === true && that.data.isOpen == false) return that.setData({
+    //   isOpen: true
+    // });
     // //如果有属性,没有选择,提示用户选择
     if (that.data.productAttr.length && productSelect === undefined && that.data.isOpen == true) return app.Tips({
-      title: '请选择属性'
+      title: '商品未选，或库存不足，请重新选择'
     });
     that.setData({
-      isOpen: false,
+      // isOpen: false,
       'attribute.cartAttr': false
     });
-    if (isPay) {
+     if (that.data.isPay) {
       var option = ''
       option = "gid=" + that.data.gid + "&uid=" + wx.getStorageSync('uid') + "&sku_id=" + that.data.productSelect.id + "&num=" + that.data.productSelect.cart_num
       // console.log(option)
@@ -286,15 +507,87 @@ Page({
       util.request(api.CartAdd, goodsAll, "POST").then(function (res) {
         // console.log(res)
         if (res.code == 200) {
+
+          that.getCartCount(true);
           app.Tips({
             title: '添加购物车成功',
             icon: 'success'
-          }, function () {
-            that.getCartCount(true);
           });
         }
       });
     }
+  },
+  goCat: function () {
+    var that = this;
+    var productSelect = that.data.productValue[that.data.attrValue]
+    console.log(that.data.productValue)
+    console.log(that.data.attrValue)
+    console.log(productSelect)
+    //打开属性
+    that.setData({
+        'attribute.cartAttr': true
+      })
+
+    // if (that.data.attrValue) {
+    //   //默认选中了属性，但是没有打开过属性弹窗还是自动打开让用户查看默认选中的属性
+    //   that.setData({
+    //     'attribute.cartAttr': !that.data.isOpen ? true : false
+    //   })
+    // } else {
+    //   if (that.data.isOpen)
+    //     that.setData({
+    //       'attribute.cartAttr': true
+    //     })
+    //   else
+    //     that.setData({
+    //       'attribute.cartAttr': !that.data.attribute.cartAttr
+    //     });
+    // }
+    // // //只有关闭属性弹窗时进行加入购物车
+    // if (that.data.attribute.cartAttr === true && that.data.isOpen == false) return that.setData({
+    //   isOpen: true
+    // });
+    // // //如果有属性,没有选择,提示用户选择
+    // if (that.data.productAttr.length && productSelect === undefined && that.data.isOpen == true) return app.Tips({
+    //   title: '商品未选，或库存不足，请重新选择'
+    // });
+    // that.setData({
+    //   isOpen: false,
+    //   'attribute.cartAttr': false
+    // });
+    // if (isPay) {
+    //   var option = ''
+    //   option = "gid=" + that.data.gid + "&uid=" + wx.getStorageSync('uid') + "&sku_id=" + that.data.productSelect.id + "&num=" + that.data.productSelect.cart_num
+    //   // console.log(option)
+    //   wx.navigateTo({
+    //     url: '/pages/shop-checkout/index?' + option
+    //   });
+
+    // } else {
+    //   //   // console.log(that.data.attrValue)
+    //   var goodsAll = {}
+    //   goodsAll.uid = app.globalData.uid
+    //   goodsAll.gid = that.data.gid
+
+    //   goodsAll.spec_id = that.data.productSelect.id
+
+    //   goodsAll.num = that.data.productSelect.cart_num
+
+    //   //   goodsAll.goods_speci = that.data.attrValue;
+    //   //   goodsAll.goods_speci_id = that.data.productSelect.id
+    //   console.log(goodsAll)
+    //   util.request(api.CartAdd, goodsAll, "POST").then(function (res) {
+    //     // console.log(res)
+    //     if (res.code == 200) {
+
+    //       that.getCartCount(true);
+    //       app.Tips({
+    //         title: '添加购物车成功',
+    //         icon: 'success'
+    //       });
+    //     }
+    //   });
+    // }
   },
   /**
    * 获取购物车数量
@@ -325,23 +618,26 @@ Page({
   getGoodsInfo: function (e) {
     var that = this
     util.request(api.GoodsDetails, {
-      goods_id: that.data.gid, uid: app.globalData.uid
+      goods_id: that.data.gid,
+      uid: app.globalData.uid
     }, "POST").then(function (res) {
       if (res.code == 200) {
-        var goods = {}
+        var goods = {};
         var details = JSON.parse(res.data.data.details)
         goods.name = res.data.data.name,
           goods.details = details,
           goods.describe = res.data.data.describe,
           goods.discount = res.data.data.discount,
           goods.banner = res.data.data.images.split(',')
-        console.log(goods.details)
         that.setData({
           goods: goods,
           cid: res.data.cid,
           userCollect: res.data.sc,
           productAttr: res.data.arr.list || [],
           productValue: res.data.arr.sku || {},
+          'shichiObject.bgImages': res.data.data.brand,
+          'shichiObject.title': res.data.data.name,
+          'shichiObject.desc': res.data.data.describe
         })
         if (that.data.userCollect) {
           that.setData({
@@ -353,14 +649,15 @@ Page({
           });
         }
         that.DefaultSelect()
-        // , t.wxParse("goodsDetail", "html", res.data.data.parameter, that);
+        , t.wxParse("goodsDetail", "html", res.data.data.parameter, that);
       }
     })
   },
   // 收藏
   closeAttrOrCollect: function () {
-    var that = this, utilApi = '';
-    let collect={}
+    var that = this,
+      utilApi = '';
+    let collect = {}
     if (!that.data.userCollect) {
       utilApi = api.UserAdd
       collect.gid = that.data.gid
@@ -375,34 +672,21 @@ Page({
         that.setData({
           userCollect: !that.data.userCollect
         })
-        // if (that.data.userCollect) {
-          // that.setData({
-          //   'collectBackImage': that.data.hasCollectImage
-          // });
-        //   app.Tips({
-        //     title: '收藏成功',
-        //     icon: 'success'
-        //   });
-        // } else {
-          // that.setData({
-          //   'collectBackImage': that.data.noCollectImage
-          // });
-          // app.Tips({
-        //     title: '已取消收藏',
-        //     icon: 'success'
-        //   });
-
-        // }
         that.getGoodsInfo()
-
       }
-   
     })
   },
   // 购物车商品数量
   getCartLength: function () {
     var that = this
-    util.request(api.Cart, { uid: app.globalData.uid, }, 'post').then(function (res) {
+    console.log('戴凯杰')
+
+    console.log(app.globalData.uid)
+    console.log('戴凯杰')
+
+    util.request(api.Cart, {
+      uid: app.globalData.uid,
+    }, 'post').then(function (res) {
       if (res.data)
         that.setData({
           cartCount: res.data.length
@@ -415,7 +699,41 @@ Page({
   onReachBottom: function () {
 
   },
-
+  /**
+     * 生命周期函数--监听页面显示
+     */
+  onShow: function () {
+    var that = this
+    if (app.globalData.openid) {
+      that.setData({
+        userInfo: app.globalData.userInfo,
+      })
+    } else {
+      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+      // 所以此处加入 callback 以防止这种情况
+      app.employIdCallback = openid => {
+        if (openid != '') {
+          that.setData({
+            userInfo: app.globalData.userInfo,
+          })
+        }
+      }
+    }
+  },
+  /**
+  * 调用微信登录
+  */
+  userInfoHandler: function () {
+    var that = this
+    user.loginByWeixin().then((res) => {
+      console.log(res.data)
+      if (res.code == 200) {
+        that.setData({
+          userInfo: res.data
+        })
+      }
+    })
+  },
   /**
    * 用户点击右上角分享
    */

@@ -4,7 +4,7 @@
   line-height: 70rpx;
   border-radius: 35rpx;
 
-  width: 630rpx;
+  width: 690rpx;
   background: rgba(244, 248, 250, 0.95);
   font-size: 28rpx;
   font-weight: normal;
@@ -70,7 +70,7 @@ opacity:0.98;
   border-radius: 50%;
 }
 
-.btn-content{margin: 0 45rpx;
+.btn-content{margin: 0 18rpx;
   margin-top: 25rpx;
 }
 .btn-content .item{

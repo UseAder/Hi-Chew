@@ -1,9 +1,13 @@
 <import src="../../pages/template-quantity/template-quantity.wxml" />
+<wxs src="../../wxs/imageUrl.wxs" module="tools" />
 
 <view class='product-window {{attribute.cartAttr==true?"on":""}}'>
+<view class='btn' bindtap='confirmClose'>
+确定
+</view>
   <view class='textpic acea-row row-between-wrapper'>
     <view class='pictrue'>
-      <image src='{{productSelect.image}}'></image>
+      <image src='{{tools.sub(ImageUrl+productSelect.image)}}'></image>
     </view>
     <view class='text'>
       <view class='line1'>{{productSelect.store_name}}</view>

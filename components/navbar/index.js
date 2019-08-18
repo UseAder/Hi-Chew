@@ -39,5 +39,10 @@ Component({
         }
       }
     },
+    _navbackCart() {
+        wx.navigateTo({
+          url: '/pages/cart/index',
+        })
+    },
   }
 }) 

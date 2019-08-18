@@ -49,7 +49,7 @@
 /* 导航swiper */
 
 .navgationSwiper {
-  margin-top: 44rpx;
+  margin-top: 32rpx;
 }
 
 .publish image {
@@ -100,16 +100,27 @@ height:189rpx;
 
 .findGood .title {
   margin-top: 70rpx;
-  margin-bottom: 32rpx;
+  position: relative;
+  margin-bottom: 30rpx;
   font-size: 36rpx;
   line-height: 1;
   font-weight: normal;
-  padding-left: 13rpx;
+  padding-left: 16rpx;
   margin-left: 32rpx;
-  border-left: 5rpx solid #f93593;
   color: rgba(30, 35, 42, 1);
 }
-
+.findGood .title .border{
+ position: absolute;z-index: 1;top: 0 ;bottom: 0;margin: auto;left:0;width:5rpx;
+height:24rpx;
+background:#F93593;overflow: hidden;
+border-radius:3rpx;
+}
+.findGood .title::before{
+  width:5rpx;
+height:24rpx;
+background:rgba(249,53,147,1);
+border-radius:3rpx;
+}
 .Recommend .title {
   margin-top: 55rpx;
 }
@@ -158,12 +169,13 @@ height:189rpx;
 
 .list_h1 .item-list .name {
   font-size: 32rpx;
-  margin-top: 14rpx;
+ margin-top:23rpx;
+
   color: rgba(30, 35, 42, 1);
 }
 
 .list_h1 .item-list .desc {
-  margin-top: 17rpx;
+  margin-top: 18rpx;
   font-size: 24rpx;
   color: rgba(153, 153, 153, 1);
 }
@@ -185,3 +197,26 @@ height:189rpx;
 
 }
 
+/*  */
+.list_z1 {
+  padding: 0 30rpx;
+  line-height: 1;
+  column-count: 2;       
+  column-gap:30rpx;    
+
+}
+
+/* 提醒 */
+.nav-desc {
+display: flex;justify-content: space-around;padding: 0 30rpx;border-bottom: 5rpx solid #F7F7F7;
+}
+.nav-desc .item{
+width:185rpx;
+height:54rpx;font-size: 24rpx;
+background:rgba(252,244,251,1);align-items: center;justify-content: space-around;
+border-radius:20rpx;color: #FF83BF;text-align: center;padding: 0 9rpx;box-sizing: border-box;
+}
+.nav-desc .item .logo{
+width:25rpx;
+height:25rpx;
+}

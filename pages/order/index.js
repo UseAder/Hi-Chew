@@ -3,6 +3,7 @@ const util = require('../../utils/util.js');
 const DataJson = require('../../utils/dataJson.js');
 const api = require('../../config/api.js');
 const pay = require('../../services/pay.js');
+var user = require('../../services/user.js');
 
 Page({
 
@@ -31,15 +32,33 @@ Page({
       showCapsule: 1, //是否显示左上角图标   1表示显示    0表示不显示
       title: '订单', //导航栏 中间的标题
     },
+    userInfo: {
+      nickname: app.globalData.userInfo.nickname,
+      avatar: app.globalData.userInfo.avatar
+    },
+
+
     currentTab: 0,
     height: app.globalData.height * 2 + 20,
   },
 
-
+  toOrderDetails: function (e) {
+    var order_sn = e.currentTarget.dataset.order_sn,
+      that = this
+    wx.navigateTo({
+      url: '/pages/orderDetail/index?order_sn=' + order_sn
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    console.log(1)
+    if (options.currentTab){
+      this.setData({
+        currentTab:options.currentTab
+      })
+    }
     this.WindowHeight()
     this.getGroupList()
   },
@@ -85,6 +104,7 @@ Page({
     let that = this
     var order_sn = e.currentTarget.dataset.order_sn;
     var openid = wx.getStorageSync('openid');
+    console.log(order_sn)
     pay.payOrder({
       order_sn: order_sn,
       openid: openid
@@ -104,7 +124,7 @@ Page({
 
   getGroupList() {
     let that = this;
-    util.request(api.GetOrder, { uid: wx.getStorageSync('uid')}).then(function(res) {
+    util.request(api.GetOrder, { uid: wx.getStorageSync('uid')},'post').then(function(res) {
         console.log(res.data);
         that.setData({
           "ListSwiper[0].navlist": res.no_pay,
@@ -175,9 +195,37 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    var that = this
+    if (app.globalData.openid) {
+      that.setData({
+        userInfo: app.globalData.userInfo,
+      })
+    } else {
+      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+      // 所以此处加入 callback 以防止这种情况
+      app.employIdCallback = openid => {
+        if (openid != '') {
+          that.setData({
+            userInfo: app.globalData.userInfo,
+          })
+        }
+      }
+    }
   },
-
+  /**
+  * 调用微信登录
+  */
+  userInfoHandler: function () {
+    var that = this
+    user.loginByWeixin().then((res) => {
+      console.log(res.data)
+      if (res.code == 200) {
+        that.setData({
+          userInfo: res.data
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

@@ -20,6 +20,12 @@ Page({
     loadend: false,//是否加载完毕
     loadTitle: '',//提示语
   },
+  toGoods: function (e) {
+    var gid = e.currentTarget.dataset.gid;
+    wx.navigateTo({
+      url: '/pages/goods/index?gid=' + gid
+    })
+  },
   onLoad: function (options) {
     // 页面初始化 
     if (!options.id) return app.Tips({ title: '缺少商品ID无法查询' });

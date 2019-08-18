@@ -93,6 +93,9 @@ Page({
    */
   onLoad: function (options) {
     this.SeoEntry()//词条获取
+    this.setData({
+      couponBanner: app.globalData.couponBanner
+    })
   },
 
   /**

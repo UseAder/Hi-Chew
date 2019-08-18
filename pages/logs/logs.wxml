@@ -4,7 +4,7 @@
 <view class="container">
     <view class="header">
         <view class="title">欢迎登录</view>
-        <view class="subtitle">选择酒店账号登录or微信登录</view>
+        <view class="subtitle">选择酒店账号登录，获取权限</view>
     </view>
     <view class="account">
         <view class="left">
@@ -25,9 +25,9 @@
         </view>
     </view>
     <view bind:tap="login_action" class="login-btn">登录</view>
-    <view class="login-wechat">
+    <!-- <view class="login-wechat">
         <button bindgetuserinfo="userInfoHandler" openType="getUserInfo">
             <image src="/images/search/login-wechat.png"></image>
         </button>
-    </view>
+    </view> -->
 </view>

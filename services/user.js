@@ -83,7 +83,7 @@ function getUserInfo() {
       fail: function (err) {
         wx.showModal({
           title: '授权提示',
-          content: '小程序需要您的授权才能正常使用,请在个人中心点击登录授权',
+          content: '小程序需要您的授权才能正常使用,请在点击页面进行授权',
           success: function (res) {
             if (res.confirm) {
               console.log('用户点击确定')

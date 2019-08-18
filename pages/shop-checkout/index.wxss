@@ -207,7 +207,7 @@ color:#7D7D7D}
     font-size:28rpx;
 }
 .order-box .order-item .r.te{ 
-color:rgba(218,3,29,1);
+color:#F92D90
 }
 
 .order-box .order-item.no-border{
@@ -326,7 +326,7 @@ color:rgba(218,3,29,1);
     height: 100rpx;
     line-height: 100rpx;
     font-size:28rpx;
-    color: #DA031D;
+    color: #F92D90;
     /* display: flex */
     padding: 0rpx 34rpx;
 }
@@ -390,17 +390,27 @@ checkbox .wx-checkbox-input{border-radius:4rpx;width:38rpx;height:38rpx;}
 .coupon-box .l .txt{
     float: right;
     font-size: 30rpx;
-    color: #666;
+    color: #F92D90;
+}.coupon-box .l .txt.active{
+    color: #7D7D7D;
 }
 
 .coupon-box .r{
-    margin-top: 15.5rpx;
-    width: 77rpx;
-    height: 77rpx;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+margin-top:35rpx;
+width:40rpx;
+height:77rpx;
+display:flex;
+justify-content:center;
+margin-right:48rpx;
+
+
+
 }
+ .icon-youjiantou-copy {font-size:40rpx;
+color:#7D7D7D;
+
+}
+
 
 .coupon-box .r image{
     width: 52.078rpx;

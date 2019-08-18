@@ -31,14 +31,17 @@
       <view class='content-bottom'>
         <view class='price'>¥{{item.discount}}</view>
         <view class='num J-textd'>销量:{{item.sales}}</view>
-        <view class='cart_logo'>
+        <!-- <view class='cart_logo'>
             <image src='/images/home/cart.png' mode='widthFix'></image>
-        </view>
+        </view> -->
       </view>
     </view>
   </view>
 </view>
 <view class='height_view'></view>
-<view class="groupBanner" bindtap='toGroup'>
-  <image src='/images/search/groupBanner.png'></image>
-</view>
+
+
+
+<navigator class="groupBanner" url="{{couponBanner.url}}" hover-class="navigator-hover" open-type="navigate">
+  <image src='{{tools.sub(ImageUrl+couponBanner.img)}}'></image>
+</navigator>

@@ -1,2 +1,24 @@
-<!--pages/groupType/index.wxml-->
-<text>pages/groupType/index.wxml</text>
+<nav-bar navbar-data='{{nvabarData}}'></nav-bar>
+<view class='nav-barheight' style='height:{{height}}px'></view>
+<wxs src="../../wxs/imageUrl.wxs" module="tools" />
+<view class='goods-container'>
+<view class='list_z1'>
+  <view class='item-list' bindtap="toGoods" data-gid='{{item.goods_id}}' wx:for="{{goodsList}}" wx:key>
+    <view class='list_logo'>
+      <image src='{{tools.sub(ImageUrl+item.brand)}} ' mode='widthFix'></image>
+    </view>
+    <view class='list_flex'>
+      <view class='content-top'>
+        <view class='name J-textd'>{{item.name}}</view>
+      </view>
+      <view class='content-bottom'>
+        <view class='price'>¥{{item.discount}}</view>
+        <view class='num J-textd'>销量:{{item.sales}}</view>
+        <!-- <view class='cart_logo'>
+          <image src='/images/home/cart.png' mode='widthFix'></image>
+        </view> -->
+      </view>
+    </view>
+  </view>
+</view>
+</view>

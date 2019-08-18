@@ -1,6 +1,7 @@
 <wxs src="../../wxs/imageUrl.wxs" module="tools" />
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
-<view class='nav-barheight' style='height:{{height}}px'></view>
+<view class='nav-barheight' style='height:{{height}}px;margin-bottom:20rpx'></view>
+<button wx:if="{{userInfo.nickname=='昵称'}}" open-type="getUserInfo" bindgetuserinfo="userInfoHandler" class="wxlogin_bt"></button>
 <!-- 搜索上 -->
 <view class="index_container">
   <view class="searchTop_input" bindtap='inputKeyword'>
@@ -10,11 +11,18 @@
   <view class="searchTop_search">
     <swiper autoplay="true" class="searchTop_banner" duration="1000" interval="7000" indicatordots='false'>
       <swiper-item wx:for="{{ReturnData.banner}}" wx:key>
-        <navigator class='searchTop_navigator' url="{{item.url}}" hover-class="navigator-hover" open-type="reLaunch">
+        <navigator class='searchTop_navigator' url="{{item.url}}" hover-class="navigator-hover" open-type="navigate">
           <image backgroundSize="cover" src="{{tools.sub(ImageUrl+item.img)}}"></image>
         </navigator>
       </swiper-item>
     </swiper>
+  </view>
+</view>
+
+<view class='nav-desc'>
+  <view class='item flex' wx:for="{{navDesc}}" wx:key>
+    <view class='logo'><image src='/images/search/zq.png'></image></view>
+    <view class='name'>{{item}}</view>
   </view>
 </view>
 <!-- 导航Swiper -->
@@ -23,9 +31,10 @@
     <swiper-item class="navgationSwiper-list">
       <view class="publish" id='publish'>
         <navigator url="/pages/category/index?id={{item.id}}" hover-class='none' open-type="navigate" class="item" wx:for="{{ReturnData.type}}" wx:for-index="index" wx:for-item="item" wx:key>
-        <image src="{{tools.sub(ImageUrl+item.type_img)}}"></image>
+          <image src="{{tools.sub(ImageUrl+item.type_img)}}"></image>
           <text>{{item.type_name}}</text>
         </navigator>
+
       </view>
     </swiper-item>
   </swiper>
@@ -35,7 +44,7 @@
 <view class="groupBanner" bindtap='toGroup'>
   <swiper class="navgationSwiper_scroll" style='height:100%'>
     <swiper-item class="navgationSwiper-list">
-      <navigator style='height:100%' url="/pages/group/index" hover-class='none' open-type="navigate" class="item" wx:for="{{ReturnData.slogan}}" wx:for-index="index" wx:for-item="item" wx:key>
+      <navigator style='height:100%' url="{{item.url}}" hover-class='none' open-type="navigate" class="item" wx:for="{{ReturnData.slogan}}" wx:for-index="index" wx:for-item="item" wx:key>
         <image src="{{tools.sub(ImageUrl+item.img)}}"></image>
       </navigator>
     </swiper-item>
@@ -46,11 +55,12 @@
 <!-- 发现好物 -->
 <view class='findGood'>
   <view class='title'>
+  <view class='border'></view>
     发现好物
   </view>
   <view class='list_h1'>
-    <view class='item-list' wx:for="{{ReturnData.sales}}" wx:key>
-      <view class='list_logo' bindtap="toGoods" data-gid='{{item.goods_id}}'>
+    <view class='item-list' bindtap="toGoods" data-gid='{{item.goods_id}}' wx:for="{{ReturnData.sales}}" wx:key>
+      <view class='list_logo'>
         <image src='{{tools.sub(ImageUrl+item.brand)}}'></image>
       </view>
       <view class='list_flex'>
@@ -61,15 +71,15 @@
         </view>
         <view class='content-bottom'>
           <view class='price'>¥{{item.discount}}</view>
-          <view class='cart_logo'>
+          <!-- <view class='cart_logo'>
             <image src='/images/home/cart.png' mode='widthFix'></image>
-          </view>
+          </view> -->
         </view>
       </view>
     </view>
   </view>
   <view class='Refresh' bindtap='refresh'>
-    <image class='Refresh_logo' src='/images/home/load.png'></image>
+    <image class='Refresh_logo animationSlow' style='animation-duration: {{animationTime}};-webkit-animation-duration: {{animationTime}};animation-play-state:{{status}};-webkit-animation-play-state:{{status}};' src='/images/home/load.png'></image>
     <view class='Refresh_name'>
       换一批
     </view>
@@ -78,25 +88,30 @@
 
 <!-- 精品推荐 -->
 <view class='findGood Recommend'>
-  <view class='title'>
+  <view class='title'>  <view class='border'></view>
+
     精品推荐
   </view>
-  
+<view style="display:none">
+  <image wx:for="{{ReturnData.good}}" wx:key="id" id="{{item.id}}" src="{{item.pic}}" bindload="onImageLoad"></image>
+</view>
   <view class='list_z1 '>
-    <view class='item-list' wx:for="{{ReturnData.good}}" wx:key>
-      <view class='list_logo' bindtap="toGoods" data-gid='{{item.goods_id}}'>
-        <image src='{{tools.sub(ImageUrl+item.brand)}} ' mode='widthFix'></image>
+    <view class='item-list' bindtap="toGoods" data-gid='{{item.goods_id}}' wx:for="{{ReturnData.good}}" wx:key>
+      <view class='list_logo'>
+        <image src='{{tools.sub(ImageUrl+item.brand)}} ' mode='widthFix' bindload="onImageLoad"></image>
       </view>
       <view class='list_flex'>
         <view class='content-top'>
           <view class='name J-textd'>{{item.name}}</view>
+          <view class='desc J-textd'>销量:{{item.sales}}</view>
+
         </view>
         <view class='content-bottom'>
           <view class='price'>¥{{item.discount}}</view>
           <view class='num J-textd'>销量:{{item.sales}}</view>
-          <view class='cart_logo'>
+          <!-- <view class='cart_logo'>
             <image src='/images/home/cart.png' mode='widthFix'></image>
-          </view>
+          </view> -->
         </view>
       </view>
     </view>

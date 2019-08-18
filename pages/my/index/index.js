@@ -5,6 +5,8 @@ var user = require('../../../services/user.js');
 
 Page({
   data: {
+    ImageUrl: api.ImageUrl,
+
     window: true,
     nvabarData: {
       showCapsule: 0, //是否显示左上角图标   1表示显示    0表示不显示
@@ -19,11 +21,15 @@ Page({
       nickname: app.globalData.userInfo.nickname,
       avatar: app.globalData.userInfo.avatar
     },
-    personal: [{
+    HotelData:{
+      id:null
+    },
+    pathCommission:{
       id: 'commission',
-      name: '我的佣金',
-      border:0
-    },{
+      name: '我的佣金'
+    },
+
+    personal: [{
       id: 'coupon',
       name: '我的优惠券'
     }, {
@@ -48,6 +54,15 @@ Page({
   },
   onShow: function () {
     var that = this
+    if (wx.getStorageSync('HotelData')){
+      that.setData({
+        HotelData: wx.getStorageSync('HotelData')
+      })
+    }else{
+      that.setData({
+        HotelData: {}
+      })
+    }
     if (app.globalData.openid) {
       that.setData({
         userInfo: app.globalData.userInfo,
@@ -93,6 +108,9 @@ Page({
   } ,
   onLoad: function () {
     var that = this
+    that.setData({
+      couponBanner: app.globalData.couponBanner
+    })
   },
   // 关闭个人资料弹框
   onColse: function () {
@@ -102,15 +120,15 @@ Page({
   },
   login: function () {
      wx.showModal({
-      title: "退出登录",
-      content: "退出并更换账号",
+      title: "酒店管理",
+      content: "退出或更换账号",
       showCancel: !0,
       cancelText: "取消",
       cancelColor: "#000000",
       confirmText: "确定",
       confirmColor: "#3CC51F",
       success: function (n) {
-        n.confirm && (wx.removeStorageSync("userinfo"), wx.navigateTo({
+        n.confirm && (wx.removeStorageSync("HotelData"), wx.navigateTo({
           url: "/pages/logs/logs"
         }));
       }

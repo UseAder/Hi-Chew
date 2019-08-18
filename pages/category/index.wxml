@@ -13,7 +13,7 @@
   </view>
   <view class="goods-container cate-item" style='padding-top: 45px'>
    <view class='list_z1'>
-    <view class='item-list' wx:for="{{goodsList}}" wx:key>
+    <view class='item-list'  bindtap="toGoods" data-gid='{{item.goods_id}}'  wx:for="{{goodsList}}" wx:key>
       <view class='list_logo'>
         <image src='{{tools.sub(ImageUrl+item.brand)}} ' mode='widthFix'></image>
       </view>
@@ -24,9 +24,9 @@
         <view class='content-bottom'>
           <view class='price'>¥{{item.discount}}</view>
           <view class='num J-textd'>销量:{{item.sales}}</view>
-          <view class='cart_logo'>
+          <!-- <view class='cart_logo'>
             <image src='/images/home/cart.png' mode='widthFix'></image>
-          </view>
+          </view> -->
         </view>
       </view>
     </view>

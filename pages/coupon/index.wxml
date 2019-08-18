@@ -1,34 +1,41 @@
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
 <view class='nav-barheight' style='height:{{height}}px'></view>
+<wxs src="../../wxs/formatTime.wxs" module="toolsTime" />
 <view class="swiper">
   <scroll-view class="swiper-scroll-list" scrollX="true" style='padding-top:{{height+10}}px'>
     <view bindtap="swithNav" class="swiper-scroll-item {{currentTab==index?'active':''}}" data-current="{{index}}" wx:for="{{ListSwiper}}" data-index="{{index}}" style='width:{{100/ListSwiper.length}}%' wx:key>{{item.name}}
       <view class="scroll-item-line" wx:if="{{currentTab==index}}"></view>
     </view>
   </scroll-view>
-  <swiper style="height:{{swiper_height}}px;margin-top:48px" bindchange="switchTab" class="swiper-swiper" current="{{currentTab}}">
+  <swiper style="height:{{swiper_height}}px;margin-top:48px;min-height:900rpx" bindchange="switchTab" class="swiper-swiper" current="{{currentTab}}">
     <swiper-item class="swiper-swiper-item " wx:for="{{ListSwiper}}" wx:key>
       <view class="swiper-item column-list{{index}}">
         <view class="swiper-con" wx:for="{{item.navlist}}" wx:key>
           <view class='swiper-con-top'>
             <view class='right'>
-              <view class='title'>{{item.title}}</view>
-              <view class='time'>{{item.time}}</view>
+              <view class='title'>{{item.discount_name}}</view>
+              <view class='time'>有效期{{toolsTime.sub(item.start_time*1000,"yyyy.MM.dd")}}-{{toolsTime.sub(item.end_time*1000,"yyyy.MM.dd")}}</view>
             </view>
             <view class='left {{currentTab==0?"":"left_1"}}'>
-            
-              9.0
+              {{item.amount}}
               <text>折</text>
             </view>
           </view>
-
           <view class='swiper-con-bottom'>
             <view class='right'>
-
             </view>
-            <view class='left'>
-              <view class='btn ' wx:if="{{currentTab==0}}">立即使用</view>
-              <view class='btn btn_1' wx:else>立即使用</view>
+            <view class='left flex'>
+              <block wx:if="{{currentTab==0}}">
+                <view class='btn' bindtap='toGroupType' data-id="{{item.id}}">去使用</view>
+                <view class='btn btn_1'>已领取</view>
+              </block>
+              <block wx:elif="{{currentTab==1}}">
+                <view class='btn btn_1'>已领取</view>
+              </block>
+              <block wx:else>
+                <view class='btn btn_1'>已过期</view>
+
+              </block>
             </view>
           </view>
           <!-- <view class="swiper-link" >

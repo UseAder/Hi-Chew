@@ -1,9 +1,15 @@
+
 // var NewApiRootUrl = 'https://gr.ufcoux.com/Really/public/index.php/api/'
 // var NewApiRootUrlGUORAN = 'https://openapi.yunzhangfang.com/open/api/';
 var NewApiRootUrl = 'http://192.168.124.9/Adult/public/index.php/api/';
+var NewApiRootUrl = 'https://abc.ufcoux.com/Adult/public/index.php/api/';
+
 // var ImageUrl = 'https://gr-oss.oss-cn-beijing.aliyuncs.com'
 var ImageUrl = 'http://192.168.124.9/Adult/public'
+var ImageUrl = 'https://abc.ufcoux.com/Adult/public'
+
 // var UploadFileUrl = 'https://image.poempz.com/';
+
 
 module.exports = {
   ImageUrl, //图片地址
@@ -13,12 +19,13 @@ module.exports = {
   // LoginMessage: NewApiRootUrl + 'Login/message', //message
   // PhoneLogin: NewApiRootUrl + 'Login/phone_login', //用户登录接口
 
+  GetWxcode: NewApiRootUrl + 'Login/code_img', //二维码获取
 
   WxLogin: NewApiRootUrl + 'Login/code', //微信换取code
   WxLoginlogin: NewApiRootUrl + 'Login/wx_login', //微信用户登录
   HotelLogin: NewApiRootUrl + 'Login/hotel_login', //分销登录接口
 
-
+  PageCoupon: NewApiRootUrl + 'Page/coupon', // 调整banner
   IndexUrl: NewApiRootUrl + 'Page', //首页 数据接口
   PagePage: NewApiRootUrl + 'Page/page', //首页 发现好物换一批
   PageDetails: NewApiRootUrl + 'Page/details', //分类跳转分类列表
@@ -58,7 +65,7 @@ module.exports = {
   OrderAllGm: NewApiRootUrl + 'Order/all_order', //多个商品支付流程
   OrderBuyPay: NewApiRootUrl + 'Order/order_sn_pay', //运单支付流程
   OrderSuccess: NewApiRootUrl + 'Order/up_order', //支付成功
-  // OrderDetail: NewApiRootUrl + 'Order/delite', //订单详情(订单id)
+  OrderDetail: NewApiRootUrl + 'Order/delite', //订单详情(订单)
   // OrderLogistic: NewApiRootUrl + 'Order/express', //wuliu
   // OrderConfirm: NewApiRootUrl + 'Order/yes_goods', //订单确认收货
   OrderDelete: NewApiRootUrl + 'Order/false_delete', //取消订单

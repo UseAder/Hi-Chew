@@ -13,7 +13,9 @@
           <text class="mobile">{{checkedAddress.ad_phone}}</text>
         </view>
         <view class="m">
-          <text class="address">{{checkedAddress.ad_city+checkedAddress.ad_address}}</text>
+                  <text class="address">{{checkedAddress.ad_address}}</text>
+
+          <!-- <text class="address">{{checkedAddress.ad_city+checkedAddress.ad_address}}</text> -->
         </view>
       </view>
 
@@ -38,7 +40,7 @@
     </view>
     <view class="item" wx:for="{{checkedGoodsList}}" wx:key>
       <view class="img">
-        <image src="{{tools.sub(ImageUrl+item.brand)}}"></image>
+        <image src="{{tools.sub(ImageUrl+item.goods_image)}}"></image>
       </view>
       <view class="info">
         <view class="t ">
@@ -71,26 +73,26 @@
     <view class="coupon-item">
       <view class="l">
         <text class="name">优惠券</text>
-        <block wx:if="{{discount}}">
-          <text class="txt f-color">-￥{{discount}}</text>
+        <block wx:if="{{discount.discountPrice}}">
+          <text class="txt f-color">-￥{{discount.discountPrice}}</text>
         </block>
         <block wx:else>
-          <block wx:if="{{cpnum}}">
-            <text class="txt">{{cpnum}}张可用</text>
-          </block>
-          <block wx:else>
-            <text class="txt">0张可用</text>
-          </block>
+          <!-- <block wx:if="{{coupon}}"> -->
+            <text class="txt active">{{coupon?coupon.length:0}}张可用</text>
+          <!-- </block> -->
+          <!-- <block wx:else>
+            <text class="txt active">{{coupon?coupon.length:0}}张可用</text>
+          </block> -->
         </block>
       </view>
       <view class="r">
-        <!-- <image src="/static/images/address_right.png"></image> -->
+        <text class='iconfont icon-youjiantou-copy'></text>
       </view>
     </view>
   </view>
   <view class="order-total">
     <view class="l">
-      <view>实付：￥{{total}}</view>
+      <view>实付：￥{{discount.discountTotal}}</view>
     </view>
     <view class="r" bindtap="submitOrder">去支付</view>
   </view>

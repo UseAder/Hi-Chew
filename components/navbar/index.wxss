@@ -59,4 +59,12 @@ font-size:50rpx;font-weight: bold;
   height: 40rpx;
   margin-top: 3rpx;
 }
-  
+.nav-capsule-cart{
+  margin-left:30rpx
+}
+.cart_logo{
+  width:46rpx;
+  height:46rpx;
+  background:linear-gradient(90deg, rgba(244, 46, 143, 1) 0%, rgba(203, 38, 123, 1) 100%);
+  border-radius:50%;
+}

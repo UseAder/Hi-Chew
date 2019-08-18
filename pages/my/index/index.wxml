@@ -1,12 +1,14 @@
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
 <view class='nav-barheight' style='height:{{height}}px'></view>
 <userInfo-window window='{{window}}' bind:onColse="onColse">
-</userInfo-window>
-<!-- <button wx:if="{{userInfo.nickname=='昵称'}}" open-type="getUserInfo" bindgetuserinfo="userInfoHandler" class="wxlogin_bt"></button> -->
+</userInfo-window><wxs src="../../../wxs/imageUrl.wxs" module="tools" />
+
+<button wx:if="{{userInfo.nickname=='昵称'}}" open-type="getUserInfo" bindgetuserinfo="userInfoHandler" class="wxlogin_bt"></button>
 
 <view class='personal_header'>
   <view class='content-top'>
     <image class='content-top_bg' src='/images/search/bg.png'></image>
+    <view class='content-top_btn' bind:tap="login">酒店管理</view>
     <view class='info_avatar'>
       <view class='info_avatar_decorate'>
         <image src='/images/search/acatar_yy.png' mode='widthFix'></image>
@@ -18,6 +20,7 @@
       </view>
     </view>
     <view class='info_name'>
+    <block wx:if="{{HotelData.avatar}}"></block>
       <text class='name'>{{userInfo.nickname}}</text>
     </view>
   </view>
@@ -25,6 +28,18 @@
 <view class='divder1'></view>
 <!--index.wxml-->
 <view class="personal_panel">
+ <view class="item item-divder"  bindtap="personalOpen" data-chart="{{pathCommission}}" wx:if="{{HotelData.id}}">
+    <view class='item-link'>
+      <view class='item_right_logo'>
+        <image src="/images/search/commission.png" mode='widthFix'></image>
+        <view class='name'>{{pathCommission.name}}</view>
+      </view>
+      <view class='item_left_logo'>
+        <image src="/images/search/2.png" mode='widthFix'></image>
+      </view>
+    </view>
+    <view class='item-border'></view>
+  </view>
   <view class="item {{item.border==0?'item-divder':''}}" wx:for="{{personal}}" wx:for-item="item"
    wx:key="{{item.id}}" bindtap="personalOpen" data-chart="{{item}}">
     <view class='item-link'>
@@ -40,7 +55,7 @@
   </view>
 </view>
 
- <view class="groupBanner" bindtap='toGroup'>
-    <image src='/images/search/groupBanner.png' mode='widthFix'></image>
-  </view>
-      <view bind:tap="login" class="change-account" wx:if="{{!isLogin}}">切换账号</view>
+
+<navigator class="groupBanner" url="{{couponBanner.url}}" hover-class="navigator-hover" open-type="navigate">
+  <image src='{{tools.sub(ImageUrl+couponBanner.img)}}' mode='widthFix'></image>
+</navigator>

@@ -2,10 +2,36 @@
 <view class='nav-barheight' style='height: {{height}}px'></view>
 <import src="../../lib/wxParse/wxParse.wxml"></import>
 <wxs src="../../wxs/imageUrl.wxs" module="tools" />
+<button wx:if="{{userInfo.nickname=='昵称'}}" open-type="getUserInfo" bindgetuserinfo="userInfoHandler" class="wxlogin_bt"></button>
+
+
 <product_parameter-window window='{{window}}' productSarameter="{{goods.details}}" bind:onColse="onColse">
 </product_parameter-window>
 <!-- 规格数量组件 -->
-<product-window attribute='{{attribute}}' productAttr="{{productAttr}}" productSelect="{{productSelect}}" bind:myevent="onMyEvent" bind:ChangeAttr="ChangeAttr" bind:ChangeCartNum="ChangeCartNum" id='product-window'></product-window>
+<product-window attribute='{{attribute}}' productAttr="{{productAttr}}" productSelect="{{productSelect}}" bind:myevent="onMyEvent" bind:ConfirmClose="ConfirmClose"  bind:ChangeAttr="ChangeAttr" bind:ChangeCartNum="ChangeCartNum"  id='product-window'></product-window>
+
+<!-- 组件 -->
+<canvas id='myCanvasShichi' class="canvas" canvas-id='myCanvasShichi' disable-scroll='true' wx:if="{{canvasStatus}}"></canvas>
+
+
+<!-- 分享按钮 -->
+<action-sheet hidden="{{actionSheetHidden}}" class='pro-wrapper' hover-class='none'>
+  <view class='poster-pop'  bindtap='posterImageClose'>
+    <view class='close iconfont icon-cuo2' bindtap='posterImageClose'></view>
+    <image src='{{posterImage}}' mode='aspectFit'></image>
+  </view>
+  <action-sheet-item hover-class='none'>
+    <button open-type="share" class='contact' hover-class='none'>
+      <view class='iconn'></view>
+      发送给朋友
+    </button>
+      <button type='primary' class='daySign_bottom_text_pass' open-type="openSetting" bindopensetting='handleSetting' hidden='{{openSettingBtnHidden}}'></button>
+    <button class='contact' bindtap='savePosterPath' hover-class='none'>
+      <view class='iconn iconn1'></view>
+      保存图片
+    </button>
+  </action-sheet-item>
+</action-sheet>
 
 
 <scroll-view class="container" scrollY="true">
@@ -19,7 +45,7 @@
     <view class="goods-info">
       <view class="c">
         <view class='flex goods-price'>
-          ¥{{goods.discount}}
+          ¥{{goods.discount}}  <text>{{item.sales?item.sales:0}}人付款</text>
         </view>
         <text class="name ">{{goods.name}}</text>
         <text class="desc J-textd">{{goods.describe}}</text>
@@ -35,8 +61,8 @@
   <view class='divder'></view>
   <view class="section-nav section-attr">
     <view class='title'>保障</view>
-    <view class='logo'></view>
-    <view class='desc'>品质优选·正品保障·郑州市20分钟速达</view>
+    <view class='logo'><image src='/images/search/gg.png' mode='widthFix'></image></view>
+    <view class='desc'>品质优选 · 正品保障 · 郑州市20分钟速达</view>
   </view>
   <view class='divder'></view>
   <view class="section-nav te section-attr" bindtap='openWindow'>
@@ -80,3 +106,7 @@
     <view bindtap="goBuy" class="addToCart left-item">立即购买</view>
   </view>
 </view>
+<!-- <view class='bottom-btn  bottom-btn-te'> 
+<view class='btn'>确定
+</view>
+</view> -->

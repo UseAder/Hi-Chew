@@ -3,9 +3,9 @@
 .list_z1 {
   padding: 0 30rpx;
   line-height: 1;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  column-count: 2;       
+  column-gap: 20rpx;    
+
 }
 
 .list_z1 .item-list {
@@ -15,6 +15,9 @@
   border-radius: 6rpx;
   overflow: hidden;
   margin-bottom: 32rpx;
+  background-color: #fff;
+break-inside: avoid;
+box-sizing: border-box;
 }
 
 .list_z1 .item-list .list_flex{

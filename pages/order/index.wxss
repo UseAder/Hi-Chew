@@ -32,7 +32,8 @@
   min-height: 240rpx;
   display: flex;
   justify-content: space-between;
-  margin: 0 25rpx;
+  margin: 0 auto;
+  width: 700rpx;
   flex-flow: wrap;
  
 color: #999999;
@@ -66,7 +67,9 @@ border-radius:10rpx;
 overflow: hidden;
 }
 .swiper-con .swiper-con-center .swiper-flex{
-  flex: 1;margin-left: 27rpx;
+  width:457rpx;
+
+margin-left: 27rpx;
 }
 .swiper-con .swiper-con-center .swiper-flex .title{
 font-size:32rpx;margin-top: 21rpx;

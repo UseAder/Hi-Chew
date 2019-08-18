@@ -10,6 +10,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    ImageUrl: api.ImageUrl,
+
     CouponList: [],
     nvabarData: {
       showCapsule: 1, //是否显示左上角图标   1表示显示    0表示不显示
@@ -61,16 +63,14 @@ Page({
    */
   onLoad: function(options) {
     this.getGroupList()
-
+    this.setData({
+      couponBanner: app.globalData.couponBanner
+    })
   },
   toGroupType(e) {
-    let that = this, tupe = e.currentTarget.dataset.type;
-    if (tupe== 2) {
-       app.Tips('/pages/goods/index')
-      }else{
-      app.Tips('/pages/groupType/index')
-
-      }
+    let that = this, id = e.currentTarget.dataset.id;
+    console.log(id)
+    app.Tips('/pages/groupType/index?did=' + id)
   },
   couponAchieve(e) {
     let that = this, did = e.currentTarget.dataset.id, Index = e.currentTarget.dataset.index;

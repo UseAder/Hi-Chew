@@ -53,7 +53,8 @@ border-radius:35rpx;
 
 
 .point-details {
-  margin-top: 10rpx;
+  padding-top: 10rpx;
+  box-sizing: border-box;
   width: 100%;
 }
 
@@ -73,7 +74,7 @@ align-items: center;
 .usePoint-img {
   height: 88rpx;
   width: 88rpx;
-  margin: 0 31rpx 0 30rpx;
+  margin: 0 31rpx 0 30rpx;border-radius: 50%;
 
 }
 

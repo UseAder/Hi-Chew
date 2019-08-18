@@ -63,3 +63,12 @@ background: #F5F5F5;
 .goods-container .list_z1 {
   margin-top:30rpx 
 }
+
+/*  */
+.list_z1 {
+  padding: 0 30rpx;
+  line-height: 1;
+  column-count: 2;       
+  column-gap:30rpx;    
+
+}

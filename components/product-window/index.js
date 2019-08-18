@@ -27,6 +27,8 @@ Component({
   data: {
     attrValue:[],
     attrIndex:0,
+     ImageUrl : 'https://abc.ufcoux.com/Adult/public'
+
   },
   attached: function () {
   },
@@ -34,7 +36,10 @@ Component({
     close: function () {
       this.triggerEvent('myevent', {'window': false});
     },
-    
+    confirmClose: function () {
+      this.triggerEvent('ConfirmClose', false);
+      console.log(1)
+    },
     CartNumDes:function(){
       this.triggerEvent('ChangeCartNum', false);
     },

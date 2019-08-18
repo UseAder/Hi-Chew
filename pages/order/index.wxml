@@ -1,6 +1,9 @@
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
 <view class='nav-barheight' style='height:{{height}}px'></view>
 <wxs src="../../wxs/imageUrl.wxs" module="tools" />
+<wxs src="../../wxs/formatTime.wxs" module="toolsTime" />
+
+<button wx:if="{{userInfo.nickname=='昵称'}}" open-type="getUserInfo" bindgetuserinfo="userInfoHandler" class="wxlogin_bt"></button>
 
 <view class="swiper">
   <scroll-view class="swiper-scroll-list" scrollX="true" style='padding-top:{{height+10}}px'>
@@ -11,18 +14,18 @@
   <swiper style="height:{{swiper_height}}px;margin-top:48px;min-height:900rpx" bindchange="switchTab" class="swiper-swiper" current="{{currentTab}}">
     <swiper-item class="swiper-swiper-item " wx:for="{{ListSwiper}}" wx:key>
       <view class="swiper-item column-list{{index}}">
-        <view class="swiper-con" wx:for="{{item.navlist}}" wx:key>
+        <view class="swiper-con" wx:for="{{item.navlist}}" wx:for-item="itemf"  wx:key>
           <view class='swiper-con-top'>
-            <view class='title'>{{item.order_sn}}</view>
-            <view class='time'>{{item.time}}</view>
+            <view class='title'>{{itemf.order_sn}}</view>
+            <view class='time'>{{toolsTime.sub(itemf.updatetime*1000,"yyyy-MM-dd h:m")}}</view>
           </view>
           <view class='swiper-con-center'>
-            <view class='swiper-con-link' wx:for="{{item.order}}">
-              <view class='swiper-logo'>
+            <view class='swiper-con-link' wx:for="{{itemf.order}}">
+              <view class='swiper-logo'  bindtap="toOrderDetails" data-order_sn="{{itemf.order_sn}}">
                 <image src='{{tools.sub(ImageUrl+item.goods_brand)}}'></image>
               </view>
               <view class='swiper-flex'>
-                <view class='title'>{{item.goods_name}}</view>
+                <view class='title J-textd'>{{item.goods_name}}</view>
                 <view class='desc'>
                   <text wx:for='{{item.sku}}' wx:key> {{item.spec_value}}</text>
                 </view>
@@ -34,21 +37,20 @@
           </view>
           <view class='swiper-con-bottom'>
             <view class='right'>
-              <view class='number'>共{{item.count}}件商品</view>
+              <view class='number'>共{{itemf.count}}件商品</view>
               <view class='price'>合计 :
                 <text class='price-icon'>¥</text>
-                <text>{{item.pay_price}}</text>
+                <text>{{itemf.pay_price}}</text>
               </view>
             </view>
             <view class='left flex'>
-            <block wx:if="{{currentTab==0}}">
-             <view class='btn_delete' data-index="{{index}}" data-order_sn="{{item.order_sn}}" bindtap='cancelOrder'>删除订单</view>
-              <view class='btn' data-order_sn="{{item.order_sn}}"  bindtap='payOrder'>待付款</view>
-            </block>
-             <block wx:else>
-              <view class='btn_delete' >已完成</view>
-            </block>
-             
+              <block wx:if="{{currentTab==0}}">
+                <view class='btn_delete' data-index="{{index}}" data-order_sn="{{itemf.order_sn}}" bindtap='cancelOrder'>删除订单</view>
+                <view class='btn' data-order_sn="{{itemf.order_sn}}" bindtap='payOrder'>待付款</view>
+              </block>
+              <block wx:else>
+                <view class='btn_delete'>已完成</view>
+              </block>
             </view>
           </view>
         </view>

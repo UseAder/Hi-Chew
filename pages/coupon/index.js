@@ -1,6 +1,5 @@
 const app = getApp()
 const util = require('../../utils/util.js');
-const DataJson = require('../../utils/dataJson.js');
 const api = require('../../config/api.js');
 
 Page({
@@ -9,7 +8,27 @@ Page({
    * 页面的初始数据
    */
   data: {
-    ListSwiper: DataJson.CouopnSwiper,
+    ListSwiper: [{
+      id: 1,
+      name: '未使用',
+      status: 0,
+      statusText: '未使用',
+      navlist: []
+    },
+    {
+      id: 2,
+      name: '已使用',
+      status: 1,
+      statusText: '已使用',
+      navlist: []
+      }, {
+        id: 3,
+        name: '已过期',
+        status: 2,
+      statusText: '已过期',
+        navlist: []
+      }
+    ],
 
     nvabarData: {
       showCapsule: 1, //是否显示左上角图标   1表示显示    0表示不显示
@@ -18,25 +37,32 @@ Page({
     currentTab: 0,
     height: app.globalData.height * 2 + 20,
   },
-
+  toGroupType(e) {
+    let that = this, id = e.currentTarget.dataset.id;
+    console.log(id)
+    app.Tips('/pages/groupType/index?did=' + id)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.heightReady()
     this.WindowHeight()
     this.getGroupList()
 
   },
   getGroupList() {
     let that = this;
-    util.request(api.MyCoupon).then(function (res) {
-      if (res.code === 200) {
-        console.log(res.data);
-        that.setData({
-          mygroup: res.data.conpinfo
-        });
-      }
+  
+    util.request(api.MyCoupon, { uid: wx.getStorageSync('uid') }, 'post').then(function (res) {
+      console.log(res.data);
+      that.setData({
+        "ListSwiper[0].navlist": res.data.no,
+        "ListSwiper[1].navlist": res.data.yes,
+        "ListSwiper[2].navlist": res.data.overdue
+
+      });
+      that.heightReady()
+
     });
   },
   switchTab: function(e) {

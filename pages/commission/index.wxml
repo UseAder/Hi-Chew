@@ -7,7 +7,7 @@
       <image src='/images/search/qb.png' mode='widthFix'></image>
       <text>可提现（元）</text>
     </view>
-    <view class='price'>200</view>
+    <view class='price'>{{UsePoint.money}}</view>
   </view>
   <view class='left'>
     <view class='btn'>提现</view>
@@ -21,25 +21,15 @@
   <scroll-view id='publish' scrollY="true" style="height:{{windowHeight-navHeight}}px;" class="swiper-swiper" bindscrolltolower='onLoaderMoreMovies' >
 
  <view class="point-details" >
-    <view class="usePoint" wx:for="{{UsePoint}}" wx:key="index">
-        <image src='/images/search/aftermarket.png' mode='widthFix' class="usePoint-img"></image>
+    <view class="usePoint" wx:for="{{UsePoint.order}}" wx:key="index">
+        <image src='{{item.avatar}}' mode='widthFix' class="usePoint-img"></image>
       <view class='usePoint-left'>
         <view class='usePoint-content'>
-          <view class="usePointtitle">{{item.action}}</view>
-          <view class="usePoint-time">{{item.created_at}}</view>
+          <view class="usePointtitle">{{item.nickname}}</view>
+          <view class="usePoint-time">{{item.pay_price}}</view>
         </view>
-          <view class="usePoint-point">赚{{item.value}}元</view>
+          <view class="usePoint-point">赚{{item.total_commission}}元</view>
       </view>
-    </view> <view class="usePoint" wx:for="{{UsePoint}}" wx:key="index">
-        <image src='/images/search/aftermarket.png' mode='widthFix' class="usePoint-img"></image>
-      <view class='usePoint-left'>
-        <view class='usePoint-content'>
-          <view class="usePointtitle">{{item.action}}</view>
-          <view class="usePoint-time">{{item.created_at}}</view>
-        </view>
-          <view class="usePoint-point">赚{{item.value}}元</view>
-      </view>
-    </view>
+    </view> 
   </view>
-
     </scroll-view>

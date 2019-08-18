@@ -241,6 +241,138 @@ function checkLogin() {
       reject(false);
     }
   });
+}//试吃 产品二维码
+// var shichiObject = {
+//   bgImages: '../../images/cx_banner.png',
+//   codeImage: '../../images/wx_login.png',
+//   name: '小程序名称',
+//   explain: '分享即获得积分',
+// }
+const ShichiCanvas = (shichiObject, successFn) => {
+  showLoading('海报生成中');
+
+  const ctx = wx.createCanvasContext('myCanvasShichi');
+
+  var wh = wx.createSelectorQuery().select('#myCanvasShichi').boundingClientRect(function (rect) {
+    const WIDTH = rect.width
+    const HEIGHT = rect.height
+    const BEI = 2
+    console.log(shichiObject.bgImages)
+    console.log(shichiObject)
+
+    ctx.setFillStyle('#fff');
+    ctx.fillRect(0, 0, WIDTH, HEIGHT);
+    ctx.drawImage(shichiObject.bgImages, 0, 0, WIDTH, WIDTH);
+    ctx.drawImage(shichiObject.codeImage, 54, HEIGHT - 80 * BEI, 63 * BEI, 63 * BEI);
+
+    const CONTENT_ROW_LENGTH = 35;
+    let [contentLeng, contentArray, contentRows] = textByteLength(shichiObject.title, CONTENT_ROW_LENGTH);
+
+    ctx.setTextAlign('center');
+    ctx.setFillStyle('#1E232A');
+
+    ctx.setFontSize(30);
+    let contentHh = 30 * 1.3;
+
+    console.log(contentArray)
+    for (let m = 0; m < contentArray.length; m++) {
+      if (contentArray.length > 1) {
+        ctx.setFontSize(26);
+        contentHh = 26 * 1.3;
+      }
+      ctx.fillText(contentArray[m], WIDTH / 2, WIDTH + contentHh * m + 51);
+    }
+    ctx.setTextAlign('center')
+    ctx.setFillStyle('#999999');
+    ctx.setFontSize(24);
+    if (contentArray.length > 1) {
+      ctx.fillText(shichiObject.desc, WIDTH / 2, 85 + WIDTH + contentHh, WIDTH - 30);
+    } else {
+      ctx.fillText(shichiObject.desc, WIDTH / 2, 55 + WIDTH + contentHh, WIDTH - 30);
+
+    }
+
+    let xuxian = WIDTH + 115
+    ctx.setStrokeStyle('#9E9E9E')
+    ctx.setLineDash([10, 14], 2)
+    ctx.beginPath()
+    ctx.moveTo(32, xuxian)
+    ctx.lineTo(WIDTH - 32, xuxian)
+    ctx.stroke()
+    // ctx.drawImage(arr2[2], 138, HEIGHT - 155, 126, 126);
+    ctx.setTextAlign('left')
+
+    ctx.setFillStyle('#000000');
+    ctx.setFontSize(14 * BEI);
+    ctx.fillText(shichiObject.name, WIDTH / 3+10, HEIGHT - 48 * BEI);
+    ctx.setFillStyle('#9A979B');
+    ctx.setFontSize(12 * BEI);
+    ctx.fillText(shichiObject.explain, WIDTH / 3+10,HEIGHT - 30 * BEI);
+    ctx.draw(true, function () {
+      wx.canvasToTempFilePath({
+        canvasId: 'myCanvasShichi',
+        fileType: 'png',
+        destWidth: WIDTH,
+        destHeight: HEIGHT,
+        success: function (res) {
+          hideLoading();
+          successFn && successFn(res.tempFilePath);
+        },
+        fail: function (res) {
+          hideLoading();
+          wx.showToast({
+            title: '海报生成失败',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      })
+    })
+  }).exec()
+}
+/**
+ * 生成海报获取文字
+ * @param string text 为传入的文本
+ * @param int num 为单行显示的字节长度
+ * @return array 
+ */
+const textByteLength = (text, num) => {
+  let strLength = 0;
+  let rows = 1;
+  let str = 0;
+  let arr = [];
+  for (let j = 0; j < text.length; j++) {
+    if (text.charCodeAt(j) > 255) {
+      strLength += 2;
+      if (strLength > rows * num) {
+        strLength++;
+        arr.push(text.slice(str, j));
+        str = j;
+        rows++;
+      }
+    } else {
+      strLength++;
+      if (strLength > rows * num) {
+        arr.push(text.slice(str, j));
+        str = j;
+        rows++;
+      }
+    }
+  }
+  arr.push(text.slice(str, text.length));
+  return [strLength, arr, rows] //  [处理文字的总字节长度，每行显示内容的数组，行数]
+}
+
+
+function PageCoupon() {
+  let that = this;
+  request(api.PageCoupon, { }, 'post').then(function (res) {
+   if(res.code===200){
+     console.log()
+     getApp().globalData.couponBanner = res.data
+
+   }
+  });
 }
 module.exports = {
   get_wxml,
@@ -252,7 +384,7 @@ module.exports = {
   pageScrollTo,
   WindowHeight,
   checkSession,
-  checkLogin,
+  checkLogin, ShichiCanvas, textByteLength, PageCoupon
 }
 
 

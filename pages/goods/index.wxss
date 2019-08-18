@@ -47,7 +47,8 @@ good_container {
 
 .goods-info .name {
   margin-top: 40rpx;
-  font-size: 36rpx;
+  font-size: 36rpx;line-height:1.3;
+
   color: rgba(30, 35, 42, 1);
 }
 
@@ -65,7 +66,14 @@ good_container {
   font-weight: bold;
   color: rgba(244, 46, 143, 1);
 }
+.goods-info .goods-price text {
+  font-size:24rpx;
+font-family:STHeitiSC-Light;
+font-weight:300;line-height: 0;margin-top:19rpx;
+margin-left:18rpx;
 
+color:rgba(153,153,153,1);
+}
 .share {
   width: 120rpx;
   height: 68rpx;
@@ -104,8 +112,6 @@ good_container {
 .section-nav .logo {
   margin-left: 40rpx;
   width: 55rpx;
-  height: 19rpx;
-  background: linear-gradient(9deg, rgba(255, 69, 160, 1), rgba(214, 0, 105, 1));
 }
 
 .section-nav .parameter {
@@ -115,7 +121,7 @@ good_container {
 }
 
 .section-nav .desc {
-  margin-left: 13rpx;
+  margin-left: 16rpx;
 }
 
 .detail {
@@ -131,21 +137,7 @@ good_container {
   display: block;
 }
 
-.bottom-btn {
-  height: 80rpx;padding: 8rpx 0;
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0px -1px 1px 0px rgba(98, 98, 98, 0.2);
-  position: fixed;
-  left: 0;
-  z-index: 9;
-  bottom: 0;
-  width: 750rpx;
-  display: flex;
-  justify-content: space-between;
-  background: #fff;
-    font-size:24rpx;
-color: #626262;
-}
+
 .bottom-btn .right{
   display: flex;
 }
@@ -209,5 +201,41 @@ z-index: 2
 .collect image{
 width: 100rpx;
 
+
+}
+
+
+.bottom-btn {
+  height: 80rpx;padding: 8rpx 0;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px -1px 1px 0px rgba(98, 98, 98, 0.2);
+  position: fixed;
+  left: 0;
+  z-index: 9;
+  bottom: 0;
+  width: 750rpx;
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+    font-size:24rpx;
+color: #626262;
+}
+.bottom-btn-te .btn{
+  width:87%;
+height:68rpx;
+background:linear-gradient(180deg,rgba(244,46,143,1) 0%,rgba(255,94,173,1) 100%);
+border-radius:34rpx;text-align: center;margin: auto;
+color:#fff;
+font-size:32rpx;
+
+}
+.bottom-btn-te .btn{
+  width:87%;
+height:68rpx;  box-shadow: 0px ;
+
+background:linear-gradient(180deg,rgba(244,46,143,1) 0%,rgba(255,94,173,1) 100%);
+border-radius:34rpx;text-align: center;margin: auto;
+color:#fff;
+font-size:32rpx;
 
 }

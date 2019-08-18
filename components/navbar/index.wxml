@@ -1,9 +1,14 @@
 <view class='nav-wrap' style='height: {{height*2 + 20}}px;background:{{navbarData.color?navbarData.color:"#fff"}}'>
-  <view class='nav-title {{navbarData.color?"color-f":""}}' style='line-height: {{height*2 + 44}}px;}'>{{navbarData.title}}</view>
+  <view class='nav-title {{navbarData.color?"color-f":""}}' style='line-height: {{height*2 + 44}}px;'>{{navbarData.title}}</view>
   <view >
-    <view class='nav-capsule' style='padding-top: {{height/2}}px;' wx:if='{{navbarData.showCapsule}}'>
+    <view class='nav-capsule' style='padding-top: {{height}}px;' wx:if='{{navbarData.showCapsule}}'>
       <view bindtap='_navback' >
           <icon data-index='1' class='{{navbarData.color?"color-f":""}} iconfont icon-fh_jiantou'></icon>
+      </view>
+    </view>
+    <view class='nav-capsule nav-capsule-cart' style='padding-top: {{height}}px;' wx:if='{{navbarData.gwc}}'>
+      <view bindtap='_navbackCart' >
+        <view class='cart_logo'><image src='/images/home/cart.png' mode='widthFix'></image></view>
       </view>
     </view>
   </view>
