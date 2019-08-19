@@ -3,6 +3,8 @@ var api = require('./config/api.js');
 
 App({
   onLaunch: function(options) {
+    util.getFontFamily();
+
     if (wx.canIUse('getUpdateManager')) {
       const updateManager = wx.getUpdateManager()
       updateManager.onCheckForUpdate(function(res) {
@@ -48,7 +50,7 @@ App({
           this.globalData.windowHeight = res.windowHeight
       }
     })
-    util.PageCoupon()
+    // util.PageCoupon()
 
   },
   onLoad: function(options) {

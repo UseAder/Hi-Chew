@@ -1,5 +1,5 @@
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
-<view class='nav-barheight' style='height:{{height}}px'></view>
+<view class='nav-barheight' style='height:{{height}}px;margin-bottom:20rpx'></view>
 <userInfo-window window='{{window}}' bind:onColse="onColse">
 </userInfo-window><wxs src="../../../wxs/imageUrl.wxs" module="tools" />
 

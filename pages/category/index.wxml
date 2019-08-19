@@ -51,7 +51,7 @@
     </view> -->
   </view>
 
-  <view class='loadingicon acea-row row-center-wrapper' >
+  <view class='loadingicon acea-row row-center-wrapper' hidden='{{goodsList.length<=6}}'>
     <text class='loading iconfont icon-jiazai' hidden='{{loading==false}}'></text>{{loadTitle}}
   </view>
 </view>

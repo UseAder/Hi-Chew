@@ -1,5 +1,5 @@
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
-<view class='nav-barheight' style='height:{{height}}px'></view>
+<view class='nav-barheight' style='height:{{height}}px;margin-bottom:20rpx'></view>
 <wxs src="../../wxs/imageUrl.wxs" module="tools" />
 <wxs src="../../wxs/formatTime.wxs" module="toolsTime" />
 
@@ -11,7 +11,7 @@
       <view class="scroll-item-line" wx:if="{{currentTab==index}}"></view>
     </view>
   </scroll-view>
-  <swiper style="height:{{swiper_height}}px;margin-top:48px;min-height:900rpx" bindchange="switchTab" class="swiper-swiper" current="{{currentTab}}">
+  <swiper style="height:{{swiper_height}}px;margin-top:58px;min-height:900rpx" bindchange="switchTab" class="swiper-swiper" current="{{currentTab}}">
     <swiper-item class="swiper-swiper-item " wx:for="{{ListSwiper}}" wx:key>
       <view class="swiper-item column-list{{index}}">
         <view class="swiper-con" wx:for="{{item.navlist}}" wx:for-item="itemf"  wx:key>

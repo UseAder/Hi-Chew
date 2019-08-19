@@ -105,3 +105,6 @@ page {
   margin: 0 auto;
   padding-bottom: 30rpx;
 }
+.groupBanner image {
+ border-radius:10rpx;
+}

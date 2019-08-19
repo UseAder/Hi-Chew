@@ -17,7 +17,7 @@ Page({
     selectValue: [], //购物车选中的数据
     selectCountPrice: 0.00,
     nvabarData: {
-      showCapsule: 1, //是否显示左上角图标   1表示显示  0表示不显示
+      showCapsule: 0, //是否显示左上角图标   1表示显示  0表示不显示
       title: '购物车', //导航栏 中间的标题
     },
     // 此页面 页面内容距最顶部的距离
@@ -34,7 +34,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    util.WindowHeight(this)
   },
   getCartList: function () {
     var that = this;

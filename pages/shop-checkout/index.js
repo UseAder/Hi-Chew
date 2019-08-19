@@ -25,7 +25,7 @@ Page({
     ImageUrl: api.ImageUrl,
     coupon: [], //优惠卷l列表
 
-
+    num:0,
     optionsData: {},
     total: null, //合计
     checkedAddress: {},
@@ -142,7 +142,7 @@ Page({
     util.request(api.OrderDan, grderAllGmData, "POST").then(function(res) {
       var goods = [{
         goods_price: res.data.goods_price,
-        goods_image: res.data.goods_list[0].spec_image,
+        goods_image: res.data.goods_list[0].spec_image||'',
         name: res.data.goods_name,
         num: that.data.optionsData.num,
         goods_id: res.data.goods_id,
@@ -150,6 +150,7 @@ Page({
       }]
       var checkedAddress = res.address
       that.setData({
+        num: that.data.optionsData.num,
         checkedGoodsList: goods,
         total: res.data.total,
         'discount.discountTotal': res.data.total,
@@ -169,13 +170,16 @@ Page({
     }, "POST").then(function(res) {
       if (res.code === 200) {
         var goods_list = res.data.goods_list
+        var num=0
         for (var i in goods_list) {
+          num += goods_list[i].num
           goods_list[i].num = goods_list[i].num * 1
           goods_list[i].goods_price = goods_list[i].goods_price * 1
         }
         that.setData({
           checkedGoodsList: goods_list,
           total: res.data.total,
+          num: num,
           checkedAddress: res.data.address,
           'discount.discountTotal': res.data.total,
           coupon: res.data.coupon,
@@ -250,7 +254,7 @@ Page({
           order_sn: obj.order_sn
         }, "POST").then(function(res) {
           wx.reLaunch({
-            url: '/pages/order/index?status=false&order=' + obj.order_sn
+            url: '/pages/order/index?currentTab=1'
           })
         });
       },
@@ -258,7 +262,7 @@ Page({
         console.log(obj.order_sn)
         wx.reLaunch({
 
-          url: '/pages/order/index?status=false&order=' + obj.order_sn
+          url: '/pages/order/index?currentTab=0'
         })
       }
     })

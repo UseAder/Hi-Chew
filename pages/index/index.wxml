@@ -1,11 +1,15 @@
 <wxs src="../../wxs/imageUrl.wxs" module="tools" />
+<import src="../../lib/img-loader/img-loader.wxml" />
+<template is="img-loader" data="{{ imgLoadList }}"></template>
+
+
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
 <view class='nav-barheight' style='height:{{height}}px;margin-bottom:20rpx'></view>
 <button wx:if="{{userInfo.nickname=='昵称'}}" open-type="getUserInfo" bindgetuserinfo="userInfoHandler" class="wxlogin_bt"></button>
 <!-- 搜索上 -->
 <view class="index_container">
   <view class="searchTop_input" bindtap='inputKeyword'>
-    <image src="/images/home/0.png"></image>
+    <image src="/images/search/0.png" mode='widthFix'></image>
     <view class="title">输入产品名称</view>
   </view>
   <view class="searchTop_search">
@@ -21,7 +25,9 @@
 
 <view class='nav-desc'>
   <view class='item flex' wx:for="{{navDesc}}" wx:key>
-    <view class='logo'><image src='/images/search/zq.png'></image></view>
+    <view class='logo'>
+      <image src='/images/search/zq.png'></image>
+    </view>
     <view class='name'>{{item}}</view>
   </view>
 </view>
@@ -53,10 +59,10 @@
 </view>
 
 <!-- 发现好物 -->
-<view class='findGood'>
+<view class='findGood  '>
   <view class='title'>
-  <view class='border'></view>
-    发现好物
+    <view class='border'></view>
+    精品推荐
   </view>
   <view class='list_h1'>
     <view class='item-list' bindtap="toGoods" data-gid='{{item.goods_id}}' wx:for="{{ReturnData.sales}}" wx:key>
@@ -67,51 +73,67 @@
         <view class='content-top'>
           <view class='name J-textd'>{{item.name}}</view>
           <view class='desc J-textd'>{{item.describe}}</view>
-          <view class='desc J-textd'>销量:{{item.sales}}</view>
         </view>
         <view class='content-bottom'>
-          <view class='price'>¥{{item.discount}}</view>
-          <!-- <view class='cart_logo'>
-            <image src='/images/home/cart.png' mode='widthFix'></image>
-          </view> -->
+           <view class='price'>¥
+              <text>{{item.discount}}</text>
+            </view>
+            <view class='desc J-textd'>{{item.sales}}人付款
+            </view>
         </view>
       </view>
     </view>
   </view>
+
   <view class='Refresh' bindtap='refresh'>
-    <image class='Refresh_logo animationSlow' style='animation-duration: {{animationTime}};-webkit-animation-duration: {{animationTime}};animation-play-state:{{status}};-webkit-animation-play-state:{{status}};' src='/images/home/load.png'></image>
-    <view class='Refresh_name'>
+    <view class='btn'>
       换一批
     </view>
   </view>
 </view>
-
+<view style="display:none">
+  <image wx:for="{{puBuLiu.images}}" wx:key="id" id="{{item.id}}" src="{{tools.sub(ImageUrl+item.brand)}}" bindload="onImageLoad"></image>
+</view>
 <!-- 精品推荐 -->
 <view class='findGood Recommend'>
-  <view class='title'>  <view class='border'></view>
-
-    精品推荐
+  <view class='title'>
+    <view class='border'></view>
+    发现好物
   </view>
-<view style="display:none">
-  <image wx:for="{{ReturnData.good}}" wx:key="id" id="{{item.id}}" src="{{item.pic}}" bindload="onImageLoad"></image>
-</view>
   <view class='list_z1 '>
-    <view class='item-list' bindtap="toGoods" data-gid='{{item.goods_id}}' wx:for="{{ReturnData.good}}" wx:key>
-      <view class='list_logo'>
-        <image src='{{tools.sub(ImageUrl+item.brand)}} ' mode='widthFix' bindload="onImageLoad"></image>
-      </view>
-      <view class='list_flex'>
-        <view class='content-top'>
-          <view class='name J-textd'>{{item.name}}</view>
-          <view class='desc J-textd'>销量:{{item.sales}}</view>
-
+    <view class="item-list">
+      <view class='right' bindtap="toGoods" data-gid='{{item.goods_id}}' wx:for="{{puBuLiu.col1}}" wx:key="id">
+        <image src="{{tools.sub(ImageUrl+item.brand)}}" style="width:100%;" mode='widthFix'></image>
+        <view class='list_flex'>
+          <view class='content-top'>
+            <view class='name J-textd'>{{item.name}}</view>
+            <view class='desc J-textd'>{{item.describe}}</view>
+          </view>
+          <view class='content-bottom'>
+            <view class='price'>¥
+              <text>{{item.discount}}</text>
+            </view>
+            <view class='desc J-textd'>{{item.sales}}人付款
+            </view>
+          </view>
         </view>
-        <view class='content-bottom'>
-          <view class='price'>¥{{item.discount}}</view>
-          <view class='num J-textd'>销量:{{item.sales}}</view>
-          <!-- <view class='cart_logo'>
-            <image src='/images/home/cart.png' mode='widthFix'></image>
-          </view> -->
+      </view>
+    </view>
+    <view class="item-list">
+      <view class='left' bindtap="toGoods" data-gid='{{item.goods_id}}' wx:for="{{puBuLiu.col2}}" wx:key="id">
+        <image src="{{tools.sub(ImageUrl+item.brand)}}" style="width:100%;height:{{item.height}}px"></image>
+        <view class='list_flex'>
+          <view class='content-top'>
+            <view class='name J-textd'>{{item.name}}</view>
+            <view class='desc J-textd'>{{item.describe}}</view>
+          </view>
+          <view class='content-bottom'>
+            <view class='price'>¥
+              <text>{{item.discount}}</text>
+            </view>
+            <view class='desc J-textd'>{{item.sales}}人付款
+            </view>
+          </view>
         </view>
       </view>
     </view>

@@ -1,14 +1,14 @@
 <wxs src="../../wxs/imageUrl.wxs" module="tools" />
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
-<view class='nav-barheight' style='height:{{height}}px'></view>
+<view class='nav-barheight' style='height:{{height}}px;margin-bottom:20rpx'></view>
 
 <view class="searchTop_input ">
   <view class='searchTop_input_view J-flex_cc' wx:if="{{!inputShowed}}" catchtap="showInput">
-    <image src="/images/search/0.png"></image>
+    <image src="/images/search/0.png" mode='widthFix'></image>
     <view class="title" style='color:#CCCCCC'>输入产品名称</view>
   </view>
   <view class='searchTop_input_searchView J-flex_aw' wx:else>
-    <image src="/images/search/0.png"></image>
+    <image src="/images/search/0.png" mode='widthFix'></image>
     <input type="text" placeholder-style='color:#CCCCCC' placeholder="搜索" value="{{inputVal}}" focus="{{inputFocus}}" bindblur='inputBlur' />
   </view>
 </view>

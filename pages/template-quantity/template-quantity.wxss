@@ -9,7 +9,7 @@
     height: 54rpx;  
     display: flex;
     /*给主容器设一个边框*/  
-    border: 1rpx solid #B6B6B6;  
+    border: 1rpx solid #C4CFDB;  
     border-radius: 4rpx;  
    box-sizing: border-box
    ;
@@ -22,7 +22,7 @@
     height: 100%;
     line-height: 52rpx;
     text-align: center;  
-    background:rgba(240,240,240,1);
+    /* background:rgba(240,240,240,1); */
     color: #5E5E5E;
 }  
   
@@ -35,8 +35,8 @@
     font-size: 12px;  
     color: #333;
     /*给中间的input设置左右边框即可*/  
-    border-left: 1rpx solid #B6B6B6;  
-    border-right: 1rpx solid #B6B6B6;  
+    border-left: 1rpx solid #C4CFDB;  
+    border-right: 1rpx solid #C4CFDB;  
     
 }  
   

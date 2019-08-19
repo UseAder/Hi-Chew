@@ -17,7 +17,7 @@ margin-left: 20rpx;
 }
 .searchTop_input image {
   height: 24rpx;
-  width: 24rpx;
+  width: 22rpx;
   margin-right: 10rpx;
 }
 

@@ -1,3 +1,4 @@
+
 var api = require('../config/api.js');
 
 // 获取wxml的节点信息
@@ -374,6 +375,24 @@ function PageCoupon() {
    }
   });
 }
+
+
+//这个方法建议放到公共文件中，例如我这里是utils.js
+function getFontFamily() {
+  wx.loadFontFace({
+    family: 'webfont',
+    source: 'url("https://abc.ufcoux.com/Adult/SourceHanSansCN-Regular.ttf")',//这个文件放到您的服务器根目录下
+    success: function (res) {
+      console.log(res.status) // loaded 
+    },
+    fail: function (res) {
+      console.log(res.status) // error 
+    },
+    complete: function (res) {
+      console.log(res.status);
+    }
+  });
+}
 module.exports = {
   get_wxml,
   Tips,
@@ -384,7 +403,7 @@ module.exports = {
   pageScrollTo,
   WindowHeight,
   checkSession,
-  checkLogin, ShichiCanvas, textByteLength, PageCoupon
+  checkLogin, ShichiCanvas, textByteLength, PageCoupon, getFontFamily
 }
 
 

@@ -34,27 +34,33 @@
     "navigationStyle": "custom"
   },
   "tabBar": {
-    "color": "#CFCFCF",
-    "selectedColor": "#000000",
+    "color": "#FF3B99",
+    "selectedColor": "#FF3B99",
     "borderStyle": "white",
     "backgroundColor": "#fff",
     "list": [
       {
         "pagePath": "pages/index/index",
-        "iconPath": "images/04.png",
-        "selectedIconPath": "images/01.png",
+        "iconPath": "images/004.png",
+        "selectedIconPath": "images/008.png",
         "text": "首页"
       },
       {
         "pagePath": "pages/order/index",
-        "iconPath": "images/05.png",
-        "selectedIconPath": "images/02.png",
+        "iconPath": "images/001.png",
+        "selectedIconPath": "images/005.png",
         "text": "订单"
       },
       {
+        "pagePath": "pages/cart/index",
+        "iconPath": "images/002.png",
+        "selectedIconPath": "images/006.png",
+        "text": "购物车"
+      },
+      {
         "pagePath": "pages/my/index/index",
-        "iconPath": "images/06.png",
-        "selectedIconPath": "images/03.png",
+        "iconPath": "images/003.png",
+        "selectedIconPath": "images/007.png",
         "text": "我的"
       }
     ]

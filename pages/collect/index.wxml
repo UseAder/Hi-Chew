@@ -1,10 +1,19 @@
 <wxs src="../../wxs/imageUrl.wxs" module="tools" />
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
-<view class='nav-barheight' style='height: {{height}}px'></view>
+<view class='nav-barheight' style='height:{{height}}px;margin-bottom:10px'></view>
+
+<view class='bg_bg' style='height:{{windowHeight-height-10}}px' wx:if="{{GoodList==''||!GoodList}}">
+  <navigator url='/pages/index/index' open-type="switchTab" hover-class='none' class="swiper-con-kong-1 swiper-con-kong">
+    <image src="/images/search/kc.png" mode='widthFix'></image>
+    <view class='title'>去添加点什么吧</view>
+  </navigator>
+</view>
+
+
 <view class='findGood'>
   <view class='list_z1'>
     <view class='item-list' wx:for="{{GoodList}}" wx:key>
-      <view class='list_logo'  bindtap="toGoods" data-gid='{{item.goods_id}}'>
+      <view class='list_logo' bindtap="toGoods" data-gid='{{item.goods_id}}'>
         <image src='{{tools.sub(ImageUrl+item.brand)}}' mode='widthFix'></image>
       </view>
       <view class='list_flex'>
@@ -23,7 +32,7 @@
   </view>
 </view>
 
-  <view class=" swiper-con-kong" wx:if="{{GoodList==''||!GoodList}}">
+<!-- <view class=" swiper-con-kong" wx:if="{{GoodList==''||!GoodList}}">
     <image src="/images/search/ks.png" mode='widthFix'></image>
     <view class='title'>收藏空空如也</view>
-  </view>
+  </view> -->

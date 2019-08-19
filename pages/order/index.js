@@ -29,7 +29,7 @@ Page({
       }
     ],
     nvabarData: {
-      showCapsule: 1, //是否显示左上角图标   1表示显示    0表示不显示
+      showCapsule: 0, //是否显示左上角图标   1表示显示    0表示不显示
       title: '订单', //导航栏 中间的标题
     },
     userInfo: {
@@ -53,12 +53,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(1)
     if (options.currentTab){
       this.setData({
-        currentTab:options.currentTab
+        currentTab: options.currentTab
       })
-    }
+    } 
     this.WindowHeight()
     this.getGroupList()
   },

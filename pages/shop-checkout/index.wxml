@@ -3,7 +3,7 @@
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
 <wxs src="../../wxs/imageUrl.wxs" module="tools" />
 
-<view class='nav-barheight' style='height: {{height}}px'></view>
+<view class='nav-barheight' style='height:{{height}}px;margin-bottom:20rpx'></view>
 <view class="container">
   <view class="address-box">
     <view class="address-item" bindtap="selectAddress" wx:if="{{checkedAddress.ad_id!=undefined}}">
@@ -92,7 +92,9 @@
   </view>
   <view class="order-total">
     <view class="l">
-      <view>实付：￥{{discount.discountTotal}}</view>
+        <view class='num'>共{{num}}件，</view>
+
+      <view class='total'>实付: ￥{{discount.discountTotal}}</view>
     </view>
     <view class="r" bindtap="submitOrder">去支付</view>
   </view>

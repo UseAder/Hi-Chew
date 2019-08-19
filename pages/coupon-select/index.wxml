@@ -1,7 +1,7 @@
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
 <wxs src="../../wxs/formatTime.wxs" module="toolsTime" />
 
-<view class='nav-barheight' style='height:{{height}}px'></view>
+<view class='nav-barheight' style='height:{{height}}px;margin-bottom:20rpx'></view>
 
 <view class="swiper-item column-list0">
   <view class="swiper-con" wx:for="{{CouponList}}" wx:key>

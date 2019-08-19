@@ -2,7 +2,7 @@
 <wxs src="../../wxs/formatTime.wxs" module="toolsTime" />
 <wxs src="../../wxs/imageUrl.wxs" module="tools" />
 
-<view class='nav-barheight' style='height:{{height}}px'></view>
+<view class='nav-barheight' style='height:{{height}}px;margin-bottom:20rpx'></view>
 <button wx:if="{{userInfo.nickname=='昵称'}}" open-type="getUserInfo" bindgetuserinfo="userInfoHandler" class="wxlogin_bt"></button>
 
 <view class="swiper-item column-list0">
@@ -10,11 +10,10 @@
     <view class='swiper-con-top'>
       <view class='right'>
         <view class='title'>{{item.discount_name}}</view>
-        <view class='time'>{{toolsTime.sub(item.start_time*1000,"yyyy.MM.dd")}}-{{toolsTime.sub(item.end_time*1000,"yyyy.MM.dd")}}</view>
+        <view class='time'>有限期{{toolsTime.sub(item.start_time*1000,"yyyy.MM.dd")}}-{{toolsTime.sub(item.end_time*1000,"yyyy.MM.dd")}}</view>
       </view>
       <view class='left {{item.u_status==0?"":"left_1"}}'>
-        {{item.amount}}
-        <text>折</text>
+        {{item.amount}}<text>折</text>
       </view>
     </view>
     <view class='swiper-con-bottom'>

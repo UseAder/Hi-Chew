@@ -1,6 +1,6 @@
 <movable-area-view></movable-area-view>
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
-<view class='nav-barheight' style='height: {{height}}px'></view>
+<view class='nav-barheight' style='height:{{height}}px;margin-bottom:20rpx'></view>
 <view class='address-management {{addressList.length < 1 && page > 1 ? "fff":""}}'>
   <view class='line'>
     <!-- <image src='/images/line.jpg' wx:if="{{addressList.length}}"></image> -->

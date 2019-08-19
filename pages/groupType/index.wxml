@@ -1,5 +1,5 @@
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
-<view class='nav-barheight' style='height:{{height}}px'></view>
+<view class='nav-barheight' style='height:{{height}}px;margin-bottom:20rpx'></view>
 <wxs src="../../wxs/imageUrl.wxs" module="tools" />
 <view class='goods-container'>
 <view class='list_z1'>

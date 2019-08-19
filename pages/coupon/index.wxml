@@ -1,5 +1,5 @@
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
-<view class='nav-barheight' style='height:{{height}}px'></view>
+<view class='nav-barheight' style='height:{{height}}px;margin-bottom:20rpx'></view>
 <wxs src="../../wxs/formatTime.wxs" module="toolsTime" />
 <view class="swiper">
   <scroll-view class="swiper-scroll-list" scrollX="true" style='padding-top:{{height+10}}px'>
@@ -30,7 +30,7 @@
                 <view class='btn btn_1'>已领取</view>
               </block>
               <block wx:elif="{{currentTab==1}}">
-                <view class='btn btn_1'>已领取</view>
+                <view class='btn btn_1'>已使用</view>
               </block>
               <block wx:else>
                 <view class='btn btn_1'>已过期</view>
@@ -44,6 +44,16 @@
         </view>
         <view class="swiper-con swiper-con-kong" wx:if="{{item.list==''}}"></view>
       </view>
+      <!-- <view class='bg_bg' style='height:{{windowHeight-height-10}}px' wx:if="{{GoodList==''||!GoodList}}"> -->
+        <view class="swiper-con-kong-1 swiper-con-kong" style='margin-top:17%;'  wx:if="{{item.navlist==''||!item.navlist}}">
+          <image src="/images/search/kg.png" mode='widthFix'></image>
+          <view class='title'>屋里没有优惠券哎</view>
+        </view>
+      <!-- </view> -->
+
+      <!-- <view class=''>
+      
+      </view> -->
     </swiper-item>
   </swiper>
 </view>

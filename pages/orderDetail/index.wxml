@@ -1,37 +1,41 @@
 <wxs src="../../wxs/imageUrl.wxs" module="tools" />
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
-<view class='nav-barheight' style='height:{{height}}px'></view>
+<view class='nav-barheight' style='height:{{height}}px;margin-bottom:20rpx'></view>
 <wxs src="../../wxs/imageUrl.wxs" module="tools" />
 
 <view class='order-detail'>
   <view class='detail-header'>
     <view class='title'>{{orderInfo.status}}</view>
     <view class='desc' wx:if="{{orderInfo.order_status==0}}">您的订单还未支付，期待您的购买</view>
-        <view class='desc' wx:else>您的订单已送达，欢迎您下次购买</view>
+    <view class='desc' wx:else>您的订单已送达，欢迎您下次购买</view>
 
   </view>
   <view class='detail-content'>
     <view class='detail-content-adress'>
-      <view class='logo'><image src='/images/search/address-select.png' mode='widthFix'></image></view>
+      <view class='logo'>
+        <image src='/images/search/address-select.png' mode='widthFix'></image>
+      </view>
       <view class='title'>{{orderInfo.address}} </view>
     </view>
     <view class='detail-goods'>
-    <view class='item' wx:for='{{orderGoods}}' wx:key>
-      <view class='logo'><image src='{{tools.sub(ImageUrl+item.goods_brand)}}'></image>
+      <view class='item' wx:for='{{orderGoods}}' wx:key>
+        <view class='logo'>
+          <image src='{{tools.sub(ImageUrl+item.goods_brand)}}'></image>
 
-      </view>
-      <view class='flex1'>
-        <view class='flex1-title J-texts'>
-          {{item.goods_name}}
         </view>
-        <view class='flex1-content'>
-          <view class='number'>共{{item.goods_num}}件商品</view>
-          <view class='price'>合计 :
-            <text class='price-icon'>¥</text>
-            <text>{{item.total_price}}</text>
+        <view class='flex1'>
+          <view class='flex1-title J-texts'>
+            {{item.goods_name}}
+          </view>
+          <view class='flex1-content'>
+            <view class='number'>共{{item.goods_num}}件商品</view>
+            <view class='price'>合计 :
+              <text class='price-icon'>¥</text>
+              <text>{{item.total_price}}</text>
+            </view>
           </view>
         </view>
-      </view></view>
+      </view>
     </view>
 
     <view class='detail-order_sn'>
@@ -39,7 +43,7 @@
         订单编号：{{orderInfo.order_sn}}
       </view>
       <view class='item'>
-       下单时间：{{orderInfo.createtime}}
+        下单时间：{{orderInfo.createtime}}
       </view>
       <view class='item'>
         支付方式：微信支付
@@ -50,7 +54,7 @@
     <view class='detail-pay'>
       <view class='item'>
         <view class='right'>
-          商品总额                                                           
+          商品总额
         </view>
         <view class='left'>
           ¥{{sumTotal}}
@@ -58,23 +62,27 @@
       </view>
       <view class='item'>
         <view class='right'>
-          优惠金额                                                           
+          优惠金额
         </view>
         <view class='left J-color'>
           -¥{{sumTotalYhui?sumTotalYhui:0}}
         </view>
       </view>
       <view class='item_price'>
-          <view class='price'>实付金额 :
-            <text class='price-icon'>¥</text>
-            <text>{{orderInfo.pay_price}}</text>
-          </view>
-         </view>
+        <view class='price'>实付金额 :
+          <text class='price-icon'>¥</text>
+          <text>{{orderInfo.pay_price}}</text>
+        </view>
+      </view>
     </view>
   </view>
   <view class='heightView'></view>
 </view>
-<view class='order-pay'>
-<view class='btn_delete' data-index="{{index}}" data-order_sn="{{itemf.order_sn}}" bindtap='cancelOrder'>删除订单</view>
-                <view class='btn' data-order_sn="{{itemf.order_sn}}" bindtap='payOrder'>待付款</view>
+<view class='order-pay' wx:if="{{orderInfo.order_status==0}}">
+
+  <view class='btn_delete' data-index="{{index}}" data-order_sn="{{itemf.order_sn}}" bindtap='cancelOrder'>删除订单</view>
+  <view class='btn' data-order_sn="{{itemf.order_sn}}" bindtap='payOrder'>待付款</view>
+</view>
+<view class='order-pay' wx:else>
+  <view class='btn_delete' style='margin-right: 45rpx;' >已完成</view>
 </view>

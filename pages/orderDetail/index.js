@@ -56,35 +56,34 @@ var sum=0
     * 
     */
   cancelOrder: function (e) {
-    var that = this; console.log(1)
-
-    wx.navigateTo({
-      url: '/pages/order/index?currentTab=0'
-    })
+    var that = this;
     var order_sn = that.data.order.order_sn;
     if (!order_sn) return app.Tips({
       title: '缺少订单号无法取消订单'
     });
-    // wx.showModal({
-    //   title: '订单取消',
-    //   content: '确定要取消此订单？',
-    //   success: function (res) {
-    //     if (res.confirm) {
-    //       util.request(api.OrderDelete, {
-    //         order_sn: order_sn
-    //       }, "post").then(function (res) {
-    //         if (res.code == 200) {
-            
-    //           app.Tips({
-    //             title: '订单已取消',
-    //             icon: 'success'
-    //           });
-    //         }
+    wx.showModal({
+      title: '订单取消',
+      content: '确定要取消此订单？',
+      success: function (res) {
+        if (res.confirm) {
+          util.request(api.OrderDelete, {
+            order_sn: order_sn
+          }, "post").then(function (res) {
+            if (res.code == 200) {
+              wx.reLaunch({
 
-    //       })
-    //     }
-    //   }
-    // })
+                url: '/pages/order/index'
+              })
+              app.Tips({
+                title: '订单已取消',
+                icon: 'success'
+              });
+            }
+
+          })
+        }
+      }
+    })
 
   },
   /**
@@ -97,7 +96,9 @@ var sum=0
     var openid = app.globalData.openid
     pay.payOrder({ order_sn: order_sn, openid: openid }).then(res => {
       app.Tips({ title: '付款成功', icon: 'success' }, function () {
-        that.getOrderList()
+        wx.reLaunch({
+          url: '/pages/order/index?currentTab=1'
+        })
       });
     }).catch(res => {
       app.Tips({

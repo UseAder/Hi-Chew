@@ -57,8 +57,12 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
+  onLoad: function (options) {
+    util.WindowHeight(this)
+  },
   onShow: function () {
     this.getCollectList();
+    
   },
   getCollectList() {
     let that = this;

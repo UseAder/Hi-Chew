@@ -100,7 +100,12 @@ Page({
     var that=this,id = e.currentTarget.dataset.chart.id
     if (id == 'contacts' || id =='aftermarket'){
       that.setData({ window: false})
-    }else{
+    } else if (id == 'cart'){
+      wx.switchTab({
+        url: '/pages/' + id + '/index'
+      })
+    }
+    else{
       wx.navigateTo({
         url: '/pages/' + id + '/index'
       });

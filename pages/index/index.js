@@ -3,27 +3,26 @@ const DataJson = require('../../utils/dataJson.js');
 const util = require('../../utils/util.js');
 const api = require('../../config/api.js');
 var user = require('../../services/user.js');
+let col1H = 0;
+let col2H = 0;
 
 Page({
   data: {
-    
-
-puBuLiu:{
-  scrollH: 0,
-  imgWidth: 0,
-  loadingCount: 0,
-  images: [],
-  col1: [],
-  col2: []
-},
-
+    puBuLiu: {
+      scrollH: 0,
+      imgWidth: 0,
+      loadingCount: 0,
+      images: [],
+      col1: [],
+      col2: []
+    },
     userInfo: {
       nickname: app.globalData.userInfo.nickname,
       avatar: app.globalData.userInfo.avatar
     },
     ImageUrl: api.ImageUrl,
     animationTime: '1000ms',
-    status: 'paused',//paused,running
+    status: 'paused', //paused,running
     ReturnData: {
       'banner': [], //轮播图
       'type': [], //分类
@@ -31,29 +30,27 @@ puBuLiu:{
       'sales': [], //发现好物
       'good': [], // 精品推荐
     },
-    navDesc: ['28分钟快送', '满20免费送', '24小时服务'],
+    navDesc: ['28分钟免费送', '满20免费送', '24小时服务'],
 
     nvabarData: {
       showCapsule: 0, //是否显示左上角图标   1表示显示    0表示不显示
-      title: '嘿咻 Hi-Chew', //导航栏 中间的标题
-      gwc:1
+      title: '嗨咻Hi-xiu', //导航栏 中间的标题
+      gwc: 0
     },
     // 此页面页面内容距最顶部的距离
     height: app.globalData.height * 2 + 20,
     navHeight: 160,
   },
-  onImageLoad: function (e) {
-    console.log(e)
+
+  onImageLoad: function(e) {
     let imageId = e.currentTarget.id;
-    let oImgW = e.detail.width;         //图片原始宽度
-    let oImgH = e.detail.height;        //图片原始高度
-    let imgWidth = this.data.puBuLiu.imgWidth;  //图片设置的宽度
-    let scale = imgWidth / oImgW;        //比例计算
-    let imgHeight = oImgH * scale;      //自适应高度
-
-    let images = this.data.images;
+    let oImgW = e.detail.width; //图片原始宽度
+    let oImgH = e.detail.height; //图片原始高度
+    let imgWidth = this.data.puBuLiu.imgWidth; //图片设置的宽度
+    let scale = imgWidth / oImgW; //比例计算
+    let imgHeight = oImgH * scale; //自适应高度
+    let images = this.data.puBuLiu.images;
     let imageObj = null;
-
     for (let i = 0; i < images.length; i++) {
       let img = images[i];
       if (img.id === imageId) {
@@ -61,13 +58,12 @@ puBuLiu:{
         break;
       }
     }
-
     imageObj.height = imgHeight;
-
-    let loadingCount = this.data.loadingCount - 1;
-    let col1 = this.data.col1;
-    let col2 = this.data.col2;
-
+    let loadingCount = this.data.puBuLiu.loadingCount - 1;
+    let col1 = this.data.puBuLiu.col1;
+    let col2 = this.data.puBuLiu.col2;
+    console.log(col1H)
+    console.log(col2H)
     if (col1H <= col2H) {
       col1H += imgHeight;
       col1.push(imageObj);
@@ -75,22 +71,21 @@ puBuLiu:{
       col2H += imgHeight;
       col2.push(imageObj);
     }
-
-    // let data = {
-    //   loadingCount: loadingCount,
-    //   col1: col1,
-    //   col2: col2
-    // };
-
-    // if (!loadingCount) {
-    //   data.images = [];
-    // }
-
-    // this.setData(data);
+    console.log(col1H)
+    console.log(col2H)
+    if (!loadingCount) {
+      this.data.puBuLiu.images = [];
+      this.setData({
+        'puBuLiu.images': []
+      })
+    }
+    this.setData({
+      'puBuLiu.loadingCount': loadingCount,
+      'puBuLiu.col1': col1,
+      'puBuLiu.col2': col2
+    });
   },
-
-
-
+ 
   onLoad: function() {
     var that = this
     wx.getSystemInfo({
@@ -99,37 +94,27 @@ puBuLiu:{
         let wh = res.windowHeight;
         let imgWidth = ww * 0.48;
         let scrollH = wh;
-
         this.setData({
           'puBuLiu.scrollH': scrollH,
           'puBuLiu.imgWidth': imgWidth
         });
-
         that.getIndexData()
-
       }
     })
   },
-  inputKeyword: function () {
+  inputKeyword: function() {
     app.Tips('/pages/search/index')
   },
-  toGoods:function(e){
+  toGoods: function(e) {
     var gid = e.currentTarget.dataset.gid;
     wx.navigateTo({
-      url: '/pages/goods/index?gid='+gid
+      url: '/pages/goods/index?gid=' + gid
     })
   },
-// hua
-  refresh:function(){
+  // hua
+  refresh: function() {
     var that = this;
-  
-    that.setData({
-      status: 'running'
-      })
-    util.request(api.PagePage,{},'post').then(function (res) {
-      that.setData({
-        status: 'paused'
-      })
+    util.request(api.PagePage, {}, 'post').then(function(res) {
       if (res.code === 200) {
         that.setData({
           'ReturnData.sales': res.data
@@ -149,6 +134,19 @@ puBuLiu:{
         })
         wx.setStorageSync('navList', that.data.ReturnData.type)
         util.get_wxml('#publish', that.publishCallback)
+
+        let images = that.data.ReturnData.good
+        let baseId = "img-" + (+new Date());
+
+        for (let i = 0; i < images.length; i++) {
+          images[i].id = baseId + "-" + i;
+        }
+        that.setData({
+          'puBuLiu.loadingCount': images.length,
+          'puBuLiu.images': images
+        });
+    
+        // console.log(that.data.puBuLiu.images)
       }
     })
   },
@@ -159,7 +157,7 @@ puBuLiu:{
       navHeight: rect[0].height
     })
   },
-  joinCart:function(e){
+  joinCart: function(e) {
     //   // console.log(that.data.attrValue)
     var goodsAll = {}
     goodsAll.uid = app.globalData.uid
@@ -171,8 +169,8 @@ puBuLiu:{
 
     //   goodsAll.goods_speci = that.data.attrValue;
     //   goodsAll.goods_speci_id = that.data.productSelect.id
-    console.log(goodsAll)
-    util.request(api.CartAdd, goodsAll, "POST").then(function (res) {
+    // console.log(goodsAll)
+    util.request(api.CartAdd, goodsAll, "POST").then(function(res) {
       // console.log(res)
       if (res.code == 200) {
 
@@ -183,11 +181,11 @@ puBuLiu:{
         });
       }
     });
-  }
-  , /**
+  },
+  /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     var that = this
 
     if (app.globalData.openid) {
@@ -207,12 +205,12 @@ puBuLiu:{
     }
   },
   /**
-  * 调用微信登录
-  */
-  userInfoHandler: function () {
+   * 调用微信登录
+   */
+  userInfoHandler: function() {
     var that = this
     user.loginByWeixin().then((res) => {
-      console.log(res.data)
+      // console.log(res.data)
       if (res.code == 200) {
         that.setData({
           userInfo: res.data
@@ -220,5 +218,5 @@ puBuLiu:{
       }
     })
   },
-  
+
 })

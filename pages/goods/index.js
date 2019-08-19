@@ -12,14 +12,14 @@ Page({
    * 页面的初始数据
    */
   data: {
- userInfo: {
+    userInfo: {
       nickname: app.globalData.userInfo.nickname,
       avatar: app.globalData.userInfo.avatar
     },
-    isPay:false,
+    isPay: false,
     gid: null,
     cid: null, //收藏id
-    window: true,//参数弹框
+    window: true, //参数弹框
     userCollect: false, //收藏
     shichiObject: {
       bgImages: '', //分享活动商品背景图
@@ -44,7 +44,7 @@ Page({
     posterImage: '',
     // 分享弹框
     actionSheetHidden: true,
-    openSettingBtnHidden: true,//授权图片保存本地
+    openSettingBtnHidden: true, //授权图片保存本地
 
     noCollectImage: "/images/search/sc0.png",
     hasCollectImage: "/images/search/sc1.png",
@@ -67,12 +67,12 @@ Page({
    * 1。试吃弹框出现  （去试吃）
    * 
    */
-  listenerActionSheet: function (e) {
+  listenerActionSheet: function(e) {
     var that = this
     that.actionSheetModel()
   },
   // 2.分享打开和关闭
-  actionSheetModel: function () {
+  actionSheetModel: function() {
     var that = this
     // 获取这个试吃商品id
     that.setData({
@@ -85,7 +85,7 @@ Page({
   /**
    * 生成海报
    */
-  goPoster: function () {
+  goPoster: function() {
     var that = this
     // canvas画布隐藏
     that.setData({
@@ -93,51 +93,48 @@ Page({
     });
     console.log(that.data.shichiObject)
     // 生成二维码分享图海报
-    // that.downloadFilePromotionCode(function (msgPromotionCode) {
-    //   //获取网络图片本地路径
-    //   wx.getImageInfo({
-    //     src: that.data.shichiObject.bgImages, //服务器返回的图片地址
-    //     success: function (res) {
-    //       //res.path是网络图片的本地地址
-    //       let Path = res.path;
-    //       console.log(msgPromotionCode)
+    that.downloadFilePromotionCode(function(msgPromotionCode) {
+      //获取网络图片本地路径
+      wx.getImageInfo({
+        src: that.data.shichiObject.bgImages, //服务器返回的图片地址
+        success: function(res) {
+          //res.path是网络图片的本地地址
+          let Path = res.path;
           that.setData({
-            // 'shichiObject.bgImages': Path,
+            'shichiObject.bgImages': Path,
             // 'shichiObject.codeImage': Path,
-            'shichiObject.bgImages': 'https://hangfoxs.oss-cn-hangzhou.aliyuncs.com/snack/201908055d47ed3be08511665.jpeg',
-            'shichiObject.codeImage': 'https://hangfoxs.oss-cn-hangzhou.aliyuncs.com/snack/201908055d47ed362a7592825.jpeg',
-            // 'shichiObject.codeImage': Path msgPromotionCode,
-
-
+            // 'shichiObject.bgImages': 'https://hangfoxs.oss-cn-hangzhou.aliyuncs.com/snack/201908055d47ed3be08511665.jpeg',
+            // 'shichiObject.codeImage': 'https://hangfoxs.oss-cn-hangzhou.aliyuncs.com/snack/201908055d47ed362a7592825.jpeg',
+            'shichiObject.codeImage': msgPromotionCode,
           })
           console.log(that.data.shichiObject)
 
-          util.ShichiCanvas(that.data.shichiObject, function (tempFilePath) {
+          util.ShichiCanvas(that.data.shichiObject, function(tempFilePath) {
             that.setData({
               posterImage: tempFilePath,
               posterImageStatus: true,
               canvasStatus: false,
             })
           });
-    //     },
-    //     fail: function (res) {
-    //       //失败回调
-    //     }
-    //   })
+        },
+        fail: function(res) {
+          //失败回调
+        }
+      })
 
-    // })
+    })
   },
   /**
    * 获取产品分销二维码
    * @param function successFn 下载完成回调
    * 
    */
-  downloadFilePromotionCode: function (successFn) {
+  downloadFilePromotionCode: function(successFn) {
     var that = this;
     util.request(api.GetWxcode, {
       path: "pages/goods/index",
       gid: that.data.gid,
-    }, 'POST').then(function (res) {
+    }, 'POST').then(function(res) {
       if (res.msg == '二维码生成失败') {
         app.Tips({
           title: '二维码生成失败',
@@ -146,7 +143,7 @@ Page({
       }
       if (res.data) {
         base64.base64src(res.data).then(
-          function (data) {
+          function(data) {
             successFn(data);
             console.log(data)
 
@@ -156,10 +153,10 @@ Page({
     })
   },
   /*
-  * 保存到手机相册
-  */
+   * 保存到手机相册
+   */
 
-  savePosterPath: function () {
+  savePosterPath: function() {
     var that = this;
     wx.getSetting({
       success(res) {
@@ -170,14 +167,14 @@ Page({
             success() {
               wx.saveImageToPhotosAlbum({
                 filePath: that.data.posterImage,
-                success: function (res) {
+                success: function(res) {
                   that.posterImageClose();
                   app.Tips({
                     title: '保存成功',
                     icon: 'success'
                   });
                 },
-                fail: function (res) {
+                fail: function(res) {
                   app.Tips({
                     title: '保存失败'
                   });
@@ -186,10 +183,10 @@ Page({
             },
             fail() {
               wx.openSetting({
-                success: function (data) {
+                success: function(data) {
                   console.log("openSetting success");
                 },
-                fail: function (data) {
+                fail: function(data) {
                   wx.showModal({
                     title: '警告',
                     content: '若不打开授权，则无法将图片保存在相册中！',
@@ -206,14 +203,14 @@ Page({
         } else {
           wx.saveImageToPhotosAlbum({
             filePath: that.data.posterImage,
-            success: function (res) {
+            success: function(res) {
               that.posterImageClose();
               app.Tips({
                 title: '保存成功',
                 icon: 'success'
               });
             },
-            fail: function (res) {
+            fail: function(res) {
               app.Tips({
                 title: '保存失败'
               });
@@ -222,7 +219,8 @@ Page({
         }
       }
     })
-  }, handleSetting: function (e) {
+  },
+  handleSetting: function(e) {
     let that = this;
     // 对用户的设置进行判断，如果没有授权，即使用户返回到保存页面，显示的也是“去授权”按钮；同意授权之后才显示保存按钮
     if (!e.detail.authSetting['scope.writePhotosAlbum']) {
@@ -246,38 +244,38 @@ Page({
     }
   },
   //隐藏海报
-  posterImageClose: function () {
+  posterImageClose: function() {
     this.setData({
       actionSheetHidden: !this.data.actionSheetHidden
     })
   },
 
   // 关闭个人资料弹框
-  onColse: function () {
+  onColse: function() {
     this.setData({
       window: true
     });
   },
-  openWindow: function () {
+  openWindow: function() {
     this.setData({
       window: false
     })
   },
-  phoneCall: function (e) {
+  phoneCall: function(e) {
     wx.makePhoneCall({
       phoneNumber: e.currentTarget.dataset.replyPhone,
-      success: function () {
+      success: function() {
         console.log("成功拨打电话")
       },
     })
   },
-  openCartPage: function () {
+  openCartPage: function() {
     app.Tips('/pages/cart/index')
   },
   /**
    * 打开规格数量属性插件
    */
-  onMyEvent: function (e) {
+  onMyEvent: function(e) {
     this.setData({
       'attribute.cartAttr': e.detail.window,
       // isOpen: false
@@ -288,7 +286,7 @@ Page({
    * 默认选中属性
    * 
    */
-  DefaultSelect: function () {
+  DefaultSelect: function() {
     var that = this
     var productAttr = that.data.productAttr
     var goods = that.data.goods;
@@ -303,7 +301,7 @@ Page({
     //   if (productAttr[i].spec_list.length == 1)
     //     productAttr[i].checked = productAttr[i].spec_list[0].id;
     // }
-    var value = this.data.productAttr.map(function (attr) {
+    var value = this.data.productAttr.map(function(attr) {
       return attr.checked;
     });
 
@@ -316,6 +314,8 @@ Page({
         ["productSelect.image"]: api.ImageUrl + productSelect.spec_image,
         ["productSelect.price"]: productSelect.goods_price,
         ["productSelect.stock"]: productSelect.stock_num,
+        ["productSelect.name"]: that.data.goods.name,
+
         ['productSelect.cart_num']: 1,
         ['productSelect.id']: productSelect.goods_spec_id,
         attrValue: value.join('_'),
@@ -347,7 +347,7 @@ Page({
    * 属性变动赋值
    * 
    */
-  ChangeAttr: function (e) {
+  ChangeAttr: function(e) {
     var values = e.detail;
     var that = this
     console.log(that.data.productValue)
@@ -380,7 +380,7 @@ Page({
    * 购物车数量加和数量减
    * 
    */
-  ChangeCartNum: function (e) {
+  ChangeCartNum: function(e) {
     //是否 加|减
     var changeValue = e.detail;
     //获取当前变动属性
@@ -425,20 +425,35 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (option) {
-    if (!option.gid || option.gid == '') return app.Tips({
-      title: '缺少查询信息无法查看'
-    });
-    this.setData({
-      gid: parseInt(option.gid)
-    });
+  onLoad: function (options) {
+    if (options.scene) {
+      console.log(options.scene)
+      var scene = decodeURIComponent(options.scene)
+      var arrPara = scene.split("&");
+      var arr = [];
+      for (var i in arrPara) {
+        arr = arrPara[i].split("=");
+        wx.setStorageSync(arr[0], arr[1]);
+      }
+      this.setData({
+        gid: wx.getStorageSync('gid')
+      });
+    } else if (options.gid) {
+      this.setData({
+        gid: parseInt(options.gid)
+      });
+    }else{
+      return app.Tips({
+        title: '缺少查询信息无法查看'
+      });
+    }
     this.getGoodsInfo()
     this.getCartLength()
   },
   //加入购物车
-  joinCart: function () {
+  joinCart: function() {
     this.setData({
-      isPay:false
+      isPay: false
     })
     this.goCat();
 
@@ -446,14 +461,14 @@ Page({
   /*
    * 立刻购买
    */
-  goBuy: function () {
+  goBuy: function() {
     this.setData({
       isPay: true
     })
     this.goCat();
   },
-  ConfirmClose :function (e) {
-    var that=this
+  ConfirmClose: function(e) {
+    var that = this
     var productSelect = that.data.productValue[that.data.attrValue]
 
     // if (that.data.attrValue) {
@@ -463,9 +478,9 @@ Page({
     //   })
     // } else {
     //   if (that.data.isOpen)
-        that.setData({
-          'attribute.cartAttr': true
-        })
+    that.setData({
+      'attribute.cartAttr': true
+    })
     //   else
     //     that.setData({
     //       'attribute.cartAttr': !that.data.attribute.cartAttr
@@ -483,7 +498,7 @@ Page({
       // isOpen: false,
       'attribute.cartAttr': false
     });
-     if (that.data.isPay) {
+    if (that.data.isPay) {
       var option = ''
       option = "gid=" + that.data.gid + "&uid=" + wx.getStorageSync('uid') + "&sku_id=" + that.data.productSelect.id + "&num=" + that.data.productSelect.cart_num
       // console.log(option)
@@ -504,7 +519,7 @@ Page({
       //   goodsAll.goods_speci = that.data.attrValue;
       //   goodsAll.goods_speci_id = that.data.productSelect.id
       console.log(goodsAll)
-      util.request(api.CartAdd, goodsAll, "POST").then(function (res) {
+      util.request(api.CartAdd, goodsAll, "POST").then(function(res) {
         // console.log(res)
         if (res.code == 200) {
 
@@ -517,7 +532,7 @@ Page({
       });
     }
   },
-  goCat: function () {
+  goCat: function() {
     var that = this;
     var productSelect = that.data.productValue[that.data.attrValue]
     console.log(that.data.productValue)
@@ -525,8 +540,8 @@ Page({
     console.log(productSelect)
     //打开属性
     that.setData({
-        'attribute.cartAttr': true
-      })
+      'attribute.cartAttr': true
+    })
 
     // if (that.data.attrValue) {
     //   //默认选中了属性，但是没有打开过属性弹窗还是自动打开让用户查看默认选中的属性
@@ -593,7 +608,7 @@ Page({
    * 获取购物车数量
    * @param boolean 是否展示购物车动画和重置属性
    */
-  getCartCount: function (isAnima) {
+  getCartCount: function(isAnima) {
     var that = this;
     that.getCartLength()
     //加入购物车后重置属性
@@ -615,12 +630,12 @@ Page({
     //   });
     // }
   },
-  getGoodsInfo: function (e) {
+  getGoodsInfo: function(e) {
     var that = this
     util.request(api.GoodsDetails, {
       goods_id: that.data.gid,
       uid: app.globalData.uid
-    }, "POST").then(function (res) {
+    }, "POST").then(function(res) {
       if (res.code == 200) {
         var goods = {};
         var details = JSON.parse(res.data.data.details)
@@ -629,13 +644,14 @@ Page({
           goods.describe = res.data.data.describe,
           goods.discount = res.data.data.discount,
           goods.banner = res.data.data.images.split(',')
+        var subImages = api.ImageUrl + res.data.data.images
         that.setData({
           goods: goods,
           cid: res.data.cid,
           userCollect: res.data.sc,
           productAttr: res.data.arr.list || [],
           productValue: res.data.arr.sku || {},
-          'shichiObject.bgImages': res.data.data.brand,
+          'shichiObject.bgImages': subImages,
           'shichiObject.title': res.data.data.name,
           'shichiObject.desc': res.data.data.describe
         })
@@ -648,13 +664,12 @@ Page({
             'collectBackImage': that.data.noCollectImage
           });
         }
-        that.DefaultSelect()
-        , t.wxParse("goodsDetail", "html", res.data.data.parameter, that);
+        that.DefaultSelect(), t.wxParse("goodsDetail", "html", res.data.data.parameter, that);
       }
     })
   },
   // 收藏
-  closeAttrOrCollect: function () {
+  closeAttrOrCollect: function() {
     var that = this,
       utilApi = '';
     let collect = {}
@@ -667,7 +682,7 @@ Page({
       collect.cid = that.data.cid
       collect.uid = app.globalData.uid
     }
-    util.request(utilApi, collect, "POST").then(function (res) {
+    util.request(utilApi, collect, "POST").then(function(res) {
       if (res.code === 200) {
         that.setData({
           userCollect: !that.data.userCollect
@@ -677,7 +692,7 @@ Page({
     })
   },
   // 购物车商品数量
-  getCartLength: function () {
+  getCartLength: function() {
     var that = this
     console.log('戴凯杰')
 
@@ -686,7 +701,7 @@ Page({
 
     util.request(api.Cart, {
       uid: app.globalData.uid,
-    }, 'post').then(function (res) {
+    }, 'post').then(function(res) {
       if (res.data)
         that.setData({
           cartCount: res.data.length
@@ -696,13 +711,13 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
   /**
-     * 生命周期函数--监听页面显示
-     */
-  onShow: function () {
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
     var that = this
     if (app.globalData.openid) {
       that.setData({
@@ -721,9 +736,9 @@ Page({
     }
   },
   /**
-  * 调用微信登录
-  */
-  userInfoHandler: function () {
+   * 调用微信登录
+   */
+  userInfoHandler: function() {
     var that = this
     user.loginByWeixin().then((res) => {
       console.log(res.data)
@@ -737,7 +752,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })
