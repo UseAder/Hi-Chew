@@ -90,7 +90,7 @@ Page({
       if (res.code === 200) {
         var CouponList=[]
         for(var i in res.data){
-          if(res.data[i].status==0){
+          if (res.data[i].status == 0 && res.data[i].u_status != 2){
             CouponList.push(res.data[i])
           }
         }

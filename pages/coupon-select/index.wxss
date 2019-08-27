@@ -26,11 +26,12 @@ page {
 }
 
 .swiper-con .swiper-con-top {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 44rpx;
-  padding-bottom: 32rpx;
-  border-bottom: 1rpx dashed #d7d7d7;
+ display:flex;
+justify-content:space-between;
+padding-top:36rpx;
+padding-bottom:36rpx;
+border-bottom:1rpx dashed #d7d7d7;
+
 }
 
 .swiper-con .swiper-con-top .right .title {
@@ -52,11 +53,15 @@ page {
 }
 
 .swiper-con .swiper-con-top .left_1 {
-  color: #c5c5ca;
+  color:#c5c5ca;
+display:flex;
+align-items:center;
+
 }
 
 .swiper-con .swiper-con-top .left text {
-  font-size: 30rpx;
+  font-size: 30rpx;margin-top:24rpx;
+
 }
 
 .swiper-con .swiper-con-bottom {
@@ -67,7 +72,7 @@ page {
 }
 
 .swiper-con .swiper-con-bottom .right {
-  display: flex;
+  display: flex;align-items: center;
 }
 
 .swiper-con .swiper-con-bottom .left .btn {
@@ -86,5 +91,9 @@ page {
 }
 
 .swiper-con .swiper-con-top .right {
-  width: 518rpx;
+ width:518rpx;
+display:flex;
+align-items:center;
+line-height:1.3;
+
 }

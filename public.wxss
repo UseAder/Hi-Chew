@@ -1,55 +1,53 @@
-/* 纵向商品list */
-
-/* .list_z1 {
-  padding: 0 15rpx;width: 100%;
+/* list */
+.list_z1 {
+  padding: 0 30rpx;
   line-height: 1;
-  box-sizing: border-box;
- display: flex;
+  display: flex;
   flex-wrap: wrap;
-  justify-content: space-between; 
-} */
-.list_z1 .item-list .right,.list_z1 .item-list .left{
-  margin-bottom: 32rpx;    box-shadow: 0px 0px 4rpx 0px rgba(0, 0, 0, 0.2);
-  border-radius: 6rpx;
-
+  justify-content: space-between;
 }
+
 .list_z1 .item-list {
-    width: 44%;margin-left: 4%;
-
-  display: inline-block;
-  vertical-align: top;
-
- /* background: rgba(255, 255, 255, 1);
-  background-color: #fff;
-break-inside: avoid;
-box-sizing: border-box; */
+  width: 330rpx;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 0px 4rpx 0px rgba(0, 0, 0, 0.2);
+  border-radius: 6rpx;
+  overflow: hidden;
+  margin-bottom: 20rpx;
 }
 
+.list_z1 .item-list .list_logo{
+width: 330rpx;height: 330rpx;
+}
 .list_z1 .item-list .list_flex{
-  padding: 0 21rpx;
+  padding: 0 13rpx;
 }
 .list_z1 .item-list .content-top .name {
   font-size: 30rpx;
   color: rgba(30, 35, 42, 1);
-  margin-top: 36rpx;
+  margin-top: 26rpx;
 }
 .list_z1 .item-list .content-top .desc {
-margin-top:17rpx;
-font-size:24rpx;
+margin-top:22rpx;
+font-size:22rpx;
 color:rgba(153, 153, 153, 1);
+min-height:30rpx;
 
 }
 .list_z1 .item-list .content-bottom {
-  display: flex;margin-top:13rpx;
-  /* ]margin-bottom: 18rpx;
-padding-bottom: 18rpx; */padding-bottom:10rpx;
+  display: flex;margin-top:20rpx;padding-bottom:10rpx;height: 46rpx;line-height: 46rpx;
+}
+.list_z1 .item-list .content-bottom .desc{
+color:rgba(153, 153, 153, 0.98);margin-top: 4rpx;margin-left: 12rpx;font-size: 24rpx;
 
-justify-content: space-between;height: 46rpx;line-height: 46rpx;
 }
 .list_z1 .item-list .content-bottom .price{
 font-size:28rpx;
 color:rgba(249,45,144,1);
 opacity:0.98;}
+.list_z1 .item-list .content-bottom .price text{
+font-size:36rpx;margin-left:-2rpx;
+}
 .list_z1 .item-list .content-bottom .num{
   font-size:24rpx;
 color:rgba(153,153,153,1);

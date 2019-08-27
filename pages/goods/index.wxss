@@ -1,3 +1,6 @@
+
+
+
 .container {
   overflow: hidden;
   line-height: 1;
@@ -46,25 +49,44 @@ good_container {
 }
 
 .goods-info .name {
-  margin-top: 40rpx;
+  margin-top: 36rpx;
   font-size: 36rpx;line-height:1.3;
 
   color: rgba(30, 35, 42, 1);
 }
 
-.goods-info .desc {
+.goods-info .desc_te {
   font-size: 24rpx;
   font-weight: 300;
-  margin-top: 20rpx;
-  color: rgba(153, 153, 153, 1);
-  margin-bottom: 27rpx;
+  color: rgba(153, 153, 153, 1);margin-top: 18rpx;margin-bottom: 26rpx;
+}
+
+ .content-bottom {
+  display: flex;
+  align-items: flex-end;margin-top: 46rpx;
+}
+
+ .content-bottom .price {
+  font-size: 28rpx;
+  color: rgba(249, 45, 144, 1);
+  opacity: 0.98;
+}
+ .content-bottom .price  text{
+  font-size: 36rpx;margin-left:-2rpx;
+}
+ .content-bottom .desc {
+margin-left: 12rpx;
 }
 
 .goods-info .goods-price {
   margin-top: 46rpx;
-  font-size: 34rpx;
-  font-weight: bold;
-  color: rgba(244, 46, 143, 1);
+ font-size: 28rpx;
+  color: rgba(249, 45, 144, 1);
+  opacity: 0.98;
+}
+.goods-info .goods-price .price{
+ font-size: 36rpx;  color: rgba(249, 45, 144, 1);
+
 }
 .goods-info .goods-price text {
   font-size:24rpx;

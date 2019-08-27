@@ -3,23 +3,43 @@
 <view class='nav-barheight' style='height:{{height}}px;margin-bottom:20rpx'></view>
 
 <view class="searchTop_input ">
-  <view class='searchTop_input_view J-flex_cc' wx:if="{{!inputShowed}}" catchtap="showInput">
+  <!-- <view class='searchTop_input_view J-flex_cc' wx:if="{{!inputShowed}}" catchtap="showInput">
     <image src="/images/search/0.png" mode='widthFix'></image>
     <view class="title" style='color:#CCCCCC'>输入产品名称</view>
-  </view>
-  <view class='searchTop_input_searchView J-flex_aw' wx:else>
+  </view> -->
+  <view class='searchTop_input_searchView J-flex_aw' >
     <image src="/images/search/0.png" mode='widthFix'></image>
     <input type="text" placeholder-style='color:#CCCCCC' placeholder="搜索" value="{{inputVal}}" focus="{{inputFocus}}" bindblur='inputBlur' />
   </view>
 </view>
-<view class='btn-content J-flex_aw '>
-  <view bindtap='SeoEntryData' data-sid='{{item.id}}' class='item J-textd ' wx:for="{{SeoEntryList}}" wx:key>
+<view class='btn-content J-flex_aw ' hidden="{{inputVal}}">
+  <view bindtap='SeoEntryData' style='background:{{item.color}}' data-sid='{{item.id}}' class='item J-textd ' wx:for="{{SeoEntryList}}" wx:key>
     {{item.title}}
   </view>
 </view>
 <!-- 商品列表 -->
 
-<view class='list_z1'>
+ <view class='list_z1 ' style='margin-top:20rpx;'>
+    <view class="item-list" bindtap="toGoods" data-gid='{{item.goods_id}}' wx:for="{{GoodList}}" wx:key="id">
+     <view class='list_logo'>
+        <image src='{{tools.sub(ImageUrl+item.brand)}}' ></image>
+      </view>
+      <view class='list_flex'>
+        <view class='content-top'>
+          <view class='name J-textd'>{{item.name}}</view>
+          <view class='desc J-textd'>{{item.describe}}</view>
+        </view>
+        <view class='content-bottom'>
+          <view class='price'>¥
+            <text>{{item.discount}}</text>
+          </view>
+          <view class='desc J-textd'>{{item.sales}}人付款
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+<!-- <view class='list_z1'>
   <view class='item-list' wx:for="{{GoodList}}" wx:key>
     <view class='list_logo'>
       <image src='{{tools.sub(ImageUrl+item.brand)}}' mode='widthFix'></image>
@@ -31,17 +51,11 @@
       <view class='content-bottom'>
         <view class='price'>¥{{item.discount}}</view>
         <view class='num J-textd'>销量:{{item.sales}}</view>
-        <!-- <view class='cart_logo'>
-            <image src='/images/home/cart.png' mode='widthFix'></image>
-        </view> -->
       </view>
     </view>
   </view>
-</view>
+</view> -->
 <view class='height_view'></view>
-
-
-
-<navigator class="groupBanner" url="{{couponBanner.url}}" hover-class="navigator-hover" open-type="navigate">
+<navigator wx:if='{{GoodList.length<=0}}' class="groupBanner" url="{{couponBanner.url}}" hover-class="navigator-hover" open-type="navigate">
   <image src='{{tools.sub(ImageUrl+couponBanner.img)}}'></image>
 </navigator>

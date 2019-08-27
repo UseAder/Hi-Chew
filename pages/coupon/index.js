@@ -8,6 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    loadData: false,
+
     ListSwiper: [{
       id: 1,
       name: '未使用',
@@ -39,7 +41,6 @@ Page({
   },
   toGroupType(e) {
     let that = this, id = e.currentTarget.dataset.id;
-    console.log(id)
     app.Tips('/pages/groupType/index?did=' + id)
   },
   /**
@@ -52,8 +53,13 @@ Page({
   },
   getGroupList() {
     let that = this;
-  
+    that.setData({
+      loadData: false,
+    })
     util.request(api.MyCoupon, { uid: wx.getStorageSync('uid') }, 'post').then(function (res) {
+      that.setData({
+        loadData: true,
+      })
       console.log(res.data);
       that.setData({
         "ListSwiper[0].navlist": res.data.no,
@@ -87,7 +93,6 @@ Page({
     var that = this
     wx.getSystemInfo({
       success: (res) => {
-        console.log(res)
         that.setData({
           windowHeight: res.windowHeight
         })

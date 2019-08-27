@@ -38,7 +38,6 @@ Component({
     },
     confirmClose: function () {
       this.triggerEvent('ConfirmClose', false);
-      console.log(1)
     },
     CartNumDes:function(){
       this.triggerEvent('ChangeCartNum', false);

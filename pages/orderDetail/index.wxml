@@ -2,73 +2,86 @@
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
 <view class='nav-barheight' style='height:{{height}}px;margin-bottom:20rpx'></view>
 <wxs src="../../wxs/imageUrl.wxs" module="tools" />
+<wxs src="../../wxs/formatTime.wxs" module="toolsTime" />
 
 <view class='order-detail'>
-  <view class='detail-header'>
-    <view class='title'>{{orderInfo.status}}</view>
-    <view class='desc' wx:if="{{orderInfo.order_status==0}}">您的订单还未支付，期待您的购买</view>
-    <view class='desc' wx:else>您的订单已送达，欢迎您下次购买</view>
+  <view class='detail-header' style="padding-bottom:{{orderInfo.order_status==20?'0':'37rpx'}}">
+    <view class='title  {{orderInfo.order_status==4||orderInfo.order_status==30?"J-color1":""}}'>{{orderInfo.status}}</view>
+  <block wx:if="{{orderInfo.order_status==20}}">
+  <view class='desc J-color' wx:if="{{orderInfo.timer.min||orderInfo.timer.sec}}">
+  约{{orderInfo.timer.min}}: {{orderInfo.timer.sec}}送达
+  </view>
+ <view class='desc' wx:else>
+  如您未收到商品，请联系客服！
+  </view>
+</block>
+ <block wx:else>
+     <view class='desc' wx:if="{{orderInfo.order_status==4}}">期待您再次光临。</view>
+    <view class='desc' wx:elif="{{orderInfo.order_status==0}}">请在{{orderInfo.timer.min}}分{{orderInfo.timer.sec}}秒内完成支付，过时订单将会取消。</view>
 
+    <view class='desc' wx:else>感谢您下次光临！</view>
+ </block>
+    <!-- <view class='desc' wx:if="{{orderInfo.order_status==0}}">您的订单还未支付，期待您的购买</view> -->
+    <view class='detail-header-btn' wx:if="{{orderInfo.order_status==0}}">
+      <view class='btn' bindtap='cancelOrder'>取消订单</view>
+       <form bindsubmit="payOrder" report-submit="true" class='formid'>
+        <button form-type="submit"  class='form_id btn btn-pay' style='padding:0;background:#fff;'>去支付</button>
+      </form>
+      <!-- <view class='btn btn-pay' data-order_sn="{{orderInfo.order_sn}}" bindtap='payOrder'>去支付</view> -->
+    </view>
+    <!-- <view class='desc' wx:if="{{orderInfo.order_status==0}}">您的订单还未支付，期待您的购买</view>
+    <view class='desc' wx:else>您的订单已送达，欢迎您下次购买</view> -->
+  </view>
+  <view class='detail-content-adress'>
+    <view class='title'>{{orderInfo.address}}</view>
+    <view class='content flex'>
+      <view>{{orderInfo.phone}} </view>
+      <view> {{orderInfo.name}}</view>
+    </view>
   </view>
   <view class='detail-content'>
-    <view class='detail-content-adress'>
-      <view class='logo'>
-        <image src='/images/search/address-select.png' mode='widthFix'></image>
-      </view>
-      <view class='title'>{{orderInfo.address}} </view>
+    <view class='swiper-con-top'>
+      <view class='title'>订单编号：{{orderInfo.order_sn}}</view>
+      <view class='time'>{{toolsTime.sub(orderInfo.createtime*1000,"yyyy-MM-dd h:m")}}</view>
     </view>
     <view class='detail-goods'>
       <view class='item' wx:for='{{orderGoods}}' wx:key>
         <view class='logo'>
           <image src='{{tools.sub(ImageUrl+item.goods_brand)}}'></image>
-
         </view>
         <view class='flex1'>
-          <view class='flex1-title J-texts'>
+          <view class='flex1-title J-textd'>
             {{item.goods_name}}
           </view>
           <view class='flex1-content'>
-            <view class='number'>共{{item.goods_num}}件商品</view>
-            <view class='price'>合计 :
-              <text class='price-icon'>¥</text>
-              <text>{{item.total_price}}</text>
-            </view>
+            <view class='number J-textd'>{{item.describe}}</view>
+          </view>
+        </view>
+        <view class='flex2'>
+          <view class='flex2-title J-textd'>
+            x{{item.goods_num}}
+          </view>
+          <view class='flex2-content flex'>¥
+            <view class='number'>{{item.goods_price}}</view>
           </view>
         </view>
       </view>
     </view>
 
-    <view class='detail-order_sn'>
-      <view class='item'>
-        订单编号：{{orderInfo.order_sn}}
-      </view>
-      <view class='item'>
-        下单时间：{{orderInfo.createtime}}
-      </view>
-      <view class='item'>
-        支付方式：微信支付
-      </view>
-    </view>
-
-
     <view class='detail-pay'>
+
       <view class='item'>
         <view class='right'>
-          商品总额
+          优惠卷
         </view>
-        <view class='left'>
-          ¥{{sumTotal}}
-        </view>
-      </view>
-      <view class='item'>
-        <view class='right'>
-          优惠金额
-        </view>
-        <view class='left J-color'>
-          -¥{{sumTotalYhui?sumTotalYhui:0}}
+        <view class='left J-color flex'>
+          -¥
+          <view class='number'>{{sumTotalYhui?sumTotalYhui:0}}</view>
         </view>
       </view>
       <view class='item_price'>
+        <view class='num'>共{{orderGoods.length}}件商品
+        </view>
         <view class='price'>实付金额 :
           <text class='price-icon'>¥</text>
           <text>{{orderInfo.pay_price}}</text>
@@ -78,11 +91,12 @@
   </view>
   <view class='heightView'></view>
 </view>
-<view class='order-pay' wx:if="{{orderInfo.order_status==0}}">
-
-  <view class='btn_delete' data-index="{{index}}" data-order_sn="{{itemf.order_sn}}" bindtap='cancelOrder'>删除订单</view>
-  <view class='btn' data-order_sn="{{itemf.order_sn}}" bindtap='payOrder'>待付款</view>
-</view>
-<view class='order-pay' wx:else>
-  <view class='btn_delete' style='margin-right: 45rpx;' >已完成</view>
+<navigator class="groupBanner" url="{{couponBanner.url}}" hover-class="navigator-hover" open-type="navigate">
+  <image src='{{tools.sub(ImageUrl+couponBanner.img)}}'></image>
+</navigator>
+<view class="order-total" wx:if="{{orderInfo.order_status==20}}">
+  <view class="l">
+  还剩{{orderInfo.timer.hou}}小时{{orderInfo.timer.min}}分自动确认
+  </view>
+  <view class="r" bindtap="confimOrder" >确认收货</view>
 </view>

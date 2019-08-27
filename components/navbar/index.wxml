@@ -1,6 +1,11 @@
 <view class='nav-wrap' style='height: {{height*2 + 20}}px;background:{{navbarData.color?navbarData.color:"#fff"}}'>
-  <view class='nav-title {{navbarData.color?"color-f":""}}' style='line-height: {{height*2 + 44}}px;'>{{navbarData.title}}</view>
-  <view >
+  <view class='logo' bindtap='_navback' wx:if='{{navbarData.showCapsule}}'>
+    <image src='/images/search/zj.png' mode='widthFix'></image>
+  </view>
+  <view class='nav-title {{navbarData.color?"color-f":""}}  {{navbarData.showCapsule?"":"j-m23"}}'>
+    {{navbarData.title}}
+  </view>
+  <!-- <view >
     <view class='nav-capsule' style='padding-top: {{height}}px;' wx:if='{{navbarData.showCapsule}}'>
       <view bindtap='_navback' >
           <icon data-index='1' class='{{navbarData.color?"color-f":""}} iconfont icon-fh_jiantou'></icon>
@@ -11,5 +16,5 @@
         <view class='cart_logo'><image src='/images/home/cart.png' mode='widthFix'></image></view>
       </view>
     </view>
-  </view>
+  </view> -->
 </view>

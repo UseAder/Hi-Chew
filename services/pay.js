@@ -18,7 +18,7 @@ function payOrder(order) {
         'signType': res.signType,
         'paySign': res.paySign,
         'success': function (res) {
-          orderSuccess(order)
+          // orderSuccess(order)
           resolve(res);
         },
         'fail': function (res) {
@@ -31,14 +31,13 @@ function payOrder(order) {
     });
   });
 }
-function orderSuccess(order) {
-  return new Promise(function (resolve, reject) {
-    util.request(api.OrderSuccess, { order_sn: order.order_sn}, "POST").then(function (res) {
-    });
-  });
-}
+// function orderSuccess(order) {
+//   return new Promise(function (resolve, reject) {
+//     util.request(api.OrderSuccess, { order_sn: order.order_sn}, "POST").then(function (res) {
+//     });
+//   });
+// }
 
 module.exports = {
-  payOrder,
-  orderSuccess
+  payOrder
 };

@@ -9,6 +9,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    loadData: false,
+
     ImageUrl: api.ImageUrl,
 
     cartList: [],
@@ -38,7 +40,13 @@ Page({
   },
   getCartList: function () {
     var that = this;
+    that.setData({
+      loadData: false,
+    })
     util.request(api.Cart, { uid: wx.getStorageSync('uid') }, 'POST').then(function (res) {
+      that.setData({
+        loadData: true,
+      })
       if (!res.data) return
       var valid = res.data;
       if (valid.length > 0) {
@@ -54,9 +62,13 @@ Page({
   /**
      * 生命周期函数--监听页面显示
      */
-  onShow: function () {
+  // onLoad: function () {
+
+
+  // },
+  onShow(){
     var that = this
- 
+
     that.setData({
       cartList: [],
 
@@ -174,7 +186,6 @@ Page({
     if (selectValue.length <= 0) return app.Tips({ title: '请先选择商品', icon: 'none' })
     if (selectValue.length >= 1) {
       if (!isEditCart){
-        console.log(that.data.selectValue)
         wx.navigateTo({
           url: "/pages/shop-checkout/index?cid=" + JSON.stringify(that.data.selectValue)
         });
@@ -243,7 +254,6 @@ Page({
   // 删除
   subDel: function (e) {
     var that=this
-    console.log(that.data.selectValue)
     wx.showModal({
       title: '系统提醒',
       content: '确定要删除此商品吗？',
@@ -252,9 +262,7 @@ Page({
           util.request(api.CartDelete, { cart_id: that.data.selectValue }, "POST"
           ).then(function (res) {
             if (res.code == 200) {
-              // that.data.cartList.splice(index, 1);
               that.getCartList();
-              // that.setData({ cartList: that.data.cartList });
               app.Tips({ title: '删除成功', icon: 'success' });
             } else {
               app.Tips({ title: '删除失败', icon: 'none' });

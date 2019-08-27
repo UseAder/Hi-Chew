@@ -35,10 +35,12 @@ Page({
     }, {
         id: 'collect',
         name: '我的收藏'
-    }, {
-        id: 'cart',
-        name: '我的购物车'
-      }, {
+    }, 
+    // {
+    //     id: 'cart',
+    //     name: '我的购物车'
+    //   }, 
+      {
         id: 'address-select',
         name: '我的地址', border: 0
 
@@ -72,7 +74,6 @@ Page({
       // 所以此处加入 callback 以防止这种情况
       app.employIdCallback = openid => {
         if (openid != '') {
-          console.log(1.3)
           that.setData({
             userInfo: app.globalData.userInfo,
           })
@@ -86,17 +87,18 @@ Page({
   userInfoHandler: function () {
     var that = this
     user.loginByWeixin().then((res) => {
-      console.log(res.data)
       if (res.code == 200) {
-        that.setData({
-          userInfo: res.data
-        })
+        wx.reLaunch({
+          url: '/pages/my/index/index',
+        });
+        // that.setData({
+        //   userInfo: res.data
+        // })
       }
     })
   },
   // 跳转
   personalOpen: function (e) {
-    console.log(e)
     var that=this,id = e.currentTarget.dataset.chart.id
     if (id == 'contacts' || id =='aftermarket'){
       that.setData({ window: false})
@@ -139,4 +141,10 @@ Page({
       }
     });
   },
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
 })

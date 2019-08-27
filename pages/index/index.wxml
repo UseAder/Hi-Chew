@@ -40,7 +40,6 @@
           <image src="{{tools.sub(ImageUrl+item.type_img)}}"></image>
           <text>{{item.type_name}}</text>
         </navigator>
-
       </view>
     </swiper-item>
   </swiper>
@@ -57,8 +56,7 @@
   </swiper>
   <!-- <image src='{{ReturnData.banner[0]}}'></image> -->
 </view>
-
-<!-- 发现好物 -->
+<!-- 精品推荐 -->
 <view class='findGood  '>
   <view class='title'>
     <view class='border'></view>
@@ -75,11 +73,11 @@
           <view class='desc J-textd'>{{item.describe}}</view>
         </view>
         <view class='content-bottom'>
-           <view class='price'>¥
-              <text>{{item.discount}}</text>
-            </view>
-            <view class='desc J-textd'>{{item.sales}}人付款
-            </view>
+          <view class='price'>¥
+            <text>{{item.discount}}</text>
+          </view>
+          <view class='desc J-textd'>{{item.sales}}人付款
+          </view>
         </view>
       </view>
     </view>
@@ -91,9 +89,6 @@
     </view>
   </view>
 </view>
-<view style="display:none">
-  <image wx:for="{{puBuLiu.images}}" wx:key="id" id="{{item.id}}" src="{{tools.sub(ImageUrl+item.brand)}}" bindload="onImageLoad"></image>
-</view>
 <!-- 精品推荐 -->
 <view class='findGood Recommend'>
   <view class='title'>
@@ -101,38 +96,20 @@
     发现好物
   </view>
   <view class='list_z1 '>
-    <view class="item-list">
-      <view class='right' bindtap="toGoods" data-gid='{{item.goods_id}}' wx:for="{{puBuLiu.col1}}" wx:key="id">
-        <image src="{{tools.sub(ImageUrl+item.brand)}}" style="width:100%;" mode='widthFix'></image>
-        <view class='list_flex'>
-          <view class='content-top'>
-            <view class='name J-textd'>{{item.name}}</view>
-            <view class='desc J-textd'>{{item.describe}}</view>
-          </view>
-          <view class='content-bottom'>
-            <view class='price'>¥
-              <text>{{item.discount}}</text>
-            </view>
-            <view class='desc J-textd'>{{item.sales}}人付款
-            </view>
-          </view>
-        </view>
+    <view class="item-list" bindtap="toGoods" data-gid='{{item.goods_id}}' wx:for="{{ReturnData.good}}" wx:key="id">
+     <view class='list_logo'>
+        <image src='{{tools.sub(ImageUrl+item.brand)}}' ></image>
       </view>
-    </view>
-    <view class="item-list">
-      <view class='left' bindtap="toGoods" data-gid='{{item.goods_id}}' wx:for="{{puBuLiu.col2}}" wx:key="id">
-        <image src="{{tools.sub(ImageUrl+item.brand)}}" style="width:100%;height:{{item.height}}px"></image>
-        <view class='list_flex'>
-          <view class='content-top'>
-            <view class='name J-textd'>{{item.name}}</view>
-            <view class='desc J-textd'>{{item.describe}}</view>
+      <view class='list_flex'>
+        <view class='content-top'>
+          <view class='name J-textd'>{{item.name}}</view>
+          <view class='desc J-textd'>{{item.describe}}</view>
+        </view>
+        <view class='content-bottom'>
+          <view class='price'>¥
+            <text>{{item.discount}}</text>
           </view>
-          <view class='content-bottom'>
-            <view class='price'>¥
-              <text>{{item.discount}}</text>
-            </view>
-            <view class='desc J-textd'>{{item.sales}}人付款
-            </view>
+          <view class='desc J-textd'>{{item.sales}}人付款
           </view>
         </view>
       </view>

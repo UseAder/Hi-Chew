@@ -26,7 +26,7 @@ Page({
       codeImage: '', //分享活动二维码背景图
       title: '',
       desc: '',
-      name: '嘿咻', //分享活动商品名称
+      name: '嗨咻', //分享活动商品名称
       explain: '发现更多快乐', //分享活动商品说明
     },
     nvabarData: {
@@ -91,7 +91,6 @@ Page({
     that.setData({
       canvasStatus: true
     });
-    console.log(that.data.shichiObject)
     // 生成二维码分享图海报
     that.downloadFilePromotionCode(function(msgPromotionCode) {
       //获取网络图片本地路径
@@ -102,13 +101,8 @@ Page({
           let Path = res.path;
           that.setData({
             'shichiObject.bgImages': Path,
-            // 'shichiObject.codeImage': Path,
-            // 'shichiObject.bgImages': 'https://hangfoxs.oss-cn-hangzhou.aliyuncs.com/snack/201908055d47ed3be08511665.jpeg',
-            // 'shichiObject.codeImage': 'https://hangfoxs.oss-cn-hangzhou.aliyuncs.com/snack/201908055d47ed362a7592825.jpeg',
             'shichiObject.codeImage': msgPromotionCode,
           })
-          console.log(that.data.shichiObject)
-
           util.ShichiCanvas(that.data.shichiObject, function(tempFilePath) {
             that.setData({
               posterImage: tempFilePath,
@@ -121,7 +115,6 @@ Page({
           //失败回调
         }
       })
-
     })
   },
   /**
@@ -145,8 +138,6 @@ Page({
         base64.base64src(res.data).then(
           function(data) {
             successFn(data);
-            console.log(data)
-
           }
         )
       }
@@ -270,7 +261,11 @@ Page({
     })
   },
   openCartPage: function() {
-    app.Tips('/pages/cart/index')
+    app.globalData.cartLoad = true
+
+    wx.switchTab({
+      url: '/pages/cart/index'
+    })
   },
   /**
    * 打开规格数量属性插件
@@ -278,7 +273,6 @@ Page({
   onMyEvent: function(e) {
     this.setData({
       'attribute.cartAttr': e.detail.window,
-      // isOpen: false
     })
   },
 
@@ -291,24 +285,13 @@ Page({
     var productAttr = that.data.productAttr
     var goods = that.data.goods;
     //只有一个默认选择
-    console.log(productAttr)
-
     for (var i = 0, len = productAttr.length; i < len; i++) {
       if (productAttr[i].spec_list[0].id) productAttr[i].checked = productAttr[i].spec_list[0].id;
     }
-    // console.log(productAttr)
-    // for (var i = 0, len = productAttr.length; i < len; i++) {
-    //   if (productAttr[i].spec_list.length == 1)
-    //     productAttr[i].checked = productAttr[i].spec_list[0].id;
-    // }
     var value = this.data.productAttr.map(function(attr) {
       return attr.checked;
     });
-
-    console.log(this.data.productAttr)
-    console.log(value)
     var productSelect = that.data.productValue[value.join('_')];
-    console.log(productSelect)
     if (productSelect) {
       that.setData({
         ["productSelect.image"]: api.ImageUrl + productSelect.spec_image,
@@ -350,11 +333,8 @@ Page({
   ChangeAttr: function(e) {
     var values = e.detail;
     var that = this
-    console.log(that.data.productValue)
     var productSelect = that.data.productValue[values];
     var goods = that.data.goods;
-    console.log(productSelect)
-    console.log(values)
     if (productSelect) {
       this.setData({
         ["productSelect.image"]: api.ImageUrl + productSelect.spec_image,
@@ -384,13 +364,7 @@ Page({
     //是否 加|减
     var changeValue = e.detail;
     //获取当前变动属性
-    console.log(changeValue)
-
     var productSelect = this.data.productValue[this.data.attrValue];
-    console.log(productSelect)
-    console.log(this.data.attrValue)
-
-    console.log(this.data.productAttr)
     //如果没有属性,赋值给商品默认库存
     // if (productSelect === undefined && !this.data.productAttr.length) 
     if (productSelect === undefined && !this.data.productAttr.length)
@@ -449,6 +423,16 @@ Page({
     }
     this.getGoodsInfo()
     this.getCartLength()
+    var that = this;
+    wx.getSystemInfo({
+      success: function (res) {
+        console.log(res)
+        that.setData({
+          windowW: res.windowWidth,
+          windowH: res.windowHeight
+        })
+      },
+    })
   },
   //加入购物车
   joinCart: function() {
@@ -470,57 +454,29 @@ Page({
   ConfirmClose: function(e) {
     var that = this
     var productSelect = that.data.productValue[that.data.attrValue]
-
-    // if (that.data.attrValue) {
-    //   //默认选中了属性，但是没有打开过属性弹窗还是自动打开让用户查看默认选中的属性
-    //   that.setData({
-    //     'attribute.cartAttr': !that.data.isOpen ? true : false
-    //   })
-    // } else {
-    //   if (that.data.isOpen)
     that.setData({
       'attribute.cartAttr': true
     })
-    //   else
-    //     that.setData({
-    //       'attribute.cartAttr': !that.data.attribute.cartAttr
-    //     });
-    // }
-    // // //只有关闭属性弹窗时进行加入购物车
-    // if (that.data.attribute.cartAttr === true && that.data.isOpen == false) return that.setData({
-    //   isOpen: true
-    // });
     // //如果有属性,没有选择,提示用户选择
     if (that.data.productAttr.length && productSelect === undefined && that.data.isOpen == true) return app.Tips({
       title: '商品未选，或库存不足，请重新选择'
     });
     that.setData({
-      // isOpen: false,
       'attribute.cartAttr': false
     });
     if (that.data.isPay) {
       var option = ''
       option = "gid=" + that.data.gid + "&uid=" + wx.getStorageSync('uid') + "&sku_id=" + that.data.productSelect.id + "&num=" + that.data.productSelect.cart_num
-      // console.log(option)
       wx.navigateTo({
         url: '/pages/shop-checkout/index?' + option
       });
-
     } else {
-      //   // console.log(that.data.attrValue)
       var goodsAll = {}
       goodsAll.uid = app.globalData.uid
       goodsAll.gid = that.data.gid
-
       goodsAll.spec_id = that.data.productSelect.id
-
       goodsAll.num = that.data.productSelect.cart_num
-
-      //   goodsAll.goods_speci = that.data.attrValue;
-      //   goodsAll.goods_speci_id = that.data.productSelect.id
-      console.log(goodsAll)
       util.request(api.CartAdd, goodsAll, "POST").then(function(res) {
-        // console.log(res)
         if (res.code == 200) {
 
           that.getCartCount(true);
@@ -542,67 +498,6 @@ Page({
     that.setData({
       'attribute.cartAttr': true
     })
-
-    // if (that.data.attrValue) {
-    //   //默认选中了属性，但是没有打开过属性弹窗还是自动打开让用户查看默认选中的属性
-    //   that.setData({
-    //     'attribute.cartAttr': !that.data.isOpen ? true : false
-    //   })
-    // } else {
-    //   if (that.data.isOpen)
-    //     that.setData({
-    //       'attribute.cartAttr': true
-    //     })
-    //   else
-    //     that.setData({
-    //       'attribute.cartAttr': !that.data.attribute.cartAttr
-    //     });
-    // }
-    // // //只有关闭属性弹窗时进行加入购物车
-    // if (that.data.attribute.cartAttr === true && that.data.isOpen == false) return that.setData({
-    //   isOpen: true
-    // });
-    // // //如果有属性,没有选择,提示用户选择
-    // if (that.data.productAttr.length && productSelect === undefined && that.data.isOpen == true) return app.Tips({
-    //   title: '商品未选，或库存不足，请重新选择'
-    // });
-    // that.setData({
-    //   isOpen: false,
-    //   'attribute.cartAttr': false
-    // });
-    // if (isPay) {
-    //   var option = ''
-    //   option = "gid=" + that.data.gid + "&uid=" + wx.getStorageSync('uid') + "&sku_id=" + that.data.productSelect.id + "&num=" + that.data.productSelect.cart_num
-    //   // console.log(option)
-    //   wx.navigateTo({
-    //     url: '/pages/shop-checkout/index?' + option
-    //   });
-
-    // } else {
-    //   //   // console.log(that.data.attrValue)
-    //   var goodsAll = {}
-    //   goodsAll.uid = app.globalData.uid
-    //   goodsAll.gid = that.data.gid
-
-    //   goodsAll.spec_id = that.data.productSelect.id
-
-    //   goodsAll.num = that.data.productSelect.cart_num
-
-    //   //   goodsAll.goods_speci = that.data.attrValue;
-    //   //   goodsAll.goods_speci_id = that.data.productSelect.id
-    //   console.log(goodsAll)
-    //   util.request(api.CartAdd, goodsAll, "POST").then(function (res) {
-    //     // console.log(res)
-    //     if (res.code == 200) {
-
-    //       that.getCartCount(true);
-    //       app.Tips({
-    //         title: '添加购物车成功',
-    //         icon: 'success'
-    //       });
-    //     }
-    //   });
-    // }
   },
   /**
    * 获取购物车数量
@@ -644,14 +539,14 @@ Page({
           goods.describe = res.data.data.describe,
           goods.discount = res.data.data.discount,
           goods.banner = res.data.data.images.split(',')
-        var subImages = api.ImageUrl + res.data.data.images
+        // var subImages = api.ImageUrl + res.data.data.images
         that.setData({
           goods: goods,
           cid: res.data.cid,
           userCollect: res.data.sc,
           productAttr: res.data.arr.list || [],
           productValue: res.data.arr.sku || {},
-          'shichiObject.bgImages': subImages,
+          'shichiObject.bgImages': api.ImageUrl+res.data.data.brand,
           'shichiObject.title': res.data.data.name,
           'shichiObject.desc': res.data.data.describe
         })
@@ -664,7 +559,8 @@ Page({
             'collectBackImage': that.data.noCollectImage
           });
         }
-        that.DefaultSelect(), t.wxParse("goodsDetail", "html", res.data.data.parameter, that);
+        that.DefaultSelect()
+        , t.wxParse("goodsDetail", "html", res.data.data.parameter, that);
       }
     })
   },
@@ -694,11 +590,6 @@ Page({
   // 购物车商品数量
   getCartLength: function() {
     var that = this
-    console.log('戴凯杰')
-
-    console.log(app.globalData.uid)
-    console.log('戴凯杰')
-
     util.request(api.Cart, {
       uid: app.globalData.uid,
     }, 'post').then(function(res) {
@@ -741,7 +632,6 @@ Page({
   userInfoHandler: function() {
     var that = this
     user.loginByWeixin().then((res) => {
-      console.log(res.data)
       if (res.code == 200) {
         that.setData({
           userInfo: res.data
@@ -753,6 +643,17 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
+    // 来自页面内的按钮的转发
+    var shareObj = {
+      title: "嗨咻Hi-xiu", // 默认是小程序的名称(可以写slogan等)
+      path: '/pages/index/index', // 默认是当前页面，必须是以‘/’开头的完整路径
 
+    }
+    if (options.from == 'button') {
+      var share = this.data.shichiObject;　　　　 // 此处可以修改 shareObj 中的内容
+      shareObj.imageUrl = that.data.shichiObject.bgImages
+      shareObj.path = '/pages/goods/index?gid=' + this.data.gid
+    }　　 // 返回shareObj
+    return shareObj;
   }
 })

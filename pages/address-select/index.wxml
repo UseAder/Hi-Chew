@@ -32,10 +32,13 @@
       </view>
     </view>
   </radio-group>
+  <block wx:if='{{loadData}}'>
+
   <view class=" swiper-con-kong" wx:if="{{addressList.length < 1||!addressList}}">
     <image src="/images/search/kd.png" mode='widthFix'></image>
     <view class='title'>么有收货地址呐</view>
   </view>
+  </block>
   <view class='footer acea-row row-between-wrapper'>
     <view class='but' bindtap='addAddress'>
       <image class='xj' src='/images/search/xj.png' mode='widthFix'></image>

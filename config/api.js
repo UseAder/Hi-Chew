@@ -67,8 +67,9 @@ module.exports = {
   OrderSuccess: NewApiRootUrl + 'Order/up_order', //支付成功
   OrderDetail: NewApiRootUrl + 'Order/delite', //订单详情(订单)
   // OrderLogistic: NewApiRootUrl + 'Order/express', //wuliu
-  // OrderConfirm: NewApiRootUrl + 'Order/yes_goods', //订单确认收货
+  OrderConfirm: NewApiRootUrl + 'Order/ok_order', //订单确认收货
   OrderDelete: NewApiRootUrl + 'Order/false_delete', //取消订单
+  OrderCancel: NewApiRootUrl + 'Order/cancel', //取消订单
 
 
   Seo: NewApiRootUrl + 'Seo/', //搜索页列表

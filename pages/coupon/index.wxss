@@ -42,28 +42,27 @@ color: #999999;
 font-size: 20rpx;
   line-height: 1;
 }
-
 .swiper-con {
   padding-left: 38rpx;
   padding-right: 34rpx;
   padding-bottom: 12rpx;
   background: #fff;
   width: 100%;
+  box-sizing: border-box;
   border-radius: 10rpx;
   position: relative;
   margin-bottom: 20rpx;
 }
 
 .swiper-con .swiper-con-top {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 44rpx;
-  padding-bottom: 32rpx;
-  border-bottom: 1rpx dashed #d7d7d7;
+ display:flex;
+justify-content:space-between;
+padding-top:36rpx;
+padding-bottom:36rpx;
+border-bottom:1rpx dashed #d7d7d7;
+
 }
-.swiper-con .swiper-con-top .right {
-  width: 518rpx;
-}
+
 .swiper-con .swiper-con-top .right .title {
   font-size: 40rpx;
   font-weight: bold;
@@ -83,11 +82,15 @@ font-size: 20rpx;
 }
 
 .swiper-con .swiper-con-top .left_1 {
-  color: #c5c5ca;
+  color:#c5c5ca;
+display:flex;
+align-items:center;
+
 }
 
 .swiper-con .swiper-con-top .left text {
-  font-size: 30rpx;
+  font-size: 30rpx;margin-top:24rpx;
+
 }
 
 .swiper-con .swiper-con-bottom {
@@ -98,7 +101,7 @@ font-size: 20rpx;
 }
 
 .swiper-con .swiper-con-bottom .right {
-  display: flex;
+  display: flex;align-items: center;
 }
 
 .swiper-con .swiper-con-bottom .left .btn {
@@ -114,4 +117,12 @@ font-size: 20rpx;
 
 .swiper-con .swiper-con-bottom .left .btn_1 {
   background: #c5c5ca;
+}
+
+.swiper-con .swiper-con-top .right {
+ width:518rpx;
+display:flex;
+align-items:center;
+line-height:1.3;
+
 }

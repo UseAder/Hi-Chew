@@ -3,7 +3,7 @@ var api = require('./config/api.js');
 
 App({
   onLaunch: function(options) {
-    util.getFontFamily();
+    // util.getFontFamily();
 
     if (wx.canIUse('getUpdateManager')) {
       const updateManager = wx.getUpdateManager()
@@ -50,7 +50,7 @@ App({
           this.globalData.windowHeight = res.windowHeight
       }
     })
-    // util.PageCoupon()
+    util.PageCoupon()
 
   },
   onLoad: function(options) {
@@ -60,7 +60,6 @@ App({
     } else {
       this.globalData.share = false
     };
-    
   },
   onReady:function(){
     console.log(0)
@@ -74,7 +73,9 @@ App({
     uid: '',
     // share: false,  // 分享默认为false
     // zymConfirm: false,//验证码成功或失效
-    // pieLoad: false,//ec-canvas 数据问题需要
+    orderLoad: false,//jiazai问题需要
+    cartLoad: false,//jiazai问题需要
+
     // pieCanvasHeight: null,
     height: 0, //自定义标题头
     windowHeight: 0, //获取当前窗口的高度

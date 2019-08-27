@@ -6,18 +6,19 @@
 <button wx:if="{{userInfo.nickname=='昵称'}}" open-type="getUserInfo" bindgetuserinfo="userInfoHandler" class="wxlogin_bt"></button>
 
 <view class="swiper-item column-list0">
-  <view class="swiper-con" wx:for="{{CouponList}}" wx:if="{{item.u_status!=2}}" wx:key>
+  <view class="swiper-con" wx:for="{{CouponList}}" wx:key>
     <view class='swiper-con-top'>
       <view class='right'>
         <view class='title'>{{item.discount_name}}</view>
-        <view class='time'>有限期{{toolsTime.sub(item.start_time*1000,"yyyy.MM.dd")}}-{{toolsTime.sub(item.end_time*1000,"yyyy.MM.dd")}}</view>
       </view>
       <view class='left {{item.u_status==0?"":"left_1"}}'>
-        {{item.amount}}<text>折</text>
+        {{item.amount}}
+        <text>折</text>
       </view>
     </view>
     <view class='swiper-con-bottom'>
-      <view class='right'>
+      <view class='right'>有限期{{toolsTime.sub(item.start_time*1000,"yyyy.MM.dd")}}-{{toolsTime.sub(item.end_time*1000,"yyyy.MM.dd")}}
+
       </view>
       <view class='left flex'>
         <block wx:if="{{item.u_status==0}}">
@@ -25,11 +26,8 @@
         </block>
         <block wx:else>
           <view class='btn' bindtap='toGroupType' data-id="{{item.id}}">去使用</view>
-
           <view class='btn btn_1'>已领取</view>
-
         </block>
-      
       </view>
     </view>
   </view>
@@ -41,6 +39,6 @@
 
 <view class='height_view'></view>
 
-<navigator class="groupBanner" url="{{couponBanner.url}}" hover-class="navigator-hover" open-type="navigate">
+<navigator if='{{couponBanner.img}}' class="groupBanner" url="{{couponBanner.url}}" hover-class="navigator-hover" open-type="navigate">
   <image src='{{tools.sub(ImageUrl+couponBanner.img)}}'></image>
 </navigator>

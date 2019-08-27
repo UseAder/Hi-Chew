@@ -1,16 +1,21 @@
 {
   "pages": [
     "pages/index/index",
+    
+    "pages/order/index",
+    
+    
+    "pages/shop-checkout/index",
+    
+    
     "pages/coupon-select/index",
     "pages/orderDetail/index",
     
     
-    "pages/order/index",
     "pages/cart/index",
     
     "pages/search/index",
 
-        "pages/shop-checkout/index",
     "pages/logs/logs",
     
     

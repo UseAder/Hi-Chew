@@ -65,8 +65,6 @@ Page({
 
     }).catch((err) => {
       wx.hideLoading();
-
-      console.log(err)
     });
   },
   onShareAppMessage: function () { }

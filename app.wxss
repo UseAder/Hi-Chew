@@ -9,18 +9,44 @@ image {
   column-count: 2;           
   column-gap: 20rpx;   
 }
+
 page {
-
-
-
-    /* font-family:"webfont" !important; */
-    font-size:28rpx;font-style:normal;
+   /* font-family:"webfont" !important;  */
+    font-size:28rpx;
     /* -webkit-font-smoothing: antialiased;
     -webkit-text-stroke-width: 0.2px;
-    -moz-osx-font-smoothing: grayscale;
-    fon */
+    -moz-osx-font-smoothing: grayscale; */
+    
+}
+/* @font-face {
+    font-family: 'DIN-Regular';
+    src: url('https://cssc1-up.ezrpro.com/wx/fonts/DIN-Regular.otf');
+    font-weight: normal;
+    font-style: normal;
 }
 
+@font-face {
+    font-family:'DIN-Medium';src:url('https://cssc1-up.ezrpro.com/wx/fonts/DIN-Medium.otf');font-weight:normal;font-style:normal;
+}
+
+@font-face {
+    font-family:'DIN-Bold';src:url('https://cssc1-up.ezrpro.com/wx/fonts/DIN-Bold.otf');font-weight:normal;font-style:normal;
+} */
+button.form_id::after{
+border: none;
+}
+.J-ml{
+  margin-left: 2rpx!important
+}
+.J-color9{
+color: #999!important
+}
+.J-color1{
+color: #010101!important
+}
+.J-font27{
+font-size: 27rpx!important
+}
 page::after{
     content: '';
     position: fixed;
@@ -57,7 +83,12 @@ height: 20rpx;
 background: #F8F8F8;
 
 }
+.divder2{
+width: 100%;
+height: 20rpx;
+background: #E7E7E7;
 
+}
 .mask {
   position: fixed;
   top: 0;
@@ -118,7 +149,7 @@ justify-content:space-between;
   display: flex;flex-direction: column;align-items: center;
 }
 .J-color{
-  color:#F92D90
+  color:#F92D90!important;
 }
 
 .loading{width:100%;height:100rpx;line-height:100rpx;align-items:center;justify-content:center;position: relative;text-align:center;
@@ -183,6 +214,7 @@ font-size:56rpx;
 .canvas{width:584px;
 height:870px;bottom:-46rpx;
 }
+
 
 .pro-wrapper .icon-xiazai{
  width:100rpx;

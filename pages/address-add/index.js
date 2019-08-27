@@ -60,7 +60,6 @@ Page({
   formSubmit: function (e) {
     var that = this,
       value = e.detail.value;
-    console.log(value)
     if (!value.name) return app.Tips({
       title: '请填写收货人姓名'
     });
@@ -106,10 +105,6 @@ Page({
     }
   },
   onShareAppMessage: function () {
-    return {
-      title: '杭州注册公司代理',
-      desc: '杭州注册公司代理',
-      path: '/pages/gr_index/index'
-    }
+   
   },
 })

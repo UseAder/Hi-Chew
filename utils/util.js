@@ -137,6 +137,9 @@ function request(url, data = {}, method = "GET") {
         'Content-Type': 'application/json',
       },
       success: function (res) {
+        console.log(res)
+        console.log('kai112')
+
         hideLoading();
         if (res.statusCode == 200) {
           console.log(res.data)
@@ -162,12 +165,12 @@ function request(url, data = {}, method = "GET") {
                     //存储用户信息
                     // 刷新token的函数,这需要添加一个开关，防止重复请求
                     if (isRefreshing) {
-                      // wx.setStorageSync('openid', res.data.openid);
-                      // wx.setStorageSync('userInfo', res.data);
-                      // wx.setStorageSync('uid', res.data.uid);
-                      // getApp().globalData.userInfo = wx.getStorageSync('userInfo');
-                      // getApp().globalData.openid = wx.getStorageSync('openid');
-                      // getApp().globalData.uid = wx.getStorageSync('uid');
+                      wx.setStorageSync('openid', res.data.openid);
+                      wx.setStorageSync('userInfo', res.data);
+                      wx.setStorageSync('uid', res.data.uid || res.data.id);
+                      getApp().globalData.userInfo = wx.getStorageSync('userInfo');
+                      getApp().globalData.openid = wx.getStorageSync('openid');
+                      getApp().globalData.uid = wx.getStorageSync('uid');
                       resolve(request(url, data, method));
                     }
                     isRefreshing = false;
@@ -189,6 +192,10 @@ function request(url, data = {}, method = "GET") {
         }
       },
       fail: function (err) {
+        console.log('kai113')
+
+        console.log(err)
+
         hideLoading();
         reject(err)
         console.log("failed")
@@ -305,16 +312,18 @@ const ShichiCanvas = (shichiObject, successFn) => {
 
     ctx.setFillStyle('#000000');
     ctx.setFontSize(14 * BEI);
-    ctx.fillText(shichiObject.name, WIDTH / 3+10, HEIGHT - 48 * BEI);
+    ctx.fillText(shichiObject.name, WIDTH / 3 + 10, HEIGHT - 48 * BEI);
     ctx.setFillStyle('#9A979B');
     ctx.setFontSize(12 * BEI);
-    ctx.fillText(shichiObject.explain, WIDTH / 3+10,HEIGHT - 30 * BEI);
+    ctx.fillText(shichiObject.explain, WIDTH / 3 + 10, HEIGHT - 30 * BEI);
     ctx.draw(true, function () {
       wx.canvasToTempFilePath({
         canvasId: 'myCanvasShichi',
         fileType: 'png',
-        destWidth: WIDTH,
-        destHeight: HEIGHT,
+        width: WIDTH * 2,
+        height: HEIGHT * 2,
+        // destWidth: WIDTH,
+        // destHeight: HEIGHT,
         success: function (res) {
           hideLoading();
           successFn && successFn(res.tempFilePath);
@@ -331,6 +340,8 @@ const ShichiCanvas = (shichiObject, successFn) => {
     })
   }).exec()
 }
+
+
 /**
  * 生成海报获取文字
  * @param string text 为传入的文本
@@ -379,6 +390,34 @@ function PageCoupon() {
 
 //这个方法建议放到公共文件中，例如我这里是utils.js
 function getFontFamily() {
+    // wx.loadFontFace && (wx.loadFontFace({
+    //   family: "DIN-Regular",
+    //   source: 'url("https://cssc1-up.ezrpro.com/wx/fonts/DIN-Regular.otf")',
+    //   success: function (e) { },
+    //   fail: function (e) {
+    //     console.log(e.status);
+    //   },
+    //   complete: function (e) { }
+    // }), wx.loadFontFace({
+    //   family: "DIN-Medium",
+    //   source: 'url("https://cssc1-up.ezrpro.com/wx/fonts/DIN-Medium.otf")',
+    //   success: function (e) {
+    //     console.log(e.status);
+    //   },
+    //   fail: function (e) {
+    //     console.log(e.status);
+    //   },
+    //   complete: function (e) {
+    //     console.log(e.status);
+    //   }
+    // }));
+  // wx.loadFontFace({
+  //   family: 'STKaiti',
+  //   source: 'url("https://im.xinkebao.cn/static/file/hykt.ttf")',
+  //   success: function (res) {
+  //     console.log(res)
+  //   }
+  // })
   wx.loadFontFace({
     family: 'webfont',
     source: 'url("https://abc.ufcoux.com/Adult/SourceHanSansCN-Regular.ttf")',//这个文件放到您的服务器根目录下

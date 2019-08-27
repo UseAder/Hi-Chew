@@ -8,7 +8,6 @@
     <view class='swiper-con-top'>
       <view class='right'>
         <view class='title'>{{item.discount_name}}</view>
-        <view class='time'>{{toolsTime.sub(item.start_time*1000,"yyyy.MM.dd")}}-{{toolsTime.sub(item.end_time*1000,"yyyy.MM.dd")}}</view>
       </view>
       <view class='left {{item.u_status==0?"":"left_1"}}'>
         {{item.amount}}
@@ -16,7 +15,7 @@
       </view>
     </view>
     <view class='swiper-con-bottom'>
-      <view class='right'>
+      <view class='right'>有限期{{toolsTime.sub(item.createtime*1000,"yyyy.MM.dd")}}-{{toolsTime.sub(item.end_time*1000,"yyyy.MM.dd")}}
       </view>
       <view class='left flex'>
           <view class='btn' bindtap='toGroupType' data-di_type="{{item.di_type}}" data-types="{{item.types}}" data-amount="{{item.amount}}" data-id="{{item.id}}">去使用</view>

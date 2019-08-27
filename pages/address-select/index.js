@@ -8,6 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    loadData: false,
+
     addressList: [],
     nvabarData: {
       showCapsule: 1, //是否显示左上角图标   1表示显示    0表示不显示
@@ -25,9 +27,15 @@ Page({
   },
   getAddressList: function() {
     var that = this;
+    that.setData({
+      loadData: false,
+    })
     util.request(api.AddressList, {
       uid: app.globalData.uid
     }, 'post').then(function(res) {
+      that.setData({
+        loadData: true,
+      })
       if (res.code === 200) {
         var addressList = res.data
         for (var i in addressList) {
@@ -50,7 +58,6 @@ Page({
     if (address == undefined) return app.Tips({
       title: '您设置的默认地址不存在!'
     });
-    console.log(address)
     var value = {}
     value.aid = address.ad_id
     value.address = address.ad_address
@@ -61,7 +68,6 @@ Page({
     value.uid = address.uid
     util.request(api.AddressPut, value, "POST"
     ).then(function (res) {
-      console.log(res)
       for (var i = 0, len = that.data.addressList.length; i < len; i++) {
         if (i == index) that.data.addressList[i].is_default = true;
         else that.data.addressList[i].is_default = false;

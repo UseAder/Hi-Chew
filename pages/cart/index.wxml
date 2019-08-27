@@ -1,13 +1,14 @@
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
 <view class='nav-barheight' style='height:{{height}}px;margin-bottom:10px'></view>
 <wxs src="../../wxs/imageUrl.wxs" module="tools" />
-
-<view class='bg_bg' style='height:{{windowHeight-height-10}}px'  wx:if="{{cartList==''||!cartList}}">
-<navigator url='/pages/index/index' open-type="switchTab" hover-class='none' class="swiper-con-kong-1 swiper-con-kong">
-    <image src="/images/search/ks.png" mode='widthFix'></image>
-    <view class='title'>空空如也的购物车</view>
-  </navigator>
-</view>
+<block wx:if='{{loadData}}'>
+  <view class='bg_bg' style='height:{{windowHeight-height-10}}px' wx:if="{{cartList==''||!cartList}}">
+    <navigator url='/pages/index/index' open-type="switchTab" hover-class='none' class="swiper-con-kong-1 swiper-con-kong">
+      <image src="/images/search/ks.png" mode='widthFix'></image>
+      <view class='title'>空空如也的购物车</view>
+    </navigator>
+  </view>
+</block>
 
 <view class='shoppingCart'>
   <view wx:if="{{cartList.length > 0}}">
@@ -42,7 +43,7 @@
       </checkbox-group>
     </view>
   </view>
-  
+
   <view style='height:120rpx;'></view>
   <view class='footer acea-row row-between-wrapper' wx:if="{{cartList.length > 0}}">
     <checkbox-group bindchange="checkboxAllChange" class='J-flex_sba'>

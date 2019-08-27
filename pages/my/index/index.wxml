@@ -57,5 +57,5 @@
 
 
 <navigator class="groupBanner" url="{{couponBanner.url}}" hover-class="navigator-hover" open-type="navigate">
-  <image src='{{tools.sub(ImageUrl+couponBanner.img)}}' mode='widthFix'></image>
+  <image src='{{tools.sub(ImageUrl+couponBanner.img)}}' ></image>
 </navigator>

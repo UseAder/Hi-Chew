@@ -9,8 +9,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    loadData:false,
     ImageUrl: api.ImageUrl,
-
     GoodList:[],
     nvabarData: {
       showCapsule: 1, //是否显示左上角图标   1表示显示  0表示不显示
@@ -35,7 +35,6 @@ Page({
       content: '确定删除收藏吗？',
       success: function (res) {
         if (res.confirm) {
-          console.log('用户点击确认');
           util.request(api.UserDeleted, {
             cid: cid,
             uid: app.globalData.uid
@@ -66,7 +65,13 @@ Page({
   },
   getCollectList() {
     let that = this;
+    that.setData({
+      loadData: false,
+    })
     util.request(api.Collect, { uid: wx.getStorageSync('uid') },'POST').then(function (res) {
+      that.setData({
+        loadData: true,
+      })
       if (res.code === 200) {
         that.setData({
           GoodList: res.data

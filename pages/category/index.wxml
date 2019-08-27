@@ -12,43 +12,26 @@
     </scroll-view>
   </view>
   <view class="goods-container cate-item" style='padding-top: 45px'>
-   <view class='list_z1'>
-    <view class='item-list'  bindtap="toGoods" data-gid='{{item.goods_id}}'  wx:for="{{goodsList}}" wx:key>
-      <view class='list_logo'>
-        <image src='{{tools.sub(ImageUrl+item.brand)}} ' mode='widthFix'></image>
-      </view>
-      <view class='list_flex'>
-        <view class='content-top'>
-          <view class='name J-textd'>{{item.name}}</view>
+    <view class='list_z1 '>
+      <view class="item-list" bindtap="toGoods" data-gid='{{item.goods_id}}' wx:for="{{goodsList}}" wx:key="id">
+        <view class='list_logo'>
+          <image src='{{tools.sub(ImageUrl+item.brand)}}'></image>
         </view>
-        <view class='content-bottom'>
-          <view class='price'>¥{{item.discount}}</view>
-          <view class='num J-textd'>销量:{{item.sales}}</view>
-          <!-- <view class='cart_logo'>
-            <image src='/images/home/cart.png' mode='widthFix'></image>
-          </view> -->
+        <view class='list_flex'>
+          <view class='content-top'>
+            <view class='name J-textd'>{{item.name}}</view>
+            <view class='desc J-textd'>{{item.describe}}</view>
+          </view>
+          <view class='content-bottom'>
+            <view class='price'>¥
+              <text>{{item.discount}}</text>
+            </view>
+            <view class='desc J-textd'>{{item.sales}}人付款
+            </view>
+          </view>
         </view>
       </view>
     </view>
-  </view>
-    <!-- <view class="goods-box" wx:for-items="{{goodsList}}" wx:key="{{index}}">
-      <navigator url='/pages/goods-details/index?id={{item.id}}' hover-class='none'>
-        <view class="img-box">
-        <image src="{{tools.sub(ImageUrl+item.brand)}}"></image>
-        </view>
-        <view class='goods-content'>
-          <view class="goods-title">{{item.name}}</view>
-          <view class='J-flex_sba goods-price-volume'>
-            <view class="goods-price">¥{{item.discount}}</view>
-            <view class="goods-volume">
-              <text class='iconfont icon-huomiao'></text>
-                  <text style='color:#D81E06;'>热度{{item.sales}}</text>
-            </view>
-          </view>
-
-        </view>
-      </navigator>
-    </view> -->
   </view>
 
   <view class='loadingicon acea-row row-center-wrapper' hidden='{{goodsList.length<=6}}'>

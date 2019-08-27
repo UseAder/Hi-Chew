@@ -23,6 +23,12 @@ Page({
     GoodList:[],//商品列表
     SeoEntryList:[]//词条
   },
+  toGoods: function (e) {
+    var gid = e.currentTarget.dataset.gid;
+    wx.navigateTo({
+      url: '/pages/goods/index?gid=' + gid
+    })
+  },
   showInput: function () {
     this.setData({
       inputShowed: true,
@@ -109,7 +115,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
   },
 
   /**

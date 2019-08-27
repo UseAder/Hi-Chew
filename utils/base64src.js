@@ -14,7 +14,6 @@ const base64src = function (base64data) {
       data: buffer,
       encoding: 'binary',
       success() {
-        console.log(filePath)
         resolve(filePath);
       },
       fail() {

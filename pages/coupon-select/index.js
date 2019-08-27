@@ -40,7 +40,6 @@ Page({
       types = e.currentTarget.dataset.types;
     var pages = getCurrentPages();   //当前页面
     var prevPage = pages[pages.length - 2];   //上一页面
-    console.log(e.currentTarget.dataset)
       prevPage.setData({
         //直接给上一个页面赋值
         discountAmount: discount,

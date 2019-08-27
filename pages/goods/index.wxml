@@ -18,7 +18,7 @@
 <action-sheet hidden="{{actionSheetHidden}}" class='pro-wrapper' hover-class='none'>
   <view class='poster-pop'  bindtap='posterImageClose'>
     <view class='close iconfont icon-cuo2' bindtap='posterImageClose'></view>
-    <image src='{{posterImage}}' mode='aspectFit'></image>
+    <image src='{{posterImage}}' mode='widthFix'></image>
   </view>
   <action-sheet-item hover-class='none'>
     <button open-type="share" class='contact' hover-class='none'>
@@ -44,11 +44,20 @@
   <view class='good_container'>
     <view class="goods-info">
       <view class="c">
-        <view class='flex goods-price'>
-          ¥{{goods.discount}}  <text>{{item.sales?item.sales:0}}人付款</text>
+      <view class='content-bottom'>
+          <view class='price'>¥
+            <text>{{goods.discount}}</text>
+          </view>
+          <view class='desc J-textd'>{{item.sales?item.sales:0}}人付款
+          </view>
         </view>
+        <!-- <view class='flex goods-price'> -->
+
+        
+          <!-- ¥<text class='price'>{{goods.discount}} </text> <text>{{item.sales?item.sales:0}}人付款</text> -->
+        <!-- </view> -->
         <text class="name ">{{goods.name}}</text>
-        <text class="desc J-textd">{{goods.describe}}</text>
+        <text class="desc_te J-textd">{{goods.describe}}</text>
       </view>
       <view class='share' bindtap='listenerActionSheet'>
         <view class="fenxiang ">
@@ -62,7 +71,7 @@
   <view class="section-nav section-attr">
     <view class='title'>保障</view>
     <view class='logo'><image src='/images/search/gg.png' mode='widthFix'></image></view>
-    <view class='desc'>品质优选 · 正品保障 · 郑州市20分钟速达</view>
+    <view class='desc'>品质优选 · 正品保障 · 郑州市28分钟速达</view>
   </view>
   <view class='divder'></view>
   <view class="section-nav te section-attr" bindtap='openWindow'>

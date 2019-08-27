@@ -17,6 +17,9 @@ function loginByWeixin() {
       return getUserInfo();
     }).then((userInfo) => {
       //登录远程服务器
+      console.log(userInfo)
+      console.log('jie')
+
       if (userInfo.errMsg=="getUserInfo:ok"){
         util.request(api.WxLogin, { code: code }, 'POST').then(res => {
           var user = {}
@@ -24,12 +27,19 @@ function loginByWeixin() {
           user.nickname = userInfo.userInfo.nickName
           user.avatar = userInfo.userInfo.avatarUrl
           //微信用户登录
+          console.log('kai')
+          console.log(user)
+
           util.request(api.WxLoginlogin, user, 'POST').then(res => {
+            console.log('jie1')
+            console.log(res)
+
             if (res.code === 200) {
+              console.log(res.data)
               //存储用户信息
               wx.setStorageSync('openid', res.data.openid);
               wx.setStorageSync('userInfo', res.data);
-              wx.setStorageSync('uid', res.data.uid);
+              wx.setStorageSync('uid', res.data.uid || res.data.id);
               app.globalData.userInfo = wx.getStorageSync('userInfo');
               app.globalData.openid = wx.getStorageSync('openid');
               app.globalData.uid = wx.getStorageSync('uid');
@@ -38,6 +48,7 @@ function loginByWeixin() {
               reject(res);
             }
           })
+          console.log('kai123')
         }).catch((err) => {
           reject(err);
         });
@@ -56,7 +67,6 @@ function login() {
       success: function (res) {
         if (res.code) {
           //登录远程服务器
-          console.log(res)
           resolve(res);
         } else {
           reject(res);
@@ -77,7 +87,6 @@ function getUserInfo() {
     wx.getUserInfo({
       withCredentials: true,
       success: function (res) {
-        console.log(res)
         resolve(res);
       },
       fail: function (err) {
@@ -86,13 +95,11 @@ function getUserInfo() {
           content: '小程序需要您的授权才能正常使用,请在点击页面进行授权',
           success: function (res) {
             if (res.confirm) {
-              console.log('用户点击确定')
               //去到设置中心界面
               // wx.navigateTo({
               //   url: '/pages/gr_ucenter/index',
               // })
             } else if (res.cancel) {
-              console.log('用户点击取消')
               reject(err);
             }
           }

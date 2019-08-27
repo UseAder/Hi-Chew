@@ -14,46 +14,65 @@
   <swiper style="height:{{swiper_height}}px;margin-top:58px;min-height:900rpx" bindchange="switchTab" class="swiper-swiper" current="{{currentTab}}">
     <swiper-item class="swiper-swiper-item " wx:for="{{ListSwiper}}" wx:key>
       <view class="swiper-item column-list{{index}}">
-        <view class="swiper-con" wx:for="{{item.navlist}}" wx:for-item="itemf"  wx:key>
-          <view class='swiper-con-top'>
-            <view class='title'>{{itemf.order_sn}}</view>
-            <view class='time'>{{toolsTime.sub(itemf.updatetime*1000,"yyyy-MM-dd h:m")}}</view>
-          </view>
-          <view class='swiper-con-center'>
-            <view class='swiper-con-link' wx:for="{{itemf.order}}">
-              <view class='swiper-logo'  bindtap="toOrderDetails" data-order_sn="{{itemf.order_sn}}">
-                <image src='{{tools.sub(ImageUrl+item.goods_brand)}}'></image>
+        <view class='item' style='width:100%' wx:for="{{item.navlist}}" wx:for-item="itemf" wx:key>
+          <view class='divder2'></view>
+          <view class="swiper-con">
+            <view class='swiper-con-top'>
+              <view class='title'>
+                <image src='/images/search/dz.png' mode='widthFix'></image>
+                <text class='name J-textd'>嘀咕机器人 {{itemf.address}}</text>
               </view>
-              <view class='swiper-flex'>
-                <view class='title J-textd'>{{item.goods_name}}</view>
-                <view class='desc'>
-                  <text wx:for='{{item.sku}}' wx:key> {{item.spec_value}}</text>
-                </view>
-                <view class='price'> ¥
-                  <text>{{item.goods_price}}</text>
-                </view>
+              <view class='time'>
+                <view class='pay {{itemf.order_status==4||itemf.order_status==30?"J-color9":""}}'>{{itemf.status}}</view>
+                <view class='timer' wx:if="{{itemf.order_status==0}}">还剩{{itemf.timer.min}}分{{itemf.timer.sec}}秒</view>
               </view>
             </view>
-          </view>
-          <view class='swiper-con-bottom'>
-            <view class='right'>
-              <view class='number'>共{{itemf.count}}件商品</view>
-              <view class='price'>合计 :
-                <text class='price-icon'>¥</text>
+            <!-- itemf.order[0]. -->
+            <view class='swiper-con-center' bindtap="toOrderDetails" data-order_sn="{{itemf.order_sn}}">
+              <view class='swiper-con-link' >
+                <view class='swiper-flex'>
+                                  <view class='deng' wx:if="{{itemf.order.length>1}}">等</view>
+
+                  <view class='title J-textd'>
+                  {{itemf.order[0].goods_name}}
+                  </view>
+                  <view class='price'>共{{itemf.count}}件商品
+                  </view>
+                </view>
+                <!-- <view class='swiper-logo' >
+                </view> -->
+              </view>
+              <view class='swiper-con-price'>
+                ¥
                 <text>{{itemf.pay_price}}</text>
               </view>
             </view>
-            <view class='left flex'>
-              <block wx:if="{{currentTab==0}}">
-                <view class='btn_delete' data-index="{{index}}" data-order_sn="{{itemf.order_sn}}" bindtap='cancelOrder'>删除订单</view>
-                <view class='btn' data-order_sn="{{itemf.order_sn}}" bindtap='payOrder'>待付款</view>
-              </block>
-              <block wx:else>
-                <view class='btn_delete'>已完成</view>
-              </block>
+            <view class='swiper-con-bottom'>
+              <view class='right'>
+                <view class='number'>{{toolsTime.sub(itemf.updatetime*1000,"yyyy-MM-dd h:m")}}</view>
+                <!-- <view class='price'>合计 :
+                  <text class='price-icon'>¥</text>
+                  <text>{{itemf.pay_price}}</text>
+                </view> -->
+              </view>
+              <view class='left flex'>
+                <block wx:if="{{itemf.order_status==0}}">
+                  <!-- <view class='btn_delete' data-index="{{index}}" data-order_sn="{{itemf.order_sn}}" bindtap='cancelOrder'>删除订单</view> -->
+                  <view class='btn' bindtap="toOrderDetails" data-order_sn="{{itemf.order_sn}}">去支付</view>
+                </block>
+                <block wx:elif="{{itemf.order_status==20}}">
+                  <!-- <view class='btn_delete' data-index="{{index}}" data-order_sn="{{itemf.order_sn}}" bindtap='cancelOrder'>删除订单</view> -->
+                  <view class='btn' bindtap="toOrderDetails" data-order_sn="{{itemf.order_sn}}">查看详情</view>
+                </block>
+                <block wx:else>
+                  <view class='btn_delete' bindtap="toGoods" data-gid='{{itemf.order[0].goods_id}}'>再来一单</view>
+                </block>
+              </view>
             </view>
           </view>
         </view>
+        <view class='divder2'></view>
+
         <view class="swiper-con swiper-con-kong" wx:if="{{item.list==''}}"></view>
       </view>
     </swiper-item>
