@@ -14,7 +14,7 @@
   <swiper style="height:{{swiper_height}}px;margin-top:58px;min-height:900rpx" bindchange="switchTab" class="swiper-swiper" current="{{currentTab}}">
     <swiper-item class="swiper-swiper-item " wx:for="{{ListSwiper}}" wx:key>
       <view class="swiper-item column-list{{index}}">
-        <view class='item' style='width:100%' wx:for="{{item.navlist}}" wx:for-item="itemf" wx:key>
+        <view class='item' data-order_sn='{{itemf.order_sn}}' data-order_status='{{itemf.order_status}}' bindlongpress="deleteOrder" style='width:100%' wx:for="{{item.navlist}}" wx:for-item="itemf" wx:key>
           <view class='divder2'></view>
           <view class="swiper-con">
             <view class='swiper-con-top'>

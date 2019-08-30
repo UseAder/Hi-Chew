@@ -48,7 +48,7 @@
           <view class='price'>¥
             <text>{{goods.discount}}</text>
           </view>
-          <view class='desc J-textd'>{{item.sales?item.sales:0}}人付款
+          <view class='desc J-textd'>{{goods.sales?goods.sales:0}}人付款
           </view>
         </view>
         <!-- <view class='flex goods-price'> -->

@@ -47,6 +47,43 @@ Page({
     currentTab: 0,
     height: app.globalData.height * 2 + 20,
   },
+  // 删除订单
+  deleteOrder: function (e) {
+    var that = this;
+    var order_sn = e.currentTarget.dataset.order_sn;//获取当前长按图片下标
+    var order_status = e.currentTarget.dataset.order_status;//
+
+    if (order_status==0){
+      return app.Tips({ title: '请取消订单后再进行删除 ^_^' }, '/pages/orderDetail/index?order_sn=' + order_sn)
+    }
+    if (order_status == 20) {
+      return app.Tips({ title: '请确认订单后再进行删除 ^_^' }, '/pages/orderDetail/index?order_sn=' + order_sn)
+    }
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除订单么？',
+      success: function (res) {
+        if (res.confirm) {
+          util.request(api.OrderDelete, {
+            order_sn: order_sn
+          }, "post").then(function (res) {
+            if (res.code == 200) {
+              that.getGroupList()
+              app.Tips({
+                title: '订单已删除',
+                icon: 'success'
+              });
+            }
+
+          })
+        } else if (res.cancel) {
+          console.log('点击取消了');
+          return false;
+        }
+    
+      }
+    })
+  },
   toGoods: function(e) {
     var gid = e.currentTarget.dataset.gid;
     wx.navigateTo({

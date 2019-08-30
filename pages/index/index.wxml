@@ -13,7 +13,7 @@
     <view class="title">输入产品名称</view>
   </view>
   <view class="searchTop_search">
-    <swiper autoplay="true" class="searchTop_banner" duration="1000" interval="7000" indicatordots='false'>
+    <swiper autoplay="true" indicatorDots="true"  circular="true" class="searchTop_banner" duration="1000" interval="7000" indicatordots='false'>
       <swiper-item wx:for="{{ReturnData.banner}}" wx:key>
         <navigator class='searchTop_navigator' url="{{item.url}}" hover-class="navigator-hover" open-type="navigate">
           <image backgroundSize="cover" src="{{tools.sub(ImageUrl+item.img)}}"></image>
@@ -33,7 +33,7 @@
 </view>
 <!-- 导航Swiper -->
 <view class="navgationSwiper">
-  <swiper class="navgationSwiper_scroll" style='height:{{navHeight}}px'>
+  <swiper class="navgationSwiper_scroll" style='height:{{navHeight}}px' >
     <swiper-item class="navgationSwiper-list">
       <view class="publish" id='publish'>
         <navigator url="/pages/category/index?id={{item.id}}" hover-class='none' open-type="navigate" class="item" wx:for="{{ReturnData.type}}" wx:for-index="index" wx:for-item="item" wx:key>
@@ -47,10 +47,10 @@
 
 <!--横幅-->
 <view class="groupBanner" bindtap='toGroup'>
-  <swiper class="navgationSwiper_scroll" style='height:100%'>
-    <swiper-item class="navgationSwiper-list">
-      <navigator style='height:100%' url="{{item.url}}" hover-class='none' open-type="navigate" class="item" wx:for="{{ReturnData.slogan}}" wx:for-index="index" wx:for-item="item" wx:key>
-        <image src="{{tools.sub(ImageUrl+item.img)}}"></image>
+  <swiper class="navgationSwiper_scroll" autoplay="true"   circular="true" duration="1000" interval="7000" indicatordots='false'  style='height:100%'>
+    <swiper-item class="navgationSwiper-list"  wx:for="{{ReturnData.slogan}}" wx:for-index="index" wx:for-item="item" wx:key>
+      <navigator style='height:100%;' url="{{item.url}}" hover-class='none' open-type="navigate" class="item">
+        <image  style='  border-radius: 20rpx;' src="{{tools.sub(ImageUrl+item.img)}}"></image>
       </navigator>
     </swiper-item>
   </swiper>

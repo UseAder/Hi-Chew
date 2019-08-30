@@ -69,11 +69,11 @@
         </view>
         <view class='left flex'>
           <block wx:if="{{discount.discountPrice}}">
-            <text class="txt f-color">-￥{{discount.discountPrice}}</text>
+            <text class="txt J-color">-￥{{discount.discountPrice}}</text>
           </block>
           <block wx:else>
             <text class="txt active" wx:if='{{coupon&&coupon.length>0}}'>{{coupon.length}}张可用</text>
-            <text class="txt active" wx:else>无可用</text>
+            <text class="txt active" style='color:#999999;' wx:else>无可用</text>
           </block>
         </view>
       </view>

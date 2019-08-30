@@ -94,7 +94,8 @@
 
 .product-window .productWinList .item .listn .itemn {
   box-sizing: border-box;
-  display: inline-block;
+  display: inline-block;margin-bottom:10rpx;
+
   border-radius: 4rpx;
   height: 60rpx;
   padding: 0 30rpx;
@@ -113,7 +114,7 @@
 }
 
 .product-window .cart {
-  margin-top: 36rpx;
+  margin-top: 26rpx;
   margin-left: 50rpx;
 }
 

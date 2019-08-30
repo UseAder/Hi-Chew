@@ -26,8 +26,9 @@ Page({
       codeImage: '', //分享活动二维码背景图
       title: '',
       desc: '',
-      name: '嗨咻', //分享活动商品名称
-      explain: '发现更多快乐', //分享活动商品说明
+      name: '嗨咻情趣', //分享活动商品名称
+      explain: '情·不自禁，趣·无止境', //分享活动商品说明
+      explain1: '长摁识别小程序', //分享活动商品说明
     },
     nvabarData: {
       showCapsule: 1, //是否显示左上角图标   1表示显示    0表示不显示
@@ -538,6 +539,8 @@ Page({
           goods.details = details,
           goods.describe = res.data.data.describe,
           goods.discount = res.data.data.discount,
+          goods.sales = res.data.data.sales,
+
           goods.banner = res.data.data.images.split(',')
         // var subImages = api.ImageUrl + res.data.data.images
         that.setData({

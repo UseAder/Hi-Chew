@@ -3,11 +3,10 @@
 
 .searchTop_search {
   height: 340rpx;
-  border-radius: 0rpx;
   box-sizing: border-box;
   position: relative;
   background: #fff;
-  margin: 30rpx 30rpx;
+  margin: 30rpx 30rpx;overflow: hidden
 }
 
 .searchTop_search swiper {
@@ -17,12 +16,14 @@
 .searchTop_search swiper navigator {
   display: inline-block;
   width: 100%;
-  height: 100%;
+  height: 100%;  border-radius:20rpx;
+  overflow: hidden;
+
 }
 
 .searchTop_search swiper image {
   width: 100%;
-  height: 100%;border-radius:20rpx;
+  height: 100%;
 }
 
 .searchTop_input {
@@ -93,7 +94,7 @@
 
 .groupBanner {
   margin: 0 30rpx;
-  border-radius: 20rpx;
+
 height:150rpx;overflow: hidden;
 }
 

@@ -421,12 +421,11 @@ line-height:44rpx;padding: 40rpx 15rpx;border-bottom:2rpx solid #B5B5B5;
 
 font-family:SourceHanSansCN;
 font-weight:400;
-color:rgba(51,51,51,1);padding-top:6rpx;
+color:rgba(51,51,51,1);
 
 
 }
 .detail-pay .item .left{
-font-size: 26rpx;
 margin-left:55rpx;
 align-items:flex-end;margin-right:7rpx;
 

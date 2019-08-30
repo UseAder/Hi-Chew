@@ -1,5 +1,7 @@
 
-
+.canvas{
+  position: absolute;right: 1000rpx;
+}
 
 .container {
   overflow: hidden;
@@ -10,12 +12,12 @@
 
 .goodsimgs {
   width: 750rpx;
-  height: 650rpx;
+  height: 750rpx;
 }
 
 .goodsimgs image {
   width: 750rpx;
-  height: 650rpx;
+  height: 750rpx;
 }
 
 good_container {

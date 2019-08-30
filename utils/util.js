@@ -312,10 +312,11 @@ const ShichiCanvas = (shichiObject, successFn) => {
 
     ctx.setFillStyle('#000000');
     ctx.setFontSize(14 * BEI);
-    ctx.fillText(shichiObject.name, WIDTH / 3 + 10, HEIGHT - 48 * BEI);
+    ctx.fillText(shichiObject.name, WIDTH / 3 + 10, HEIGHT - 55 * BEI);
     ctx.setFillStyle('#9A979B');
-    ctx.setFontSize(12 * BEI);
-    ctx.fillText(shichiObject.explain, WIDTH / 3 + 10, HEIGHT - 30 * BEI);
+    ctx.setFontSize(10 * BEI);
+    ctx.fillText(shichiObject.explain, WIDTH / 3 + 10, HEIGHT - 40 * BEI);
+    ctx.fillText(shichiObject.explain1, WIDTH / 3 + 10, HEIGHT - 26 * BEI);
     ctx.draw(true, function () {
       wx.canvasToTempFilePath({
         canvasId: 'myCanvasShichi',
