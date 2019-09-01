@@ -10,7 +10,7 @@
       <image src='{{tools.sub(ImageUrl+productSelect.image)}}'></image>
     </view>
     <view class='text'>
-      <view class='line1 J-textd'>{{productSelect.name}}dsads的方式水水水水水水水水水水水水水水水水</view>
+      <view class='line1 J-textd'>{{productSelect.name}}</view>
       <view class='money font-color'>
       
         <view class="num" wx:if="{{productSelect.price}}"> ¥{{productSelect.price}}

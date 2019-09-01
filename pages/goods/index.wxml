@@ -89,7 +89,7 @@
 </view>
 <view class="bottom-btn">
   <view class='right'>
-    <view class='item' data-reply-phone="13750670892" bindtap="phoneCall">
+    <view class='item' data-reply-phone="18310023717" bindtap="phoneCall">
       <view class='item-logo item-logo-1'>
         <image src='/images/detail/3.png' mode='widthFix'></image>
       </view>
